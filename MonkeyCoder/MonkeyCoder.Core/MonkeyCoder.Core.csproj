@@ -30,11 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VariableVariations.cs" />
+    <Compile Include="VariableManager.cs" />
+    <Compile Include="Math\Variations.cs" />
+    <Compile Include="VariableBag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EvaluatedVariable.cs" />
+    <Compile Include="VariablePlaceholder.cs" />
+    <Compile Include="ValuePlaceholder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
