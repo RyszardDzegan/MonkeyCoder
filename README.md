@@ -15,6 +15,15 @@ Let's say a C# code - to be more specific. What we know about it? In the worst c
 The ultimate objective is to develop an application that will be able to generate any algorithm based on known associations between inputs and outputs as well as knowledge of its own functions and their capabilities.
 
 ## Milestones
-Each milestone will be achieved when application is able to fix an algorithm in defined degree of degradation.
+Each milestone will be achieved when application is able to fix an algorithm in defined degree of degradation. Each of which is defined as a user story:
+ - As a user, I know the algorithm's implementation, input and output. However, I was given several integer values and I don't know how to initialize integer variables or fields withitn the algorithm with these variables to achieve expected output from provided input. ![Not implemented][X]
 
-t.b.c
+[X]: http://www.saudigazette.com.sa/images/red-x.png
+
+## Technology
+Category|Tool
+---|---
+Language|C# 6.0
+Framework|.NET Framework 4.6
+IDE|Visual Studio Community 2015
+VCS|GitHub
