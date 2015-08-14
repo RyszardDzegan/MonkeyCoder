@@ -15,9 +15,9 @@ namespace MonkeyCoder.Core
                 throw new ArgumentException($"Invalid variable name: \"{variableName}\".", nameof(variableName));
 
             if (possibleValues == null)
-                throw new ArgumentException($"Invalid variable name: \"{variableName}\".", nameof(variableName));
+                throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
 
-            VariableName = variableName;
+            VariableName = variableName.Trim();
             PossibleValues = possibleValues;
         }
 

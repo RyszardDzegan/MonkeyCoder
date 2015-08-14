@@ -8,6 +8,49 @@ namespace MonkeyCoder.Core.Tests
     public class SingleVariableManagerTests
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Throws_exception_when_possible_values_are_null()
+        {
+            new SingleVariableManager("x", null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Throws_exception_when_variable_name_is_null()
+        {
+            new SingleVariableManager(null, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Throws_exception_when_variable_name_is_empty_string()
+        {
+            new SingleVariableManager("", null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Throws_exception_when_variable_name_consists_of_white_spaces()
+        {
+            new SingleVariableManager(" ", null);
+        }
+
+        [TestMethod]
+        public void Trims_variable_name()
+        {
+            var vm = new SingleVariableManager("x");
+
+            var loopCount = 0;
+            foreach (var vb in vm)
+            {
+                IsNull(vb.x);
+                loopCount++;
+            }
+
+            AreEqual(1, loopCount);
+        }
+
+        [TestMethod]
         public void Enters_into_loop_one_time_when_there_are_no_possible_values()
         {
             var vm = new SingleVariableManager("x");
