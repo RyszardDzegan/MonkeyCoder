@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 
 namespace MonkeyCoder.Core
@@ -33,8 +34,12 @@ namespace MonkeyCoder.Core
         /// <returns>True if variable with provided name exists. False otherwise.</returns>
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            ValuePlaceholder valuePlaceholder;
+               ValuePlaceholder valuePlaceholder;
             var ret = VariableValuePairs.TryGetValue(binder.Name, out valuePlaceholder);
+
+            if (!ret)
+                throw new ArgumentException($"Invalid variable name \"{binder.Name}\". Available variables: {string.Join(", ", VariableValuePairs.Keys)}.");
+
             result = valuePlaceholder.Value;
             return ret;
         }
