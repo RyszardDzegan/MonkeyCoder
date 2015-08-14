@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmptyVariableManager.cs" />
     <Compile Include="VariableVariations.cs" />
     <Compile Include="VariableManager.cs" />
     <Compile Include="Math\Variations.cs" />
