@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="MultipleVariableManagerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />
+    <Compile Include="MinMaxTests.cs" />
     <Compile Include="VariableManagerFactoryTests.cs" />
     <Compile Include="Math\DoubleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
