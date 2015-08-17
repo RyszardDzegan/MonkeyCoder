@@ -4,15 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static System.Console;
+using System.Runtime.CompilerServices;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static MonkeyCoder.Core.Tests.Math.VariationsTestsExpectedOutputReader;
+using static System.Console;
 
 namespace MonkeyCoder.Core.Tests.Math
 {
+    using static VariationsTests.VariationsExpectedOutputReader;
+
     [TestClass]
     public class VariationsTests
     {
+        internal static class VariationsExpectedOutputReader
+        {
+            private static ExpectedOutputReader ExpectedOutputReader { get; } = new ExpectedOutputReader("VariationsTestsExpectedOutputs.txt");
+            public static string GetExpectedTestOutput([CallerMemberName] string testMethodName = "") => ExpectedOutputReader.GetExpectedTestOutput(testMethodName);
+        }
+
         private StringWriter ActualTestOutput { get; } = new StringWriter();
         private string GetActualTestOutput() => ActualTestOutput.ToString();
 
