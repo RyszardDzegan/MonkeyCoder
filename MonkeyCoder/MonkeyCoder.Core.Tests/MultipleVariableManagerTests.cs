@@ -6,7 +6,7 @@ using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
 namespace MonkeyCoder.Core.Tests
 {
     [TestClass]
-    public class TypeSafeMultipleVariableManagerTests
+    public class MultipleVariableManagerTests
     {
         class Foo0 { }
 
@@ -47,7 +47,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeMultipleVariableManager<Foo1>(null);
+                new MultipleVariableManager<Foo1>(null);
             }
             catch (Exception exception)
             {
@@ -62,7 +62,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeMultipleVariableManager<NoSetters>(null);
+                new MultipleVariableManager<NoSetters>(null);
             }
             catch (Exception exception)
             {
@@ -77,7 +77,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeMultipleVariableManager<Foo3>(new { Y = new[] { 1, 2, 3 } });
+                new MultipleVariableManager<Foo3>(new { Y = new[] { 1, 2, 3 } });
             }
             catch (Exception exception)
             {
@@ -92,7 +92,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeMultipleVariableManager<Foo3>(new { X = "a", Y = "B", Z = 1.0 });
+                new MultipleVariableManager<Foo3>(new { X = "a", Y = "B", Z = 1.0 });
             }
             catch (Exception exception)
             {
@@ -107,7 +107,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeMultipleVariableManager<Foo3>(new { X = new[] { "a" }, Y = new[] { "B" }, Z = new[] { 1.0 } });
+                new MultipleVariableManager<Foo3>(new { X = new[] { "a" }, Y = new[] { "B" }, Z = new[] { 1.0 } });
             }
             catch (Exception exception)
             {
@@ -119,7 +119,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_when_possible_values_are_null_but_variables_are_empty()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo0>(null);
+            var vm = new MultipleVariableManager<Foo0>(null);
             var e = vm.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -127,7 +127,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_when_there_are_more_properties_than_required_for_holding_possible_values()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = new[] { "a" }, Y = new[] { 1 }, Z = new[] { 1L } });
+            var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a" }, Y = new[] { 1 }, Z = new[] { 1L } });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -137,7 +137,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_single_possible_value()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = "a" });
+            var vm = new MultipleVariableManager<Foo1>(new { X = "a" });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -147,7 +147,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_single_possible_value_which_is_null()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = (string)null });
+            var vm = new MultipleVariableManager<Foo1>(new { X = (string)null });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             IsNull(e.Current.X);
@@ -157,7 +157,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_multiple_possible_values()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = new[] { "a" } });
+            var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a" } });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -167,7 +167,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_empty_multiple_possible_values()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = new string[] { } });
+            var vm = new MultipleVariableManager<Foo1>(new { X = new string[] { } });
             var e = vm.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -175,7 +175,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_zero_variables()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo0>(new { });
+            var vm = new MultipleVariableManager<Foo0>(new { });
             var e = vm.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -183,7 +183,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_one_variable_and_3_values()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = new[] { "a", "b", "c" } });
+            var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a", "b", "c" } });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -197,7 +197,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_one_variable_and_3_values_where_one_of_them_is_null()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo1>(new { X = new[] { "a", null, "c" } });
+            var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a", null, "c" } });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -211,7 +211,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_two_variables_and_3_2_values()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo2>(new FooValues());
+            var vm = new MultipleVariableManager<Foo2>(new FooValues());
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -237,7 +237,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_two_variables_and_3_2_values_provided_in_anonymous_object()
         {
-            var vm = new TypeSafeMultipleVariableManager<Foo2>(new { X = new[] { "a", "b", "c" }, Y = new[] { 1, 2 } });
+            var vm = new MultipleVariableManager<Foo2>(new { X = new[] { "a", "b", "c" }, Y = new[] { 1, 2 } });
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);

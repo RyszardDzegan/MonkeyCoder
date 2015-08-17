@@ -25,35 +25,35 @@ namespace MonkeyCoder.Core.Tests
         public void Returns_single_variable_manager_when_argument_is_a_params_array_of_values()
         {
             var vm = VariableManagerFactory.Create<Foo1>(1, 2, 3);
-            IsInstanceOfType(vm, typeof(TypeSafeSingleVariableManager<Foo1>));
+            IsInstanceOfType(vm, typeof(SingleVariableManager<Foo1>));
         }
 
         [TestMethod]
         public void Returns_single_variable_manager_when_argument_is_an_array_of_values()
         {
             var vm = VariableManagerFactory.Create<Foo1>(new[] { 1, 2, 3 });
-            IsInstanceOfType(vm, typeof(TypeSafeSingleVariableManager<Foo1>));
+            IsInstanceOfType(vm, typeof(SingleVariableManager<Foo1>));
         }
 
         [TestMethod]
         public void Returns_single_variable_manager_when_argument_is_an_enumerable_of_values()
         {
             var vm = VariableManagerFactory.Create<Foo1>(Enumerable.Range(0, 3));
-            IsInstanceOfType(vm, typeof(TypeSafeSingleVariableManager<Foo1>));
+            IsInstanceOfType(vm, typeof(SingleVariableManager<Foo1>));
         }
 
         [TestMethod]
         public void Returns_multiple_variable_manager_when_variable_type_has_zero_properties_and_single_value_is_passed()
         {
             var vm = VariableManagerFactory.Create<Foo0>(1);
-            IsInstanceOfType(vm, typeof(TypeSafeMultipleVariableManager<Foo0>));
+            IsInstanceOfType(vm, typeof(MultipleVariableManager<Foo0>));
         }
 
         [TestMethod]
         public void Returns_single_variable_manager_when_variable_type_has_only_one_property_and_single_value_is_passed()
         {
             var vm = VariableManagerFactory.Create<Foo1>(1);
-            IsInstanceOfType(vm, typeof(TypeSafeSingleVariableManager<Foo1>));
+            IsInstanceOfType(vm, typeof(SingleVariableManager<Foo1>));
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace MonkeyCoder.Core.Tests
         public void Returns_multiple_variable_manager_when_variable_type_has_two_properties_and_single_value_is_passed()
         {
             var vm = VariableManagerFactory.Create<Foo2>(1);
-            IsInstanceOfType(vm, typeof(TypeSafeMultipleVariableManager<Foo2>));
+            IsInstanceOfType(vm, typeof(MultipleVariableManager<Foo2>));
         }
     }
 }

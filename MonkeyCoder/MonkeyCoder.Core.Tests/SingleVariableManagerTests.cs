@@ -6,7 +6,7 @@ using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
 namespace MonkeyCoder.Core.Tests
 {
     [TestClass]
-    public class TypeSafeSingleVariableManagerTests
+    public class SingleVariableManagerTests
     {
         class Foo0 { }
 
@@ -37,7 +37,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeSingleVariableManager<Foo2>();
+                new SingleVariableManager<Foo2>();
             }
             catch (Exception exception)
             {
@@ -52,7 +52,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeSingleVariableManager<Foo0>();
+                new SingleVariableManager<Foo0>();
             }
             catch (Exception exception)
             {
@@ -67,7 +67,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeSingleVariableManager<NoSetterType>();
+                new SingleVariableManager<NoSetterType>();
             }
             catch (Exception exception)
             {
@@ -82,7 +82,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeSingleVariableManager<Foo1>(null);
+                new SingleVariableManager<Foo1>(null);
             }
             catch (Exception exception)
             {
@@ -97,7 +97,7 @@ namespace MonkeyCoder.Core.Tests
         {
             try
             {
-                new TypeSafeSingleVariableManager<Foo1>("a", 1, 2.345, "b");
+                new SingleVariableManager<Foo1>("a", 1, 2.345, "b");
             }
             catch (Exception exception)
             {
@@ -109,7 +109,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Doesnt_enter_into_loop_when_there_are_no_possible_values()
         {
-            var vm = new TypeSafeSingleVariableManager<Foo1>();
+            var vm = new SingleVariableManager<Foo1>();
             var e = vm.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -117,7 +117,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Enters_into_loop_one_time_when_possible_values_count_equals_one()
         {
-            var vm = new TypeSafeSingleVariableManager<Foo1>("a");
+            var vm = new SingleVariableManager<Foo1>("a");
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             IsFalse(e.MoveNext());
@@ -126,7 +126,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Enters_into_loop_two_times_when_possible_values_count_equals_two()
         {
-            var vm = new TypeSafeSingleVariableManager<Foo1>("a", "b");
+            var vm = new SingleVariableManager<Foo1>("a", "b");
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             IsTrue(e.MoveNext());
@@ -136,7 +136,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_3_values()
         {
-            var vm = new TypeSafeSingleVariableManager<Foo1>("a", "b", "c");
+            var vm = new SingleVariableManager<Foo1>("a", "b", "c");
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);
@@ -150,7 +150,7 @@ namespace MonkeyCoder.Core.Tests
         [TestMethod]
         public void Works_for_3_dynamic_values()
         {
-            var vm = new TypeSafeSingleVariableManager<Foo1Dynamic>("a", 1, 2.3);
+            var vm = new SingleVariableManager<Foo1Dynamic>("a", 1, 2.3);
             var e = vm.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a", e.Current.X);

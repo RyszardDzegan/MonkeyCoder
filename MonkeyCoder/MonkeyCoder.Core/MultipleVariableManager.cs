@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MonkeyCoder.Core
 {
-    internal class TypeSafeMultipleVariableManager<T> : IVariableManager<T>
+    internal class MultipleVariableManager<T> : IVariableManager<T>
     {
         private class VariableValuesPair
         {
@@ -16,7 +16,7 @@ namespace MonkeyCoder.Core
 
         private IList<VariableValuesPair> VariableValuesPairs { get; }
 
-        public TypeSafeMultipleVariableManager(object possibleValuesPlaceholder)
+        public MultipleVariableManager(object possibleValuesPlaceholder)
         {
             var variablesPlaceholderType = typeof(T);
 

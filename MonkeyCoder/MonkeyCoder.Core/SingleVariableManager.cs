@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace MonkeyCoder.Core
 {
-    internal class TypeSafeSingleVariableManager<T> : IVariableManager<T>
+    internal class SingleVariableManager<T> : IVariableManager<T>
     {
         public Action<T, object> VariableSetter { get; }
         public object[] PossibleValues { get; }
 
-        public TypeSafeSingleVariableManager(params object[] possibleValues)
+        public SingleVariableManager(params object[] possibleValues)
         {
             var variablesPlaceholderType = typeof(T);
             var variablesProperties = variablesPlaceholderType.GetProperties();
