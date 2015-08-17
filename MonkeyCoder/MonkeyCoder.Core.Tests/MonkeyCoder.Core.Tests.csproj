@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="TypeSafeMultipleVariableManagerTests.cs" />
     <Compile Include="TypeSafeSingleVariableManagerTests.cs" />
+    <Compile Include="VariableManagerFactoryTests.cs" />
     <Compile Include="Math\DoubleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Math\VariationsTests.cs" />

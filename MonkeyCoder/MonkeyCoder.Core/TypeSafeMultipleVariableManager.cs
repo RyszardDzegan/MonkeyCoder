@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace MonkeyCoder.Core
 {
-    internal class TypeSafeMultipleVariableManager<TVariables>
+    internal class TypeSafeMultipleVariableManager<TVariables> : IVariableManager<TVariables>
     {
         private class VariableValuesZip
         {

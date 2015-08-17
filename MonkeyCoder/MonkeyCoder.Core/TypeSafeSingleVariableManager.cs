@@ -5,12 +5,12 @@ using System.Reflection;
 
 namespace MonkeyCoder.Core
 {
-    internal class TypeSafeSingleVariableManager<T>
+    internal class TypeSafeSingleVariableManager<T> : IVariableManager<T>
     {
         public PropertyInfo PropertyInfo { get; }
-        public dynamic[] PossibleValues { get; }
+        public object[] PossibleValues { get; }
 
-        public TypeSafeSingleVariableManager(params dynamic[] possibleValues)
+        public TypeSafeSingleVariableManager(params object[] possibleValues)
         {
             var type = typeof(T);
             var properties = type.GetProperties();
@@ -25,7 +25,7 @@ namespace MonkeyCoder.Core
 
             if (possibleValues == null)
                 throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
-
+            
             var invalidValues = from x in possibleValues
                                 where !PropertyInfo.PropertyType.IsAssignableFrom(x.GetType())
                                 select x;
