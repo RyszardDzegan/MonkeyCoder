@@ -19,14 +19,14 @@ namespace MonkeyCoder.Core
 
         public TypeSafeMultipleVariableManager(object possibleValues)
         {
-            if (possibleValues == null)
-                throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
-            
             var variablesType = typeof(TVariables);
             var variableProperties = variablesType.GetProperties().OrderBy(x => x.Name).ToList();
 
             if (variableProperties.Count() == 0)
-                throw new Exception($"Expected at least one property in {variablesType.Name}.");
+            {
+                VariablesValues = new VariableValuesZip[0];
+                return;
+            }
 
             var variablePropertiesWithoutSetter =
                 from x in variableProperties
@@ -35,6 +35,9 @@ namespace MonkeyCoder.Core
 
             if (variablePropertiesWithoutSetter.Any())
                 throw new Exception($"Variable properties must have setters. The following properties don't have setters: {string.Join(", ", variablePropertiesWithoutSetter)}.");
+
+            if (possibleValues == null)
+                throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
 
             var possibleValuesProperties = possibleValues
                 .GetType()
@@ -48,9 +51,9 @@ namespace MonkeyCoder.Core
                 var missingPossibleValues =
                     from x in variableProperties
                     where !possibleValuesProperties.Any(y => y.Name == x.Name)
-                    select x;
+                    select x.Name;
 
-                throw new Exception($"All variable properties must have same named possible values properties. The following variable properties don't have possible values: {string.Join(", ", missingPossibleValues)}.");
+                throw new Exception($"All variable properties must have same named possible values placeholder properties. The following possible values placeholders are missing: {string.Join(", ", missingPossibleValues)}.");
             }
 
             var variableValues =
@@ -84,14 +87,11 @@ namespace MonkeyCoder.Core
         public IEnumerator<TVariables> GetEnumerator()
         {
             if (!VariablesValues.Any())
-            {
-                var variableBox = Activator.CreateInstance<TVariables>();
-                yield return variableBox;
                 yield break;
-            }
 
             var variationsInput = VariablesValues.Select(x => x.PossibleValues.Cast<object>().ToList());
             var variations = new Variations<object>(variationsInput);
+
             var results =
                 from variation in variations
                 let variableBox = Activator.CreateInstance<TVariables>()
