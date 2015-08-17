@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TypeSafeMultipleVariableManagerTests.cs" />
     <Compile Include="TypeSafeSingleVariableManagerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />
     <Compile Include="Math\DoubleOutput.cs" />
