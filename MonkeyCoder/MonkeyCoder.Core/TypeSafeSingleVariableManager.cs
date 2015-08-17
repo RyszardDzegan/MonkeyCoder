@@ -12,18 +12,19 @@ namespace MonkeyCoder.Core
 
         public TypeSafeSingleVariableManager(params dynamic[] possibleValues)
         {
-            if (possibleValues == null)
-                throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
-            
             var type = typeof(T);
             var properties = type.GetProperties();
+
             if (properties.Count() != 1)
                 throw new Exception($"Expected one property in {type.Name} but found {properties.Count()}.");
 
             PropertyInfo = properties.Single();
 
             if (PropertyInfo.SetMethod == null)
-                throw new Exception($"Property {type.Name} must have setter.");
+                throw new Exception($"Property {PropertyInfo.Name} must have setter.");
+
+            if (possibleValues == null)
+                throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
 
             var invalidValues = from x in possibleValues
                                 where !PropertyInfo.PropertyType.IsAssignableFrom(x.GetType())
@@ -38,11 +39,7 @@ namespace MonkeyCoder.Core
         public IEnumerator<T> GetEnumerator()
         {
             if (!PossibleValues.Any())
-            {
-                var variableBox = Activator.CreateInstance<T>();
-                yield return variableBox;
                 yield break;
-            }
             
             foreach (var value in PossibleValues)
             {
