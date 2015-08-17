@@ -8,7 +8,7 @@ namespace MonkeyCoder.Core
 {
     internal class MultipleVariableManager<T> : IVariableManager<T>
     {
-        private class VariableValuesPair
+        private struct VariableValuesPair
         {
             public Action<T, object> VariableSetter { get; set; }
             public IEnumerable PossibleValues { get; set; }
