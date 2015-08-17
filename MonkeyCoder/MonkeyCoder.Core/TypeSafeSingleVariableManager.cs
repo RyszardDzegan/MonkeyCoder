@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace MonkeyCoder.Core
 {
     internal class TypeSafeSingleVariableManager<T> : IVariableManager<T>
     {
-        public PropertyInfo PropertyInfo { get; }
+        public Action<T, object> VariableSetter { get; }
         public object[] PossibleValues { get; }
 
         public TypeSafeSingleVariableManager(params object[] possibleValues)
         {
-            var type = typeof(T);
-            var properties = type.GetProperties();
+            var variablesPlaceholderType = typeof(T);
+            var variablesProperties = variablesPlaceholderType.GetProperties();
 
-            if (properties.Count() != 1)
-                throw new Exception($"Expected one property in {type.Name} but found {properties.Count()}.");
+            if (variablesProperties.Count() != 1)
+                throw new Exception($"Expected one property in {variablesPlaceholderType.Name} but found {variablesProperties.Count()}.");
 
-            PropertyInfo = properties.Single();
+            var variable = variablesProperties.Single();
 
-            if (PropertyInfo.SetMethod == null)
-                throw new Exception($"Property {PropertyInfo.Name} must have setter.");
+            if (variable.SetMethod == null)
+                throw new Exception($"Property {variable.Name} must have setter.");
 
             if (possibleValues == null)
                 throw new ArgumentNullException(nameof(possibleValues), "Possible values cannot be null.");
-            
-            var invalidValues = from x in possibleValues
-                                where !PropertyInfo.PropertyType.IsAssignableFrom(x.GetType())
-                                select x;
+
+            var invalidValues =
+                from x in possibleValues
+                where !variable.PropertyType.IsAssignableFrom(x.GetType())
+                select x;
 
             if (invalidValues.Any())
-                throw new ArgumentException($"Cannot assign the following values to {PropertyInfo.Name} due to type mismatch: {string.Join(", ", invalidValues)}.", nameof(possibleValues));
+                throw new ArgumentException($"Cannot assign the following values to {variable.Name} due to type mismatch: {string.Join(", ", invalidValues)}.", nameof(possibleValues));
 
+            VariableSetter = (variableBox, value) => variable.SetValue(variableBox, value);
             PossibleValues = possibleValues;
         }
 
@@ -44,7 +45,7 @@ namespace MonkeyCoder.Core
             foreach (var value in PossibleValues)
             {
                 var variableBox = Activator.CreateInstance<T>();
-                PropertyInfo.SetValue(variableBox, value);
+                VariableSetter(variableBox, value);
                 yield return variableBox;
             }
         }
