@@ -56,6 +56,7 @@
     <Compile Include="Math\MathTestsBase.cs" />
     <Compile Include="Math\CombinatoricsTests.cs" />
     <Compile Include="Math\CombinationsTests.cs" />
+    <Compile Include="Math\VariationsWithoutRepetitionsTests.cs" />
     <Compile Include="Math\VariationsWithRepetitionsTests.cs" />
     <Compile Include="MultipleVariableManagerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />
@@ -78,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Math\CombinationsTestsExpectedOutputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Math\VariationsWithoutRepetitionsTestsExpectedOutputs.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

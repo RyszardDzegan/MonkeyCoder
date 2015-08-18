@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Math\Combinatorics.cs" />
     <Compile Include="Math\Combinations.cs" />
+    <Compile Include="Math\VariationsWithoutRepetitions.cs" />
     <Compile Include="Math\VariationsWithRepetitions.cs" />
     <Compile Include="MultipleVariableManager.cs" />
     <Compile Include="SingleVariableManager.cs" />
