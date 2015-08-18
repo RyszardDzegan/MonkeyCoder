@@ -12,7 +12,7 @@ namespace MonkeyCoder.Core.Math
     /// <example>
     /// A pair {a,b,c} {A,B} will produce {a,A} {a,B} {b,A} {b,B} {c,A} {c,B}.
     /// </example>
-    internal class Variations<T> : IEnumerable<IList<T>>
+    internal class CartesianProduct<T> : IEnumerable<IList<T>>
     {
         public IEnumerable<IEnumerator<T>> Items { get; }
 
@@ -22,7 +22,7 @@ namespace MonkeyCoder.Core.Math
         /// <param name="items">Items that will be processed.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="items"/> is null.</exception>
         /// <exception cref="ArgumentException">When any item in <paramref name="items"/> is null.</exception>
-        public Variations(IEnumerable<IEnumerable<T>> items)
+        public CartesianProduct(IEnumerable<IEnumerable<T>> items)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));

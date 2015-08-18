@@ -92,14 +92,14 @@ namespace MonkeyCoder.Core
             if (!VariableValuesPairs.Any())
                 yield break;
 
-            var variationsInput = VariableValuesPairs.Select(x => x.PossibleValues.Cast<object>().ToList());
-            var variations = new Variations<object>(variationsInput);
+            var cartesianProductInput = VariableValuesPairs.Select(x => x.PossibleValues.Cast<object>().ToList());
+            var cartesianProduct = new CartesianProduct<object>(cartesianProductInput);
 
             var results =
-                from variation in variations
+                from product in cartesianProduct
                 let variableBox = Activator.CreateInstance<T>()
                 let variableSetters = from variable in VariableValuesPairs.Select((x, i) => new { VariableSetter = x.VariableSetter, Index = i })
-                                      select new Action(() => variable.VariableSetter(variableBox, variation[variable.Index]))
+                                      select new Action(() => variable.VariableSetter(variableBox, product[variable.Index]))
                 select new { VariableBox = variableBox, VariableSetters = variableSetters };
 
             foreach (var result in results)

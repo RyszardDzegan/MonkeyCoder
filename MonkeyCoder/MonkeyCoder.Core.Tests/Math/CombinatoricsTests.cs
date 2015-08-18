@@ -18,8 +18,8 @@ namespace MonkeyCoder.Core.Tests.Math
         [TestMethod]
         public void Variations_works()
         {
-            var sut = new[] { new[] { "a", "b" }, new[] { "A", "B" } }.AsVariations();
-            IsInstanceOfType(sut, typeof(Variations<string>));
+            var sut = new[] { new[] { "a", "b" }, new[] { "A", "B" } }.AsCartesianProduct();
+            IsInstanceOfType(sut, typeof(CartesianProduct<string>));
         }
     }
 }

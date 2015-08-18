@@ -40,7 +40,7 @@
     <Compile Include="Math\VariationsWithRepetitions.cs" />
     <Compile Include="MultipleVariableManager.cs" />
     <Compile Include="SingleVariableManager.cs" />
-    <Compile Include="Math\Variations.cs" />
+    <Compile Include="Math\CartesianProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VariableManagerFactory.cs" />
   </ItemGroup>
