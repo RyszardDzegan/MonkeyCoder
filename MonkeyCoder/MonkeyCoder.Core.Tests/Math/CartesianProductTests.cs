@@ -2,44 +2,16 @@
 using MonkeyCoder.Core.Math;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static System.Console;
 
 namespace MonkeyCoder.Core.Tests.Math
 {
-    using static CartesianProductTests.CartesianProductExpectedOutputReader;
+    using static MathTestsBase.StaticExpectedOutputReader;
 
     [TestClass]
-    public class CartesianProductTests
+    public class CartesianProductTests : MathTestsBase
     {
-        internal static class CartesianProductExpectedOutputReader
-        {
-            private static ExpectedOutputReader ExpectedOutputReader { get; } = new ExpectedOutputReader("CartesianProductTestsExpectedOutputs.txt");
-            public static string GetExpectedTestOutput([CallerMemberName] string testMethodName = "") => ExpectedOutputReader.GetExpectedTestOutput(testMethodName);
-        }
-
-        private StringWriter ActualTestOutput { get; } = new StringWriter();
-        private string GetActualTestOutput() => ActualTestOutput.ToString();
-
-        private void GenerateOutput<T>(CartesianProduct<T> items)
-        {
-            foreach (var item in items)
-            {
-                var result = string.Join("", item);
-                WriteLine(result);
-            }
-        }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            var doubleOutput = new DoubleOutput(Out, ActualTestOutput);
-            SetOut(doubleOutput);
-        }
-
         [TestMethod]
         public void Enumerator_of_empty_sequence_has_no_move()
         {

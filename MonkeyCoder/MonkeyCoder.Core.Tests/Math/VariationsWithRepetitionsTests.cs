@@ -1,45 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MonkeyCoder.Core.Math;
-using System.IO;
+using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
-using static System.Console;
 
 namespace MonkeyCoder.Core.Tests.Math
 {
-    using System;
-    using static VariationsWithRepetitionsTests.VariationsExpectedOutputReader;
+    using static MathTestsBase.StaticExpectedOutputReader;
 
     [TestClass]
-    public class VariationsWithRepetitionsTests
+    public class VariationsWithRepetitionsTests : MathTestsBase
     {
-        internal static class VariationsExpectedOutputReader
-        {
-            private static ExpectedOutputReader ExpectedOutputReader { get; } = new ExpectedOutputReader("VariationsWithRepetitionsTestsExpectedOutputs.txt");
-            public static string GetExpectedTestOutput([CallerMemberName] string testMethodName = "") => ExpectedOutputReader.GetExpectedTestOutput(testMethodName);
-        }
-
-        private StringWriter ActualTestOutput { get; } = new StringWriter();
-        private string GetActualTestOutput() => ActualTestOutput.ToString();
-
-        private void GenerateOutput<T>(VariationsWithRepetitions<T> variations)
-        {
-            foreach (var variation in variations)
-            {
-                var result = string.Join("", variation);
-                WriteLine(result);
-            }
-        }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            var doubleOutput = new DoubleOutput(Out, ActualTestOutput);
-            SetOut(doubleOutput);
-        }
-
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_pass_null_to_constructor()

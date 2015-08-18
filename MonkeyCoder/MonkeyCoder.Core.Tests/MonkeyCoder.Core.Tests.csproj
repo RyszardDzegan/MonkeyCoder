@@ -53,16 +53,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Math\MathTestsBase.cs" />
     <Compile Include="Math\CombinatoricsTests.cs" />
     <Compile Include="Math\VariationsWithRepetitionsTests.cs" />
     <Compile Include="MultipleVariableManagerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />
     <Compile Include="MinMaxTests.cs" />
     <Compile Include="VariableManagerFactoryTests.cs" />
-    <Compile Include="Math\DoubleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Math\CartesianProductTests.cs" />
-    <Compile Include="Math\ExpectedOutputReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonkeyCoder.Core\MonkeyCoder.Core.csproj">
