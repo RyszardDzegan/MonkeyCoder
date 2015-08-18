@@ -10,8 +10,14 @@ namespace MonkeyCoder.Core
     {
         private struct VariableValuesPair
         {
-            public Action<T, object> VariableSetter { get; set; }
-            public IEnumerable PossibleValues { get; set; }
+            public Action<T, object> VariableSetter { get; }
+            public IList<object> PossibleValues { get; }
+
+            public VariableValuesPair(Action<T, object> variableSetter, IList<object> possibleValues)
+            {
+                VariableSetter = variableSetter;
+                PossibleValues = possibleValues;
+            }
         }
 
         private IList<VariableValuesPair> VariableValuesPairs { get; }
@@ -80,11 +86,14 @@ namespace MonkeyCoder.Core
             if (invalidVariableValues.Any())
                 throw new Exception($"Variable must be assignable from a single value or collection of values. The following possible values don't have valid typ: {string.Join(", ", invalidVariableValues)}.");
 
-            VariableValuesPairs = variableValues.Select(x => new VariableValuesPair
-            {
-                VariableSetter = (variableBox, value) => x.Variable.SetValue(variableBox, value),
-                PossibleValues = (IEnumerable)(x.IsCollectionOfValues ? x.PossibleValues : new object[] {x.PossibleValues})
-            }).ToList();
+            var variableValuesPairs =
+                from x in variableValues
+                let variableSetter = new Action<T, object>((variableBox, value) => x.Variable.SetValue(variableBox, value))
+                let possibleValuesEnumerable = (IEnumerable)(x.IsCollectionOfValues ? x.PossibleValues : new object[] { x.PossibleValues })
+                let possibleValues = possibleValuesEnumerable.Cast<object>().ToList()
+                select new VariableValuesPair(variableSetter, possibleValues);
+
+            VariableValuesPairs = variableValuesPairs.ToList();
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -92,14 +101,16 @@ namespace MonkeyCoder.Core
             if (!VariableValuesPairs.Any())
                 yield break;
 
-            var cartesianProductInput = VariableValuesPairs.Select(x => x.PossibleValues.Cast<object>().ToList());
-            var cartesianProduct = new CartesianProduct<object>(cartesianProductInput);
+            var cartesianProductInput =
+                from x in VariableValuesPairs
+                select x.PossibleValues;
 
             var results =
-                from product in cartesianProduct
+                from cartesianProduct in cartesianProductInput.AsCartesianProduct()
                 let variableBox = Activator.CreateInstance<T>()
-                let variableSetters = from variable in VariableValuesPairs.Select((x, i) => new { VariableSetter = x.VariableSetter, Index = i })
-                                      select new Action(() => variable.VariableSetter(variableBox, product[variable.Index]))
+                let variableSetters =
+                    from variable in VariableValuesPairs.Select((x, i) => new { VariableSetter = x.VariableSetter, Index = i })
+                    select new Action(() => variable.VariableSetter(variableBox, cartesianProduct[variable.Index]))
                 select new { VariableBox = variableBox, VariableSetters = variableSetters };
 
             foreach (var result in results)
