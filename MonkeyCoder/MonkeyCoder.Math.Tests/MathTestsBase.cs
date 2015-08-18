@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace MonkeyCoder.Core.Tests.Math
+namespace MonkeyCoder.Math.Tests
 {
     public abstract class MathTestsBase
     {
@@ -43,7 +43,7 @@ namespace MonkeyCoder.Core.Tests.Math
                 ExpectedOutputsFileName = expectedOutputsFileName;
 
                 var assembly = Assembly.GetExecutingAssembly();
-                var resourceName = "MonkeyCoder.Core.Tests.Math." + expectedOutputsFileName;
+                var resourceName = typeof(ExpectedOutputReader).Namespace + "." + expectedOutputsFileName;
 
                 using (var stream = assembly.GetManifestResourceStream(resourceName))
                 using (var reader = new StreamReader(stream))

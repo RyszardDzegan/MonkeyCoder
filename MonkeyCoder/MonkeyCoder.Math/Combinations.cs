@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Core.Math
+namespace MonkeyCoder.Math
 {
-    internal class VariationsWithRepetitions<T> : IEnumerable<IList<T>>
+    internal class Combinations<T> : IEnumerable<IList<T>>
     {
         public IList<T> Items { get; }
         public int K { get; }
         
-        public VariationsWithRepetitions(IEnumerable<T> items, int k)
+        public Combinations(IEnumerable<T> items, int k)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
@@ -30,13 +30,13 @@ namespace MonkeyCoder.Core.Math
         {
             for (var i = 0; i < bijection.Count(); i++)
             {
-                if (bijection[bijection.Count - 1 - i] + 1 < Items.Count)
+                if (bijection[bijection.Count - 1 - i] + 1 < Items.Count - i)
                 {
                     bijection[bijection.Count - 1 - i]++;
+                    for (var j = 0; j < i; j++)
+                        bijection[bijection.Count - i + j] = bijection[bijection.Count - 1 - i + j] + 1;
                     return true;
                 }
-
-                bijection[bijection.Count - 1 - i] = 0;
             }
 
             return false;
@@ -47,7 +47,7 @@ namespace MonkeyCoder.Core.Math
             if (K == 0 || !Items.Any())
                 yield break;
 
-            var bijection = new int[K];
+            var bijection = Enumerable.Range(0, K).ToList();
             var resultQuery = from x in bijection
                               select Items[x];
 

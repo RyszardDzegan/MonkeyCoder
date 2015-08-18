@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyCoder.Core", "MonkeyC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyCoder.Core.Tests", "MonkeyCoder.Core.Tests\MonkeyCoder.Core.Tests.csproj", "{AF3B29EF-B1BF-487A-8CDB-835148176571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyCoder.Math", "MonkeyCoder.Math\MonkeyCoder.Math.csproj", "{676B2DB0-5F88-4607-9C3B-0CFCB5BF8D13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyCoder.Math.Tests", "MonkeyCoder.Math.Tests\MonkeyCoder.Math.Tests.csproj", "{091DB2F7-9DBD-4225-B7F6-790A43650BCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AF3B29EF-B1BF-487A-8CDB-835148176571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF3B29EF-B1BF-487A-8CDB-835148176571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF3B29EF-B1BF-487A-8CDB-835148176571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676B2DB0-5F88-4607-9C3B-0CFCB5BF8D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676B2DB0-5F88-4607-9C3B-0CFCB5BF8D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676B2DB0-5F88-4607-9C3B-0CFCB5BF8D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676B2DB0-5F88-4607-9C3B-0CFCB5BF8D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091DB2F7-9DBD-4225-B7F6-790A43650BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091DB2F7-9DBD-4225-B7F6-790A43650BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091DB2F7-9DBD-4225-B7F6-790A43650BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091DB2F7-9DBD-4225-B7F6-790A43650BCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

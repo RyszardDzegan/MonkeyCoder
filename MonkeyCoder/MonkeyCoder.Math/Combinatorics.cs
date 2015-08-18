@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MonkeyCoder.Core.Math
+namespace MonkeyCoder.Math
 {
     public static class Combinatorics
     {

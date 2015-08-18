@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MonkeyCoder.Core.Math;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace MonkeyCoder.Core.Tests.Math
+namespace MonkeyCoder.Math.Tests
 {
     [TestClass]
     public class CombinatoricsTests

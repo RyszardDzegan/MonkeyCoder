@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Core.Math
+namespace MonkeyCoder.Math
 {
     internal class VariationsWithoutRepetitions<T> : IEnumerable<IList<T>>
     {

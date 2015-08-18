@@ -1,4 +1,4 @@
-﻿using MonkeyCoder.Core.Math;
+﻿using MonkeyCoder.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;

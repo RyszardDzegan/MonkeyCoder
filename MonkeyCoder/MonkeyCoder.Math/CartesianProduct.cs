@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Core.Math
+namespace MonkeyCoder.Math
 {
     /// <summary>
     /// Takes a collection of sets and creates a cartesian product.
