@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MonkeyCoder.Core.Math
 {
-    public class VariationsWithRepetitions<T> : IEnumerable<IList<T>>
+    internal class VariationsWithRepetitions<T> : IEnumerable<IList<T>>
     {
         public IList<T> Items { get; }
         public int K { get; }

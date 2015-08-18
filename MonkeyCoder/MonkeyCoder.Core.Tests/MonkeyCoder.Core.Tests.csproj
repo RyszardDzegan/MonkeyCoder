@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Math\CombinatoricsTests.cs" />
     <Compile Include="Math\VariationsWithRepetitionsTests.cs" />
     <Compile Include="MultipleVariableManagerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />

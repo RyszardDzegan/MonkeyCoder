@@ -12,7 +12,7 @@ namespace MonkeyCoder.Core.Math
     /// <example>
     /// A pair {a,b,c} {A,B} will produce {a,A} {a,B} {b,A} {b,B} {c,A} {c,B}.
     /// </example>
-    public class Variations<T> : IEnumerable<IList<T>>
+    internal class Variations<T> : IEnumerable<IList<T>>
     {
         public IEnumerable<IEnumerator<T>> Items { get; }
 
