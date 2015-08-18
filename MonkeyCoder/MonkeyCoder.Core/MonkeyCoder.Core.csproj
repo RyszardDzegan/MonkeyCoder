@@ -35,7 +35,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IVariableManager.cs" />
     <Compile Include="Math\Combinatorics.cs" />
     <Compile Include="Math\VariationsWithRepetitions.cs" />
     <Compile Include="MultipleVariableManager.cs" />

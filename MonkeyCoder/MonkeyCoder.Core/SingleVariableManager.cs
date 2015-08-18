@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MonkeyCoder.Core
 {
-    internal class SingleVariableManager<T> : IVariableManager<T>
+    internal class SingleVariableManager<T> : IEnumerable<T>
     {
         public Action<T, object> VariableSetter { get; }
         public object[] PossibleValues { get; }
@@ -49,5 +50,7 @@ namespace MonkeyCoder.Core
                 yield return variableBox;
             }
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

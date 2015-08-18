@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MonkeyCoder.Core
 {
-    internal class MultipleVariableManager<T> : IVariableManager<T>
+    internal class MultipleVariableManager<T> : IEnumerable<T>
     {
         private struct VariableValuesPair
         {
@@ -123,5 +123,7 @@ namespace MonkeyCoder.Core
                 yield return result.VariableBox;
             }
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
