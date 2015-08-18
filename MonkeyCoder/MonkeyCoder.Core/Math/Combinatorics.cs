@@ -21,6 +21,11 @@ namespace MonkeyCoder.Core.Math
             return new VariationsWithRepetitions<T>(items, k);
         }
 
+        public static IEnumerable<IList<T>> AsVariationsWithoutRepetitions<T>(this IEnumerable<T> items, int k)
+        {
+            return new VariationsWithoutRepetitions<T>(items, k);
+        }
+
         public static IEnumerable<IList<T>> AsCombinations<T>(this IEnumerable<T> items, int k)
         {
             return new Combinations<T>(items, k);

@@ -27,5 +27,12 @@ namespace MonkeyCoder.Core.Tests.Math
             var sut = new[] { 1, 2, 3 }.AsVariationsWithRepetitions(1);
             IsInstanceOfType(sut, typeof(VariationsWithRepetitions<int>));
         }
+
+        [TestMethod]
+        public void Variations_without_repetitions_works()
+        {
+            var sut = new[] { 1, 2, 3 }.AsVariationsWithoutRepetitions(1);
+            IsInstanceOfType(sut, typeof(VariationsWithoutRepetitions<int>));
+        }
     }
 }
