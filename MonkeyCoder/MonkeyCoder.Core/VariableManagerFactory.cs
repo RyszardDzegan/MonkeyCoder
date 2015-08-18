@@ -6,6 +6,11 @@ namespace MonkeyCoder.Core
 {
     public class VariableManagerFactory
     {
+        public static IEnumerable<T> Create<T>()
+        {
+            return Enumerable.Empty<T>();
+        }
+
         public static IEnumerable<T> Create<T>(params object[] possibleValues)
         {
             return new SingleVariableManager<T>(possibleValues);

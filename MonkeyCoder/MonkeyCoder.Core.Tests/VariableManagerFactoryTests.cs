@@ -20,7 +20,16 @@ namespace MonkeyCoder.Core.Tests
             public int X { get; set; }
             public int Y { get; set; }
         }
-        
+
+        [TestMethod]
+        public void Returns_empty_enumerable_when_there_are_no_arguments()
+        {
+            var vm = VariableManagerFactory.Create<Foo1>();
+            IsNotInstanceOfType(vm, typeof(SingleVariableManager<Foo1>));
+            IsNotInstanceOfType(vm, typeof(MultipleVariableManager<Foo1>));
+            IsFalse(vm.Any());
+        }
+
         [TestMethod]
         public void Returns_single_variable_manager_when_argument_is_a_params_array_of_values()
         {
