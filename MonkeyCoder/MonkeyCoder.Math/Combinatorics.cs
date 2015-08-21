@@ -30,5 +30,10 @@ namespace MonkeyCoder.Math
         {
             return new Combinations<T>(items, k);
         }
+
+        public static IEnumerable<IList<T>> AsPowerSet<T>(this IEnumerable<T> items)
+        {
+            return new PowerSet<T>(items);
+        }
     }
 }

@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PowerSetTests.cs" />
     <Compile Include="CartesianProductTests.cs" />
     <Compile Include="CombinationsTests.cs" />
     <Compile Include="CombinatoricsTests.cs" />
@@ -75,6 +76,9 @@
       <Project>{676b2db0-5f88-4607-9c3b-0cfcb5bf8d13}</Project>
       <Name>MonkeyCoder.Math</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PowerSetTestsExpectedOutputs.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

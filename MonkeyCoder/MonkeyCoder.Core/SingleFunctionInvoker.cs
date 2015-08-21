@@ -6,12 +6,16 @@ using System.Linq;
 
 namespace MonkeyCoder.Core
 {
-    internal class SingleFunctionInvoker : IEnumerable<Func<object>>
+    internal class SingleFunctionInvoker : ISingleFunctionInvoker
     {
         public Delegate Function { get; }
-        public IList<object> PossibleArguments { get; }
+        public IReadOnlyCollection<object> PossibleArguments { get; }
 
         public SingleFunctionInvoker(Delegate function, params object[] possibleArguments)
+            : this(function, (IReadOnlyCollection<object>)possibleArguments)
+        { }
+
+        public SingleFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments)
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function), "Function cannot be null.");
@@ -43,7 +47,7 @@ namespace MonkeyCoder.Core
 
             var distinctParameters = parameters
                 .Select(x => x.ParameterType)
-                .Distinct(ParameterTypeEqualityComparer.Instance)
+                .Distinct(TypeFullNameEqualityComparer.Instance)
                 .ToList();
 
             var distinctParametersQuery =
@@ -85,14 +89,6 @@ namespace MonkeyCoder.Core
 
             foreach (var values in valuesCollection)
                 yield return new Func<object>(() => Function.DynamicInvoke(values));
-        }
-
-        private class ParameterTypeEqualityComparer : IEqualityComparer<Type>
-        {
-            private static Lazy<ParameterTypeEqualityComparer> _instance = new Lazy<ParameterTypeEqualityComparer>(() => new ParameterTypeEqualityComparer());
-            public static ParameterTypeEqualityComparer Instance => _instance.Value;
-            public bool Equals(Type x, Type y) => x.FullName == y.FullName;
-            public int GetHashCode(Type obj) => obj.FullName.GetHashCode();
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

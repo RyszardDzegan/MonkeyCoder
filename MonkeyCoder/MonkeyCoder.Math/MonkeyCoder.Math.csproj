@@ -45,6 +45,7 @@
     <Compile Include="Combinatorics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VariationsWithoutRepetitions.cs" />
+    <Compile Include="PowerSet.cs" />
     <Compile Include="VariationsWithRepetitions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

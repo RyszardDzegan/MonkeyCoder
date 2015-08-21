@@ -54,6 +54,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MultipleVariableManagerTests.cs" />
+    <Compile Include="AppendableSingleFunctionInvokerTests.cs" />
+    <Compile Include="SingleFunctionInvokerWithMandatoryArgumentTests.cs" />
     <Compile Include="SingleFunctionInvokerTests.cs" />
     <Compile Include="SingleVariableManagerTests.cs" />
     <Compile Include="MinMaxTests.cs" />

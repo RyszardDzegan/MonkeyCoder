@@ -33,5 +33,12 @@ namespace MonkeyCoder.Math.Tests
             var sut = new[] { 1, 2, 3 }.AsVariationsWithoutRepetitions(1);
             IsInstanceOfType(sut, typeof(VariationsWithoutRepetitions<int>));
         }
+
+        [TestMethod]
+        public void Power_set_works()
+        {
+            var sut = new[] { 1, 2, 3 }.AsPowerSet();
+            IsInstanceOfType(sut, typeof(PowerSet<int>));
+        }
     }
 }

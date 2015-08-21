@@ -35,6 +35,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TypeEqualityComparer.cs" />
+    <Compile Include="AppendableSingleFunctionInvoker.cs" />
+    <Compile Include="ISingleFunctionInvoker.cs" />
+    <Compile Include="SingleFunctionInvokerWithMandatoryArgument.cs" />
     <Compile Include="SingleFunctionInvoker.cs" />
     <Compile Include="MultipleVariableManager.cs" />
     <Compile Include="SingleVariableManager.cs" />
