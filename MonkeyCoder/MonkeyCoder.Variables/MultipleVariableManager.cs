@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Core
+namespace MonkeyCoder.Variables
 {
     internal class MultipleVariableManager<T> : IEnumerable<T>
     {

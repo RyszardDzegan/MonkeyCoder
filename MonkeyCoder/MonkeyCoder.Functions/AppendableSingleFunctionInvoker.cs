@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace MonkeyCoder.Core
+namespace MonkeyCoder.Functions
 {
     internal class AppendableSingleFunctionInvoker : ISingleFunctionInvoker
     {

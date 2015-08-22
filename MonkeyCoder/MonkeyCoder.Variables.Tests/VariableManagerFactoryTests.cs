@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace MonkeyCoder.Core.Tests
+namespace MonkeyCoder.Variables.Tests
 {
     [TestClass]
     public class VariableManagerFactoryTests

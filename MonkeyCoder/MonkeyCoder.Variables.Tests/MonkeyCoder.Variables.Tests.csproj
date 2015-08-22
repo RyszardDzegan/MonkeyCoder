@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AF3B29EF-B1BF-487A-8CDB-835148176571}</ProjectGuid>
+    <ProjectGuid>{7AC241C4-94B7-4496-82C1-5FAC6CEF92EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonkeyCoder.Core.Tests</RootNamespace>
-    <AssemblyName>MonkeyCoder.Core.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>MonkeyCoder.Variables.Tests</RootNamespace>
+    <AssemblyName>MonkeyCoder.Variables.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,26 +47,21 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MultipleVariableManagerTests.cs" />
-    <Compile Include="AppendableSingleFunctionInvokerTests.cs" />
-    <Compile Include="SingleFunctionInvokerWithMandatoryArgumentTests.cs" />
-    <Compile Include="SingleFunctionInvokerTests.cs" />
-    <Compile Include="SingleVariableManagerTests.cs" />
     <Compile Include="MinMaxTests.cs" />
-    <Compile Include="VariableManagerFactoryTests.cs" />
+    <Compile Include="MultipleVariableManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleVariableManagerTests.cs" />
+    <Compile Include="VariableManagerFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonkeyCoder.Core\MonkeyCoder.Core.csproj">
-      <Project>{d8e86779-1a67-4814-9704-bb9deeb0bf0d}</Project>
-      <Name>MonkeyCoder.Core</Name>
+    <ProjectReference Include="..\MonkeyCoder.Variables\MonkeyCoder.Variables.csproj">
+      <Project>{1272a237-c536-4b69-9b5c-59e7a25ed2f8}</Project>
+      <Name>MonkeyCoder.Variables</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

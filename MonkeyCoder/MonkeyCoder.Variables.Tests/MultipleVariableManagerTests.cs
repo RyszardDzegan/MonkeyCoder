@@ -3,7 +3,7 @@ using System;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
 
-namespace MonkeyCoder.Core.Tests
+namespace MonkeyCoder.Variables.Tests
 {
     [TestClass]
     public class MultipleVariableManagerTests

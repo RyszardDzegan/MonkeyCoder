@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace MonkeyCoder.Core.Tests
+namespace MonkeyCoder.Variables.Tests
 {
     [TestClass]
     public class MinMaxTests

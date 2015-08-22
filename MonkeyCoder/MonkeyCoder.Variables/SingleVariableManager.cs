@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Core
+namespace MonkeyCoder.Variables
 {
     internal class SingleVariableManager<T> : IEnumerable<T>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MonkeyCoder.Core
+namespace MonkeyCoder.Functions
 {
     internal interface ISingleFunctionInvoker : IEnumerable<Func<object>>
     {
