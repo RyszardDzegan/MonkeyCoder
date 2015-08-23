@@ -77,6 +77,10 @@
       <Project>{676b2db0-5f88-4607-9c3b-0cfcb5bf8d13}</Project>
       <Name>MonkeyCoder.Math</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
+      <Project>{cc8919bf-8f00-428b-9d7c-fee5fd3a83fe}</Project>
+      <Name>TestHelpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PowerSetTestsExpectedOutputs.txt" />

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E1976518-E492-491D-A66B-0DC941577C1F}</ProjectGuid>
+    <ProjectGuid>{CC8919BF-8F00-428B-9D7C-FEE5FD3A83FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonkeyCoder.Functions</RootNamespace>
-    <AssemblyName>MonkeyCoder.Functions</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>TestHelpers</RootNamespace>
+    <AssemblyName>TestHelpers</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,19 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppendableSingleFunctionInvoker.cs" />
-    <Compile Include="MultipleFunctionInvoker.cs" />
-    <Compile Include="ISingleFunctionInvoker.cs" />
+    <Compile Include="ExpectedOutputReader.cs" />
+    <Compile Include="DoubleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleFunctionInvoker.cs" />
-    <Compile Include="SingleFunctionInvokerWithMandatoryArgument.cs" />
-    <Compile Include="TypeEqualityComparer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MonkeyCoder.Math\MonkeyCoder.Math.csproj">
-      <Project>{676b2db0-5f88-4607-9c3b-0cfcb5bf8d13}</Project>
-      <Name>MonkeyCoder.Math</Name>
-    </ProjectReference>
+    <Compile Include="StaticExpectedOutputReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

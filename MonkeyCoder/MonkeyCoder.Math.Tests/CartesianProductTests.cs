@@ -6,7 +6,7 @@ using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace MonkeyCoder.Math.Tests
 {
-    using static MathTestsBase.StaticExpectedOutputReader;
+    using static TestHelpers.StaticExpectedOutputReader;
 
     [TestClass]
     public class CartesianProductTests : MathTestsBase
