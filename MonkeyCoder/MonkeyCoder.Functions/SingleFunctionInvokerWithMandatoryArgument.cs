@@ -45,7 +45,14 @@ namespace MonkeyCoder.Functions
             var distinctParametersQuery =
                 from type in distinctParameters
                 let genericArgument = type.GetGenericArguments().FirstOrDefault()
-                let isNullable = new Func<bool>(() => genericArgument != null && nullableType.MakeGenericType(genericArgument).IsAssignableFrom(type))
+                let isNullable = new Lazy<bool>(() =>
+                {
+                    var genericArguments = type.GetGenericArguments();
+                    if (genericArguments.Count() != 1) return false;
+                    var genericArgument = genericArguments.First();
+                    if (!genericArgument.IsValueType || genericArgument.FullName.StartsWith("System.Nullable`1")) return false;
+                    return nullableType.MakeGenericType(genericArgument).IsAssignableFrom(type);
+                })
                 select new { Type = type, IsNullable = isNullable };
             var distinctParameterTypes = distinctParametersQuery.ToList();
 
@@ -56,14 +63,14 @@ namespace MonkeyCoder.Functions
                 from parameter in distinctParameterTypes
                 let isMandatoryArgumentAssignable = isMandatoryArgumentNotNull && parameter.Type.IsAssignableFrom(mandatoryArgumentType)
                 let isMandatoryArgumentReference = !isMandatoryArgumentNotNull && !parameter.Type.IsValueType
-                let isMandatoryArgumentNullable = !isMandatoryArgumentNotNull && parameter.IsNullable()
+                let isMandatoryArgumentNullable = !isMandatoryArgumentNotNull && parameter.IsNullable.Value
                 let isAssignableFromMandatoryArgument = isMandatoryArgumentAssignable || isMandatoryArgumentReference || isMandatoryArgumentNullable
                 let innerArgumentsQuery =
                     from argument in arguments
                     let isNotNull = argument.Type != null
                     let isAssignable = isNotNull && parameter.Type.IsAssignableFrom(argument.Type)
                     let isReference = !isNotNull && !parameter.Type.IsValueType
-                    let isNullable = !isNotNull && parameter.IsNullable()
+                    let isNullable = !isNotNull && parameter.IsNullable.Value
                     where isAssignable || isReference || isNullable
                     select argument
                 let innerArguments = innerArgumentsQuery.ToList()

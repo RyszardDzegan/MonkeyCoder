@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
-    internal class SingleFunctionInvoker : ISingleFunctionInvoker
+    internal class SingleFunctionInvokerAcceptingDelegatesAsArguments : ISingleFunctionInvoker
     {
         public Delegate Function { get; }
         public IReadOnlyCollection<object> PossibleArguments { get; }
 
-        public SingleFunctionInvoker(Delegate function, params object[] possibleArguments)
+        public SingleFunctionInvokerAcceptingDelegatesAsArguments(Delegate function, params object[] possibleArguments)
             : this(function, (IReadOnlyCollection<object>)possibleArguments)
         { }
 
-        public SingleFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments)
+        public SingleFunctionInvokerAcceptingDelegatesAsArguments(Delegate function, IReadOnlyCollection<object> possibleArguments)
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function), "Function cannot be null.");
@@ -42,7 +42,11 @@ namespace MonkeyCoder.Functions
             var argumentsQuery =
                 from argument in PossibleArguments
                 let type = argument != null ? argument.GetType() : null
-                select new { Value = argument, Type = type };
+                let delegateMethodInfo = (argument as Delegate)?.Method
+                let isDelegate = delegateMethodInfo != null
+                let isParameterLessDelegate = isDelegate && !delegateMethodInfo.GetParameters().Any()
+                let delegateReturnType = delegateMethodInfo?.ReturnType
+                select new { Value = argument, Type = type, IsDelegate = isParameterLessDelegate, DelegateReturnType = delegateReturnType };
             var argumentsList = argumentsQuery.ToList();
 
             var distinctParameters = parameters
@@ -71,8 +75,13 @@ namespace MonkeyCoder.Functions
                     let isAssignable = isNotNull && parameter.Type.IsAssignableFrom(argument.Type)
                     let isReference = !isNotNull && !parameter.Type.IsValueType
                     let isNullable = !isNotNull && parameter.IsNullable.Value
-                    where isAssignable || isReference || isNullable
-                    select argument
+                    let isSimpleValue = isAssignable || isReference || isNullable
+                    let isDelegateAssignable = argument.IsDelegate && argument.DelegateReturnType != null && parameter.Type.IsAssignableFrom(argument.DelegateReturnType)
+                    let isDelegateReference = argument.IsDelegate && argument.DelegateReturnType == null && !parameter.Type.IsValueType
+                    let isDelegateNullable = argument.IsDelegate && argument.DelegateReturnType == null && parameter.IsNullable.Value
+                    let isDelegateValue = isDelegateAssignable || isDelegateReference || isDelegateNullable
+                    where isSimpleValue || isDelegateValue
+                    select new { Value = argument.Value, IsDelegate = isDelegateValue }
                 select new { Parameter = parameter, Arguments = arguments.ToArray() };
             var distinctAssociations = distinctAssociationsQuery.ToList();
 
@@ -90,7 +99,8 @@ namespace MonkeyCoder.Functions
                 from product in cartesianProductInput.AsCartesianProduct()
                 let values =
                     from argument in product
-                    select argument.Value
+                    let value = !argument.IsDelegate ? argument.Value : ((Delegate)argument.Value).DynamicInvoke()
+                    select value
                 select values.ToArray();
 
             foreach (var values in valuesCollection)

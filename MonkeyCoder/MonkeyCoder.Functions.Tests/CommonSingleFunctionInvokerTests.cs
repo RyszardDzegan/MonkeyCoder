@@ -69,7 +69,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int, string>((x, y) => { result = y + x; });
-            var sut = new AppendableSingleFunctionInvoker(function, null, null, 1);
+            var sut = GetInvoker(function, null, null, 1);
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -79,7 +79,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int?, string>((x, y) => { result = y + x; });
-            var sut = new AppendableSingleFunctionInvoker(function, null, null, 1);
+            var sut = GetInvoker(function, null, null, 1);
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -89,7 +89,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new AppendableSingleFunctionInvoker(function, 1);
+            var sut = GetInvoker(function, 1);
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -99,7 +99,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2);
+            var sut = GetInvoker(function, 1, 2);
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -109,7 +109,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             object result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2, "a");
+            var sut = GetInvoker(function, 1, 2, "a");
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -118,7 +118,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new AppendableSingleFunctionInvoker(function);
+            var sut = GetInvoker(function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -127,7 +127,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_1_int_possible_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1);
+            var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -136,7 +136,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_2_int_possible_arguments()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2);
+            var sut = GetInvoker(function, 1, 2);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -145,7 +145,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_2_int_1_string_possible_arguments()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2, "a");
+            var sut = GetInvoker(function, 1, 2, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -154,7 +154,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_int_func()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function);
+            var sut = GetInvoker(function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -163,7 +163,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_int_func_and_1_int_possible_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, 1);
+            var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -172,7 +172,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_string_func_and_2_string_possible_arguments()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = GetInvoker(function, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -181,7 +181,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function);
+            var sut = GetInvoker(function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -190,7 +190,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_possible_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1);
+            var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -199,7 +199,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_string_possible_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, "a");
+            var sut = GetInvoker(function, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -208,7 +208,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, "a");
+            var sut = GetInvoker(function, 1, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -217,7 +217,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2, "a");
+            var sut = GetInvoker(function, 1, 2, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -226,7 +226,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, "a", "b");
+            var sut = GetInvoker(function, 1, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -235,7 +235,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, 2, "a", "b");
+            var sut = GetInvoker(function, 1, 2, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -244,7 +244,53 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_2_string_messed_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new AppendableSingleFunctionInvoker(function, 1, "a", 2, "b");
+            var sut = GetInvoker(function, 1, "a", 2, "b");
+            GenerateOutput(sut);
+            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+        }
+
+        [TestMethod]
+        public void Works_with_1_func_int_1_string_func_and_2_int_2_string_possible_arguments()
+        {
+            var function = new Func<Func<int>, string, string>((x, y) => y + x());
+            var sut = GetInvoker(function, 1, 2, "a", "b");
+            GenerateOutput(sut);
+            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+        }
+
+        [TestMethod]
+        public void Works_with_1_func_int_1_string_func_and_1_int_1_func_int_2_string_possible_arguments()
+        {
+            var function = new Func<Func<int>, string, string>((x, y) => y + x());
+            var sut = GetInvoker(function, 1, new Func<int>(() => 2), "a", "b");
+            GenerateOutput(sut);
+            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+        }
+
+        [TestMethod]
+        public void Works_with_1_func_int_1_string_func_and_2_func_int_2_string_possible_arguments()
+        {
+            var function = new Func<Func<int>, string, string>((x, y) => y + x());
+            var sut = GetInvoker(function, new Func<int>(() => 1), new Func<int>(() => 2), "a", "b");
+            GenerateOutput(sut);
+            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+        }
+
+        [TestMethod]
+        public void Works_with_1_func_int_1_func_string_func_and_2_func_int_2_func_string_possible_arguments()
+        {
+            var function = new Func<Func<int>, Func<string>, string>((x, y) => y() + x());
+            var sut = GetInvoker(function, new Func<int>(() => 1), new Func<int>(() => 2), new Func<string>(() => "a"), new Func<string>(() => "b"));
+            GenerateOutput(sut);
+            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+        }
+
+        [TestMethod]
+        public virtual void Works_with_complex_possible_arguments()
+        {
+            var function = new Func<string, Func<string>, int, int?, Func<int>, Func<int?>, string>(
+                (a, b, c, d, e, f) => (a != null ? a : "A") + (b != null ? b() : "B") + c + (d != null ? d.Value.ToString() : "D") + (e != null ? e().ToString() : "E") + (f != null ? f().Value.ToString() : "F"));
+            var sut = GetInvoker(function, "a", new Func<string>(() => "b"), 3, 4, new Func<int>(() => 5), new Func<int?>(() => 6), null);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -253,7 +299,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_for_loop()
         {
             var function = new Func<int, string>(count => string.Join("", Enumerable.Range(0, count)));
-            var sut = new AppendableSingleFunctionInvoker(function, 0, 1, 4, 6, 8);
+            var sut = GetInvoker(function, 0, 1, 4, 6, 8);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -270,7 +316,7 @@ namespace MonkeyCoder.Functions.Tests
                 () => 6,
                 () => 8
             };
-            var sut = new AppendableSingleFunctionInvoker(function, possibleArguments);
+            var sut = GetInvoker(function, possibleArguments);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -279,7 +325,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_for_loop_and_inner_function()
         {
             var function = new Func<int, Func<int, int>, string>((x, f) => string.Join("", Enumerable.Range(0, f(x))));
-            var sut = new AppendableSingleFunctionInvoker(function, 0, 1, 3, new Func<int, int>(x => x * x), new Func<int, int>(x => x + x));
+            var sut = GetInvoker(function, 0, 1, 3, new Func<int, int>(x => x * x), new Func<int, int>(x => x + x));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -288,7 +334,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_two_enumerators()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = GetInvoker(function, "a", "b");
             var e1 = sut.GetEnumerator();
             var e2 = sut.GetEnumerator();
             IsTrue(e1.MoveNext());
