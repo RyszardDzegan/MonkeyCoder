@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
-    internal class MultipleFunctionInvoker : ISingleFunctionInvoker
+    internal class MultipleFunctionInvoker : IEnumerable<Func<object>>
     {
         public Delegate Function => Functions.FirstOrDefault();
         public IReadOnlyCollection<Delegate> Functions { get; }
         public IReadOnlyCollection<object> PossibleArguments { get; }
-        private Lazy<IReadOnlyCollection<ISingleFunctionInvoker>> Invokers { get; }
+        private Lazy<IReadOnlyCollection<IEnumerable<Func<object>>>> Invokers { get; }
         
         public MultipleFunctionInvoker(IReadOnlyCollection<Delegate> functions, params object[] possibleArguments)
             : this(functions, (IReadOnlyCollection<object>)possibleArguments)
@@ -37,8 +37,8 @@ namespace MonkeyCoder.Functions
             Functions = functions;
             PossibleArguments = possibleArguments;
 
-            Invokers = new Lazy<IReadOnlyCollection<ISingleFunctionInvoker>>(
-                () => Functions.Select(x => new SingleFunctionInvoker(x, possibleArguments)).ToArray());
+            Invokers = new Lazy<IReadOnlyCollection<IEnumerable<Func<object>>>>(
+                () => Functions.Select(x => new BasicFunctionInvoker(x, possibleArguments)).ToArray());
         }
 
         public IEnumerator<Func<object>> GetEnumerator() => Invokers.Value.SelectMany(x => x).GetEnumerator();

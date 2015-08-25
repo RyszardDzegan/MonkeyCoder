@@ -1,15 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {
     [TestClass]
-    public class AppendableSingleFunctionInvokerTests : CommonSingleFunctionInvokerTests
+    public class AppendableBasicFunctionInvokerTests : CommonSingleFunctionInvokerTests
     {
-        internal override ISingleFunctionInvoker GetInvoker(Delegate function, params object[] possibleArguments) => new AppendableSingleFunctionInvoker(function, possibleArguments);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new AppendableBasicFunctionInvoker(function, possibleArguments);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -22,7 +24,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_two_consecutive_iterations()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aa", e.Current.DynamicInvoke());
@@ -60,7 +62,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_when_add_argument_during_iteration()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aa", e.Current.DynamicInvoke());
@@ -79,7 +81,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_when_adding_argument_during_consuming_iteration()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aa", e.Current.DynamicInvoke());
@@ -108,7 +110,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_when_adding_two_arguments_during_consuming_iteration()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aa", e.Current.DynamicInvoke());
@@ -152,7 +154,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Adding_argument_when_invoker_is_completed_has_no_effect()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aa", e.Current.DynamicInvoke());
@@ -184,7 +186,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Cancelling_works()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var cts = new CancellationTokenSource();
             var e = sut.GetConsumingEnumerable(cts.Token).GetEnumerator();
             IsTrue(e.MoveNext());
@@ -214,7 +216,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_when_adding_argument_from_other_thread_during_consuming_iteration()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new AppendableSingleFunctionInvoker(function, "a", "b");
+            var sut = new AppendableBasicFunctionInvoker(function, "a", "b");
             var wh = new ManualResetEventSlim();
             var e = sut.GetConsumingEnumerable().GetEnumerator();
 

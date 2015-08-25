@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
@@ -11,7 +12,7 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class MultipleFunctionInvokerTests : CommonSingleFunctionInvokerTests
     {
-        internal override ISingleFunctionInvoker GetInvoker(Delegate function, params object[] possibleArguments) => new MultipleFunctionInvoker(new Delegate[] { function }, possibleArguments);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new MultipleFunctionInvoker(new Delegate[] { function }, possibleArguments);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

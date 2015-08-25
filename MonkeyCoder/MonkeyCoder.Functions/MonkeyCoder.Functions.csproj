@@ -41,13 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppendableSingleFunctionInvoker.cs" />
+    <Compile Include="AppendableBasicFunctionInvoker.cs" />
+    <Compile Include="RelationsInfo.cs" />
+    <Compile Include="ParameterInfo.cs" />
+    <Compile Include="ArgumentInfo.cs" />
     <Compile Include="MultipleFunctionInvoker.cs" />
-    <Compile Include="ISingleFunctionInvoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleFunctionInvokerAcceptingDelegatesAsArguments.cs" />
-    <Compile Include="SingleFunctionInvoker.cs" />
-    <Compile Include="SingleFunctionInvokerWithMandatoryArgument.cs" />
+    <Compile Include="ParameterlessDelegatesExpandingFunctionInvoker.cs" />
+    <Compile Include="MandatoryArgumentBasicFunctionInvoker.cs" />
     <Compile Include="TypeEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,9 @@
       <Project>{676b2db0-5f88-4607-9c3b-0cfcb5bf8d13}</Project>
       <Name>MonkeyCoder.Math</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasicFunctionInvoker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

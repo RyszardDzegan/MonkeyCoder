@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace MonkeyCoder.Functions.Tests
@@ -9,7 +11,7 @@ namespace MonkeyCoder.Functions.Tests
 
     public abstract class CommonSingleFunctionInvokerTests : FunctionInvokerTestsBase
     {
-        internal abstract ISingleFunctionInvoker GetInvoker(Delegate function, params object[] possibleArguments);
+        internal abstract IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments);
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -25,8 +27,6 @@ namespace MonkeyCoder.Functions.Tests
             var function = new Action(() => { });
             var sut = GetInvoker(function);
             var e = sut.GetEnumerator();
-            IsTrue(e.MoveNext());
-            IsFalse(e.Current.Method.GetParameters().Any());
             IsFalse(e.MoveNext());
         }
 

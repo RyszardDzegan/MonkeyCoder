@@ -7,20 +7,20 @@ using System.Threading;
 
 namespace MonkeyCoder.Functions
 {
-    internal class AppendableSingleFunctionInvoker : ISingleFunctionInvoker
+    internal class AppendableBasicFunctionInvoker : IEnumerable<Func<object>>
     {
         public Delegate Function { get; }
         public IReadOnlyCollection<object> PossibleArguments => DynamicPossibleArguments.ToArray();
 
         private object _lock = new object();
         private IList<object> DynamicPossibleArguments { get; }
-        private BlockingCollection<ISingleFunctionInvoker> FunctionInvokers { get; } = new BlockingCollection<ISingleFunctionInvoker>();
+        private BlockingCollection<IEnumerable<Func<object>>> FunctionInvokers { get; } = new BlockingCollection<IEnumerable<Func<object>>>();
 
-        public AppendableSingleFunctionInvoker(Delegate function, params object[] possibleArguments)
+        public AppendableBasicFunctionInvoker(Delegate function, params object[] possibleArguments)
             : this(function, (IReadOnlyCollection<object>)possibleArguments)
         { }
 
-        public AppendableSingleFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments)
+        public AppendableBasicFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments)
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function), "Function cannot be null.");
@@ -31,7 +31,7 @@ namespace MonkeyCoder.Functions
             Function = function;
             DynamicPossibleArguments = new List<object>(possibleArguments);
 
-            var functionInvoker = new SingleFunctionInvoker(Function, PossibleArguments);
+            var functionInvoker = new BasicFunctionInvoker(Function, PossibleArguments);
             FunctionInvokers.Add(functionInvoker);
         }
 
@@ -42,7 +42,7 @@ namespace MonkeyCoder.Functions
                 if (FunctionInvokers.IsAddingCompleted)
                     return;
 
-                var functionInvoker = new SingleFunctionInvokerWithMandatoryArgument(Function, PossibleArguments, possibleArgument);
+                var functionInvoker = new MandatoryArgumentBasicFunctionInvoker(Function, PossibleArguments, possibleArgument);
                 FunctionInvokers.Add(functionInvoker);
                 DynamicPossibleArguments.Add(possibleArgument);
             }
