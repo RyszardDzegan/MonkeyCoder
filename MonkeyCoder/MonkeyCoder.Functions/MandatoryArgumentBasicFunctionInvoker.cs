@@ -8,10 +8,8 @@ namespace MonkeyCoder.Functions
 {
     internal class MandatoryArgumentBasicFunctionInvoker : IEnumerable<Func<object>>
     {
-        public Delegate Function { get; }
-        public IReadOnlyCollection<object> PossibleArguments { get; }
-        public object MandatoryArgument { get; }
-        
+        private Lazy<IEnumerable<Func<object>>> Invocations { get; }
+
         public MandatoryArgumentBasicFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments, object mandatoryArgument)
         {
             if (function == null)
@@ -20,56 +18,40 @@ namespace MonkeyCoder.Functions
             if (possibleArguments == null)
                 throw new ArgumentNullException(nameof(possibleArguments), "Possible arguments cannot be null.");
 
-            Function = function;
-            PossibleArguments = possibleArguments;
-            MandatoryArgument = mandatoryArgument;
-        }
-
-        public IEnumerator<Func<object>> GetEnumerator()
-        {
-            var parameters = Function.Method.GetParameters();
-            var mandatoryArgumentInfo = new ArgumentInfo.Basic(MandatoryArgument);
-
-            var possibleArgumentsInfo = ArgumentInfo.Basic.Get(PossibleArguments).ToList();
+            var parameters = function.Method.GetParameters();
+            var mandatoryArgumentInfo = new ArgumentInfo.Basic(mandatoryArgument);
+            var possibleArgumentsInfo = ArgumentInfo.Basic.Get(possibleArguments).ToList();
             var parametersInfo = ParameterInfo.GetDistinct(parameters).ToList();
             var distinctRelationsQuery = RelationsInfo.Mandatory.GetDistinct(parametersInfo, possibleArgumentsInfo, mandatoryArgumentInfo);
             var relationsQuery = RelationsInfo.Get(parameters, distinctRelationsQuery);
             var relations = relationsQuery.ToList();
-            
-            var mandatoryPositions = relations
-                .Select((x, i) => new { Association = x, Index = i })
-                .Where(x => x.Association.IsAssignableFromMandatoryArgument)
+
+            var optionalPositions = relations
+                .Select((x, i) => new { Relation = x, Index = i })
                 .ToList();
 
-            var mandatoryArgumentList = new[] { MandatoryArgument };
+            var mandatoryPositions = relations
+                .Select((x, i) => new { Relation = x, Index = i })
+                .Where(x => x.Relation.IsAssignableFromMandatoryArgument)
+                .ToList();
 
-            var positionsToReplacePowerSet = mandatoryPositions
-                .AsPowerSet()
-                .Skip(1); // Skip empty set
+            var mandatoryArgumentList = new[] { mandatoryArgument };
 
-            foreach (var positionsToReplace in positionsToReplacePowerSet)
-            {
-                var associationValuesQuery =
-                    from association in relations
-                    let valuesQuery =
-                        from argument in association.ArgumentsInfo
-                        select argument.Value
-                    let values = valuesQuery.ToArray()
-                    select values;
-                var associationValues = associationValuesQuery.ToList();
+            var invocations =
+                from mandatoryPositionsSubset in mandatoryPositions.AsPowerSet().Skip(1)
+                let possibleValues =
+                    from optionalPosition in optionalPositions
+                    join mandatoryPosition in mandatoryPositionsSubset on optionalPosition equals mandatoryPosition into jointMandatoryPositions
+                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.ArgumentsInfo.Select(x => x.Value).ToArray()
+                    select possibleValues
+                from valueList in possibleValues.AsCartesianProduct()
+                let values = valueList.ToArray()
+                select new Func<object>(() => function.DynamicInvoke(values));
 
-                foreach (var positionToReplace in positionsToReplace)
-                    associationValues[positionToReplace.Index] = mandatoryArgumentList;
-
-                var valuesCollection =
-                    from valuesList in associationValues.AsCartesianProduct()
-                    select valuesList.ToArray();
-
-                foreach (var values in valuesCollection)
-                    yield return new Func<object>(() => Function.DynamicInvoke(values));
-            }
+            Invocations = new Lazy<IEnumerable<Func<object>>>(() => invocations);
         }
 
+        public IEnumerator<Func<object>> GetEnumerator() => Invocations.Value.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

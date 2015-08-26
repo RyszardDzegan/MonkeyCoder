@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
+    [DebuggerDisplay("{Value != null ? Value : \"null\"}")]
     internal abstract class ArgumentInfo
     {
         public object Value { get; private set; }
@@ -16,7 +18,7 @@ namespace MonkeyCoder.Functions
         }
         
         public abstract bool IsAssignableTo(ParameterInfo parameterInfo);
-
+        
         internal class Basic : ArgumentInfo
         {
             public bool IsNull { get; }

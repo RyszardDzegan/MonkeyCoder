@@ -9,12 +9,11 @@ namespace MonkeyCoder.Functions
 {
     internal class AppendableBasicFunctionInvoker : IEnumerable<Func<object>>
     {
-        public Delegate Function { get; }
-        public IReadOnlyCollection<object> PossibleArguments => DynamicPossibleArguments.ToArray();
-
-        private object _lock = new object();
-        private IList<object> DynamicPossibleArguments { get; }
+        private Delegate Function { get; }
         private BlockingCollection<IEnumerable<Func<object>>> FunctionInvokers { get; } = new BlockingCollection<IEnumerable<Func<object>>>();
+        private IList<object> DynamicPossibleArguments { get; }
+        private IReadOnlyCollection<object> PossibleArguments => DynamicPossibleArguments.ToArray();
+        private object _lock = new object();
 
         public AppendableBasicFunctionInvoker(Delegate function, params object[] possibleArguments)
             : this(function, (IReadOnlyCollection<object>)possibleArguments)
@@ -53,25 +52,13 @@ namespace MonkeyCoder.Functions
             lock (_lock) FunctionInvokers.CompleteAdding();
         }
 
-        public IEnumerator<Func<object>> GetEnumerator()
-        {
-            var resultsQuery =
-                from invoker in FunctionInvokers
-                from function in invoker
-                select function;
-            return resultsQuery.GetEnumerator();
-        }
-        
-        public IEnumerable<Func<object>> GetConsumingEnumerable(CancellationToken cancellationToken)
-        {
-            var resultsQuery =
-                from invoker in FunctionInvokers.GetConsumingEnumerable(cancellationToken)
-                from function in invoker
-                select function;
+        public IEnumerator<Func<object>> GetEnumerator() =>
+            FunctionInvokers.SelectMany(x => x).GetEnumerator();
 
-            foreach (var result in resultsQuery)
-                yield return result;
-        }
+        public IEnumerable<Func<object>> GetConsumingEnumerable(CancellationToken cancellationToken) =>
+            from invoker in FunctionInvokers.GetConsumingEnumerable(cancellationToken)
+            from function in invoker
+            select function;
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public IEnumerable<Func<object>> GetConsumingEnumerable() => GetConsumingEnumerable(CancellationToken.None);

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
+    [DebuggerDisplay("{Parameter.Name} <- {ArgumentsInfoString}")]
     internal class RelationsInfo
     {
         public Type Parameter { get; private set; }
         public IReadOnlyCollection<ArgumentInfo> ArgumentsInfo { get; private set; }
+        private string ArgumentsInfoString => string.Join(", ", ArgumentsInfo.Select(x => x.Value));
 
         internal class Basic : RelationsInfo
         {

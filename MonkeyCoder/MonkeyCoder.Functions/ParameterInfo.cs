@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
+    [DebuggerDisplay("{Type.Name}")]
     internal class ParameterInfo
     {
         public Type Type { get; private set; }
