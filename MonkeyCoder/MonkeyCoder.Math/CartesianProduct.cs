@@ -22,7 +22,7 @@ namespace MonkeyCoder.Math
         /// <param name="items">Items that will be processed.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="items"/> is null.</exception>
         /// <exception cref="ArgumentException">When any item in <paramref name="items"/> is null.</exception>
-        public CartesianProduct(IEnumerable<IEnumerable<T>> items)
+        public CartesianProduct(IEnumerable<IReadOnlyCollection<T>> items)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));

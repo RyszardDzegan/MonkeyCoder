@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MonkeyCoder.Functions
+namespace MonkeyCoder.Functions.Helpers
 {
     internal class TypeFullNameEqualityComparer : IEqualityComparer<Type>
     {

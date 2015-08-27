@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace TestHelpers
@@ -14,12 +15,21 @@ namespace TestHelpers
             ExpectedOutputsFileName = expectedOutputsFileName;
 
             var assembly = Assembly.GetAssembly(type);
-            var resourceName = type.Namespace + "." + expectedOutputsFileName;
+            var resourceName = type.Namespace + "." + ExpectedOutputsFileName;
 
             using (var stream = assembly.GetManifestResourceStream(resourceName))
-            using (var reader = new StreamReader(stream))
             {
-                ExpectedOutputs = reader.ReadToEnd();
+                try
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        ExpectedOutputs = reader.ReadToEnd();
+                    }
+                }
+                catch (ArgumentNullException exception)
+                {
+                    throw new Exception($"Could not find expected output file \"{ExpectedOutputsFileName}\". You can use {nameof(ExpectedOutputAttribute)} to change the file name.", exception);
+                }
             }
         }
 

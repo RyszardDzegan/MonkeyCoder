@@ -38,7 +38,7 @@ namespace MonkeyCoder.Math.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void Throws_exception_when_one_of_items_is_null()
         {
-            new CartesianProduct<string>(Enumerable.Repeat<IEnumerable<string>>(null, 1));
+            new CartesianProduct<string>(Enumerable.Repeat<IReadOnlyCollection<string>>(null, 1));
         }
 
         [TestMethod]
@@ -51,13 +51,13 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_no_items()
         {
-            var sut = new CartesianProduct<string>(Enumerable.Empty<IEnumerable<string>>());
+            var sut = new CartesianProduct<string>(Enumerable.Empty<IReadOnlyCollection<string>>());
         }
 
         [TestMethod]
         public void Works_with_one_0_items()
         {
-            var sut = new CartesianProduct<string>(Enumerable.Repeat(Enumerable.Empty<string>(), 1));
+            var sut = new CartesianProduct<string>(Enumerable.Repeat(new string[0], 1));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -81,7 +81,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_two_0_0_items()
         {
-            var sut = new CartesianProduct<string>(Enumerable.Repeat(Enumerable.Empty<string>(), 2));
+            var sut = new CartesianProduct<string>(Enumerable.Repeat(new string[0], 2));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -89,7 +89,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_two_0_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -97,7 +97,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_two_0_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A", "B" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A", "B" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -105,7 +105,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_two_1_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -129,7 +129,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_two_2_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -153,7 +153,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_0_0_items()
         {
-            var sut = new CartesianProduct<string>(Enumerable.Repeat(Enumerable.Empty<string>(), 3));
+            var sut = new CartesianProduct<string>(Enumerable.Repeat(new string[0], 3));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -161,7 +161,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_0_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), Enumerable.Empty<string>(), new[] { "1" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new string[0], new[] { "1" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -169,7 +169,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_0_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), Enumerable.Empty<string>(), new[] { "1", "2" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new string[0], new[] { "1", "2" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -177,7 +177,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_1_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -185,7 +185,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_1_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A" }, new[] { "1" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A" }, new[] { "1" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -193,7 +193,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_1_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A" }, new[] { "1", "2" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A" }, new[] { "1", "2" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -201,7 +201,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_2_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A", "B" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A", "B" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -209,7 +209,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_2_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A", "B" }, new[] { "1" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A", "B" }, new[] { "1" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -217,7 +217,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_0_2_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { Enumerable.Empty<string>(), new[] { "A", "B" }, new[] { "1", "2" } });
+            var sut = new CartesianProduct<string>(new[] { new string[0], new[] { "A", "B" }, new[] { "1", "2" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -225,7 +225,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_1_0_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, Enumerable.Empty<string>(), Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new string[0], new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -233,7 +233,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_1_0_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, Enumerable.Empty<string>(), new[] { "1" } });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new string[0], new[] { "1" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -241,7 +241,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_1_0_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, Enumerable.Empty<string>(), new[] { "1", "2" } });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new string[0], new[] { "1", "2" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -249,7 +249,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_1_1_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new[] { "A" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new[] { "A" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -273,7 +273,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_1_2_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new[] { "A", "B" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a" }, new[] { "A", "B" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -297,7 +297,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_2_0_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, Enumerable.Empty<string>(), Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new string[0], new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -305,7 +305,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_2_0_1_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, Enumerable.Empty<string>(), new[] { "1" } });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new string[0], new[] { "1" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -313,7 +313,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_2_0_2_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, Enumerable.Empty<string>(), new[] { "1", "2" } });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new string[0], new[] { "1", "2" } });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -321,7 +321,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_2_1_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new[] { "A" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new[] { "A" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -345,7 +345,7 @@ namespace MonkeyCoder.Math.Tests
         [TestMethod]
         public void Works_with_three_2_2_0_items()
         {
-            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new[] { "A", "B" }, Enumerable.Empty<string>() });
+            var sut = new CartesianProduct<string>(new[] { new[] { "a", "b" }, new[] { "A", "B" }, new string[0] });
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }

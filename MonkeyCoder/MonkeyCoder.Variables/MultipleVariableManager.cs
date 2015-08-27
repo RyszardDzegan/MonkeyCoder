@@ -103,7 +103,7 @@ namespace MonkeyCoder.Variables
 
             var cartesianProductInput =
                 from x in VariableValuesPairs
-                select x.PossibleValues;
+                select x.PossibleValues.ToList();
 
             var results =
                 from cartesianProduct in cartesianProductInput.AsCartesianProduct()

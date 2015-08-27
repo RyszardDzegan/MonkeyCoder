@@ -6,7 +6,7 @@ using TestHelpers;
 
 namespace MonkeyCoder.Functions.Tests
 {
-    public abstract class FunctionInvokerTestsBase
+    public abstract class TestsBase
     {
         private StringWriter ActualTestOutput { get; } = new StringWriter();
         protected string GetActualTestOutput() => ActualTestOutput.ToString();

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpectedOutputAttribute.cs" />
     <Compile Include="ExpectedOutputReader.cs" />
     <Compile Include="DoubleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

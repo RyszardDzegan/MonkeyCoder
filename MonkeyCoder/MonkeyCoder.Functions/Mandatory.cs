@@ -1,4 +1,5 @@
-﻿using MonkeyCoder.Math;
+﻿using MonkeyCoder.Functions.Helpers;
+using MonkeyCoder.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,11 +7,11 @@ using System.Linq;
 
 namespace MonkeyCoder.Functions
 {
-    internal class MandatoryArgumentBasicFunctionInvoker : IEnumerable<Func<object>>
+    internal class Mandatory : IEnumerable<Func<object>>
     {
-        private Lazy<IEnumerable<Func<object>>> Invocations { get; }
+        private Lazy<FunctionsEnumerable> Invocations { get; }
 
-        public MandatoryArgumentBasicFunctionInvoker(Delegate function, IReadOnlyCollection<object> possibleArguments, object mandatoryArgument)
+        public Mandatory(Delegate function, IReadOnlyCollection<object> possibleArguments, object mandatoryArgument)
         {
             if (function == null)
                 throw new ArgumentNullException(nameof(function), "Function cannot be null.");
@@ -19,36 +20,35 @@ namespace MonkeyCoder.Functions
                 throw new ArgumentNullException(nameof(possibleArguments), "Possible arguments cannot be null.");
 
             var parameters = function.Method.GetParameters();
-            var mandatoryArgumentInfo = new ArgumentInfo.Basic(mandatoryArgument);
-            var possibleArgumentsInfo = ArgumentInfo.Basic.Get(possibleArguments).ToList();
-            var parametersInfo = ParameterInfo.GetDistinct(parameters).ToList();
-            var distinctRelationsQuery = RelationsInfo.Mandatory.GetDistinct(parametersInfo, possibleArgumentsInfo, mandatoryArgumentInfo);
-            var relationsQuery = RelationsInfo.Get(parameters, distinctRelationsQuery);
-            var relations = relationsQuery.ToList();
+            var mandatory = new Argument.Basic(mandatoryArgument);
+            var argumentList = Argument.Basic.Get(possibleArguments).ToList();
+            var distinctParameters = Parameter.GetDistinct(parameters);
+            var distinctRelations = Relation.Mandatory.GetDistinct(distinctParameters, argumentList, mandatory);
+            var relationList = Relation.Get(parameters, distinctRelations).ToList();
 
-            var optionalPositions = relations
+            var optionalPositions = relationList
                 .Select((x, i) => new { Relation = x, Index = i })
                 .ToList();
 
-            var mandatoryPositions = relations
+            var mandatoryPositions = relationList
                 .Select((x, i) => new { Relation = x, Index = i })
                 .Where(x => x.Relation.IsAssignableFromMandatoryArgument)
                 .ToList();
 
             var mandatoryArgumentList = new[] { mandatoryArgument };
 
-            var invocations =
+            var functions =
                 from mandatoryPositionsSubset in mandatoryPositions.AsPowerSet().Skip(1)
                 let possibleValues =
                     from optionalPosition in optionalPositions
                     join mandatoryPosition in mandatoryPositionsSubset on optionalPosition equals mandatoryPosition into jointMandatoryPositions
-                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.ArgumentsInfo.Select(x => x.Value).ToArray()
+                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.Arguments.Select(x => x.Value).ToArray()
                     select possibleValues
                 from valueList in possibleValues.AsCartesianProduct()
-                let values = valueList.ToArray()
-                select new Func<object>(() => function.DynamicInvoke(values));
+                let valueArray = valueList.ToArray()
+                select new Func<object>(() => function.DynamicInvoke(valueArray));
 
-            Invocations = new Lazy<IEnumerable<Func<object>>>(() => invocations);
+            Invocations = FunctionsEnumerable.Lazy(functions);
         }
 
         public IEnumerator<Func<object>> GetEnumerator() => Invocations.Value.GetEnumerator();

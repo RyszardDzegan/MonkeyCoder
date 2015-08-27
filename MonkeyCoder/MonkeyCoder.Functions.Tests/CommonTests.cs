@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,47 +8,47 @@ namespace MonkeyCoder.Functions.Tests
 {
     using static TestHelpers.StaticExpectedOutputReader;
 
-    public abstract class CommonSingleFunctionInvokerTests : FunctionInvokerTestsBase
+    public abstract class CommonTests : TestsBase
     {
         internal abstract IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments);
-        
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Throws_exception_when_possible_arguments_are_null()
+
+        public virtual void Throws_exception_when_function_is_null()
+        {
+            GetInvoker(null);
+        }
+
+        public virtual void Throws_exception_when_possible_arguments_are_null()
         {
             var function = new Action<int>(x => { });
             GetInvoker(function, null);
         }
-
-        [TestMethod]
-        public void Works_with_empty_action()
+        
+        public virtual void Works_with_empty_action()
         {
             var function = new Action(() => { });
             var sut = GetInvoker(function);
             var e = sut.GetEnumerator();
+            IsTrue(e.MoveNext());
             IsFalse(e.MoveNext());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_action()
+        
+        public virtual void Works_with_1_int_action()
         {
             var function = new Action<int>(x => { });
             var sut = GetInvoker(function);
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_action_and_2_null_possible_arguments()
+        
+        public virtual void Works_with_1_int_action_and_2_null_possible_arguments()
         {
             var function = new Action<int>(x => { });
             var sut = GetInvoker(function);
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
-
-        [TestMethod]
-        public void Works_with_1_string_action_and_2_null_possible_arguments()
+        
+        public virtual void Works_with_1_string_action_and_2_null_possible_arguments()
         {
             object result = -1;
             var function = new Action<string>(x => { result = x; });
@@ -63,9 +62,8 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(null, result);
             IsFalse(e.MoveNext());
         }
-
-        [TestMethod]
-        public void Works_with_1_string_1_int_action_and_2_null_1_int_possible_arguments()
+        
+        public virtual void Works_with_1_string_1_int_action_and_2_null_1_int_possible_arguments()
         {
             var result = "";
             var function = new Action<int, string>((x, y) => { result = y + x; });
@@ -73,9 +71,8 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_string_1_nullable_int_action_and_2_null_1_int_possible_arguments()
+        
+        public virtual void Works_with_1_string_1_nullable_int_action_and_2_null_1_int_possible_arguments()
         {
             var result = "";
             var function = new Action<int?, string>((x, y) => { result = y + x; });
@@ -83,9 +80,8 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_action_and_1_int_possible_argument()
+        
+        public virtual void Works_with_1_int_action_and_1_int_possible_argument()
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
@@ -93,9 +89,8 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_action_and_2_int_possible_arguments()
+        
+        public virtual void Works_with_1_int_action_and_2_int_possible_arguments()
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
@@ -104,8 +99,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
-        public void Works_with_1_int_action_and_2_int_1_string_possible_arguments()
+        public virtual void Works_with_1_int_action_and_2_int_1_string_possible_arguments()
         {
             object result = -1;
             var function = new Action<int>(x => { result = x; });
@@ -113,9 +107,8 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut, ref result);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_func()
+        
+        public virtual void Works_with_1_int_func()
         {
             var function = new Func<int, int>(x => x);
             var sut = GetInvoker(function);
@@ -123,169 +116,150 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
-        public void Works_with_1_int_func_and_1_int_possible_argument()
+        public virtual void Works_with_1_int_func_and_1_int_possible_argument()
         {
             var function = new Func<int, int>(x => x);
             var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_func_and_2_int_possible_arguments()
+        
+        public virtual void Works_with_1_int_func_and_2_int_possible_arguments()
         {
             var function = new Func<int, int>(x => x);
             var sut = GetInvoker(function, 1, 2);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_func_and_2_int_1_string_possible_arguments()
+        
+        public virtual void Works_with_1_int_func_and_2_int_1_string_possible_arguments()
         {
             var function = new Func<int, int>(x => x);
             var sut = GetInvoker(function, 1, 2, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_2_int_func()
+        
+        public virtual void Works_with_2_int_func()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
             var sut = GetInvoker(function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_2_int_func_and_1_int_possible_argument()
+        
+        public virtual void Works_with_2_int_func_and_1_int_possible_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
             var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_2_string_func_and_2_string_possible_arguments()
+        
+        public virtual void Works_with_2_string_func_and_2_string_possible_arguments()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
             var sut = GetInvoker(function, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func()
+        
+        public virtual void Works_with_1_int_1_string_func()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_1_int_possible_argument()
+        
+        public virtual void Works_with_1_int_1_string_func_and_1_int_possible_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_1_string_possible_argument()
+        
+        public virtual void Works_with_1_int_1_string_func_and_1_string_possible_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments()
+        
+        public virtual void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_arguments()
+        
+        public virtual void Works_with_1_int_1_string_func_and_2_int_1_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1, 2, "a");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments()
+        
+        public virtual void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments()
+        
+        public virtual void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1, 2, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_int_1_string_func_and_2_int_2_string_messed_possible_arguments()
+        
+        public virtual void Works_with_1_int_1_string_func_and_2_int_2_string_messed_possible_arguments()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
             var sut = GetInvoker(function, 1, "a", 2, "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_func_int_1_string_func_and_2_int_2_string_possible_arguments()
+        
+        public virtual void Works_with_1_func_int_1_string_func_and_2_int_2_string_possible_arguments()
         {
             var function = new Func<Func<int>, string, string>((x, y) => y + x());
             var sut = GetInvoker(function, 1, 2, "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_func_int_1_string_func_and_1_int_1_func_int_2_string_possible_arguments()
+        
+        public virtual void Works_with_1_func_int_1_string_func_and_1_int_1_func_int_2_string_possible_arguments()
         {
             var function = new Func<Func<int>, string, string>((x, y) => y + x());
             var sut = GetInvoker(function, 1, new Func<int>(() => 2), "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_func_int_1_string_func_and_2_func_int_2_string_possible_arguments()
+        
+        public virtual void Works_with_1_func_int_1_string_func_and_2_func_int_2_string_possible_arguments()
         {
             var function = new Func<Func<int>, string, string>((x, y) => y + x());
             var sut = GetInvoker(function, new Func<int>(() => 1), new Func<int>(() => 2), "a", "b");
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_1_func_int_1_func_string_func_and_2_func_int_2_func_string_possible_arguments()
+        
+        public virtual void Works_with_1_func_int_1_func_string_func_and_2_func_int_2_func_string_possible_arguments()
         {
             var function = new Func<Func<int>, Func<string>, string>((x, y) => y() + x());
             var sut = GetInvoker(function, new Func<int>(() => 1), new Func<int>(() => 2), new Func<string>(() => "a"), new Func<string>(() => "b"));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
+        
         public virtual void Works_with_complex_possible_arguments()
         {
             var function = new Func<string, Func<string>, int, int?, Func<int>, Func<int?>, string>(
@@ -294,18 +268,16 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_for_loop()
+        
+        public virtual void Works_with_for_loop()
         {
             var function = new Func<int, string>(count => string.Join("", Enumerable.Range(0, count)));
             var sut = GetInvoker(function, 0, 1, 4, 6, 8);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_for_loop_and_arguments_as_functions()
+        
+        public virtual void Works_with_for_loop_and_arguments_as_functions()
         {
             var function = new Func<Func<int>, string>(count => string.Join("", Enumerable.Range(0, count())));
             var possibleArguments = new Func<int>[]
@@ -320,18 +292,16 @@ namespace MonkeyCoder.Functions.Tests
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_for_loop_and_inner_function()
+        
+        public virtual void Works_with_for_loop_and_inner_function()
         {
             var function = new Func<int, Func<int, int>, string>((x, f) => string.Join("", Enumerable.Range(0, f(x))));
             var sut = GetInvoker(function, 0, 1, 3, new Func<int, int>(x => x * x), new Func<int, int>(x => x + x));
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
-
-        [TestMethod]
-        public void Works_with_two_enumerators()
+        
+        public virtual void Works_with_two_enumerators()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
             var sut = GetInvoker(function, "a", "b");

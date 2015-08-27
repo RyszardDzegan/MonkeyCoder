@@ -1,0 +1,5 @@
+﻿# Finish each output set with $ mark
+
+Works_with_function_1_string
+a
+$

@@ -51,14 +51,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CommonSingleFunctionInvokerTests.cs" />
-    <Compile Include="AppendableBasicFunctionInvokerTests.cs" />
-    <Compile Include="FunctionInvokerTestsBase.cs" />
+    <Compile Include="CommonTests.cs" />
+    <Compile Include="Basic_AppendableTests.cs" />
+    <Compile Include="ExpandingStack0Tests.cs" />
+    <Compile Include="TestsBase.cs" />
+    <Compile Include="ExpandingStack1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MultipleFunctionInvokerTests.cs" />
-    <Compile Include="ParameterlessDelegatesExpandingFunctionInvokerTests.cs" />
-    <Compile Include="BasicFunctionInvokerTests.cs" />
-    <Compile Include="MandatoryArgumentBasicFunctionInvokerTests.cs" />
+    <Compile Include="Basic_MultipleTests.cs" />
+    <Compile Include="Expanding_ParameterlessTests.cs" />
+    <Compile Include="BasicTests.cs" />
+    <Compile Include="MandatoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonkeyCoder.Functions\MonkeyCoder.Functions.csproj">
@@ -71,13 +73,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CommonSingleFunctionInvokerTestsExpectedOutputs.txt" />
+    <EmbeddedResource Include="CommonTestsExpectedOutputs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MultipleFunctionInvokerTestsExpectedOutputs.txt" />
+    <EmbeddedResource Include="Basic_MultipleTestsExpectedOutputs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ParameterlessDelegatesExpandingFunctionInvokerTestsExpectedOutputs.txt" />
+    <EmbeddedResource Include="Expanding_ParameterlessTestsExpectedOutputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExpandingStack1TestsExpectedOutputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExpandingStack0TestsExpectedOutputs.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

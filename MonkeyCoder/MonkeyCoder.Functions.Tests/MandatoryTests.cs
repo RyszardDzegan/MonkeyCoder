@@ -5,13 +5,13 @@ using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace MonkeyCoder.Functions.Tests
 {
     [TestClass]
-    public class MandatoryArgumentBasicFunctionInvokerTests
+    public class MandatoryTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_function_is_null()
         {
-            new MandatoryArgumentBasicFunctionInvoker(null, null, null);
+            new Mandatory(null, null, null);
         }
 
         [TestMethod]
@@ -19,14 +19,14 @@ namespace MonkeyCoder.Functions.Tests
         public void Throws_exception_when_possible_arguments_are_null()
         {
             var function = new Action<int>(x => { });
-            new MandatoryArgumentBasicFunctionInvoker(function, null, null);
+            new Mandatory(function, null, null);
         }
 
         [TestMethod]
         public void Works_with_empty_action_and_1_string_mandatory_argument()
         {
             var function = new Action(() => { });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], "x");
+            var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -35,7 +35,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_action_and_1_string_mandatory_argument()
         {
             var function = new Action<int>(x => { });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], "x");
+            var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -45,7 +45,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<string>(x => { result = x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], "x");
+            var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -57,7 +57,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_action_and_2_null_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Action<int>(x => { });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null }, "x");
+            var sut = new Mandatory(function, new object[] { null, null }, "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -67,7 +67,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int?>(x => { result = Convert.ToString(x); });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null }, "x");
+            var sut = new Mandatory(function, new object[] { null, null }, "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -77,7 +77,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int?>(x => { result = Convert.ToString(x); });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null }, 1);
+            var sut = new Mandatory(function, new object[] { null, null }, 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -90,7 +90,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<string>(x => { result = x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null }, "x");
+            var sut = new Mandatory(function, new object[] { null, null }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -103,7 +103,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int, string>((x, y) => { result = y + x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null, 1 }, "x");
+            var sut = new Mandatory(function, new object[] { null, null, 1 }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -116,7 +116,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = "";
             var function = new Action<int?, string>((x, y) => { result = y + x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { null, null, 1 }, "x");
+            var sut = new Mandatory(function, new object[] { null, null, 1 }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -135,7 +135,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1 }, 2);
+            var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -148,7 +148,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2 }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2 }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -161,7 +161,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             object result = -1;
             var function = new Action<int>(x => { result = x; });
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a" }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             e.Current.DynamicInvoke();
@@ -173,7 +173,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_1_string_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], "x");
+            var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -182,7 +182,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], 1);
+            var sut = new Mandatory(function, new object[0], 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(1, e.Current.DynamicInvoke());
@@ -193,7 +193,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1 }, 2);
+            var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(2, e.Current.DynamicInvoke());
@@ -204,7 +204,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_2_int_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2 }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2 }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(3, e.Current.DynamicInvoke());
@@ -215,7 +215,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_func_and_2_int_1_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a" }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(3, e.Current.DynamicInvoke());
@@ -226,7 +226,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_int_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], 1);
+            var sut = new Mandatory(function, new object[0], 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(2, e.Current.DynamicInvoke());
@@ -237,7 +237,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_int_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1 }, 2);
+            var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(3, e.Current.DynamicInvoke());
@@ -252,7 +252,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_string_func_and_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { "a", "b" }, 1);
+            var sut = new Mandatory(function, new object[] { "a", "b" }, 1);
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -261,7 +261,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_string_func_and_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { "a", "b" }, "x");
+            var sut = new Mandatory(function, new object[] { "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("xa", e.Current.DynamicInvoke());
@@ -280,7 +280,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], 1);
+            var sut = new Mandatory(function, new object[0], 1);
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -289,7 +289,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[0], "x");
+            var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -298,7 +298,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1 }, 2);
+            var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsFalse(e.MoveNext());
         }
@@ -307,7 +307,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_string_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { "a" }, 1);
+            var sut = new Mandatory(function, new object[] { "a" }, 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a1", e.Current.DynamicInvoke());
@@ -318,7 +318,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, "a" }, 2);
+            var sut = new Mandatory(function, new object[] { 1, "a" }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a2", e.Current.DynamicInvoke());
@@ -329,7 +329,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, "a" }, "x");
+            var sut = new Mandatory(function, new object[] { 1, "a" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("x1", e.Current.DynamicInvoke());
@@ -340,7 +340,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a" }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a3", e.Current.DynamicInvoke());
@@ -351,7 +351,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_argument_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a" }, "x");
+            var sut = new Mandatory(function, new object[] { 1, 2, "a" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("x1", e.Current.DynamicInvoke());
@@ -364,7 +364,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, "a", "b" }, 2);
+            var sut = new Mandatory(function, new object[] { 1, "a", "b" }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a2", e.Current.DynamicInvoke());
@@ -377,7 +377,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, "a", "b" }, "x");
+            var sut = new Mandatory(function, new object[] { 1, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("x1", e.Current.DynamicInvoke());
@@ -388,7 +388,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a", "b" }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a3", e.Current.DynamicInvoke());
@@ -401,7 +401,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a", "b" }, "x");
+            var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("x1", e.Current.DynamicInvoke());
@@ -414,7 +414,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_2_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, string, string>((x, y, z) => z + y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a", "b" }, 3);
+            var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("a13", e.Current.DynamicInvoke());
@@ -443,7 +443,7 @@ namespace MonkeyCoder.Functions.Tests
         public void Works_with_3_string_func_and_2_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<string, string, string, string>((x, y, z) => z + y + x);
-            var sut = new MandatoryArgumentBasicFunctionInvoker(function, new object[] { 1, 2, "a", "b" }, "x");
+            var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual("aax", e.Current.DynamicInvoke());
