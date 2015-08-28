@@ -12,7 +12,8 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class Basic_MultipleTests : CommonTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new Basic.Multiple(new Delegate[] { function }, possibleArguments);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
+            new Basic.Multiple(new Delegate[] { function }, possibleArguments);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

@@ -11,7 +11,8 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class ExpandingStack0Tests : CommonTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new Expanding(function, possibleArguments, 0);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
+            new Expanding(function, possibleArguments, 0);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

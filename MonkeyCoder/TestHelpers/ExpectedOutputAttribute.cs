@@ -7,6 +7,9 @@ namespace TestHelpers
     {
         public string FileName { get; }
 
+        public ExpectedOutputAttribute()
+        { }
+
         public ExpectedOutputAttribute(string fileName)
         {
             FileName = fileName;

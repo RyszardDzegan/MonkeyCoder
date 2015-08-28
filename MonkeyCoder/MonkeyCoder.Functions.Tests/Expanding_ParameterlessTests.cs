@@ -11,7 +11,8 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class Expanding_ParameterlessTests : CommonTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new Expanding.Parameterless(function, possibleArguments);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
+            new Expanding.Parameterless(function, possibleArguments);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

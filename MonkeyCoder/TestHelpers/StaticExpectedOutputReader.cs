@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -7,52 +9,70 @@ namespace TestHelpers
 {
     public static class StaticExpectedOutputReader
     {
-        private static string ExpectedOutputsFileName { get; set; }
-        private static ExpectedOutputReader ExpectedOutputReader { get; set; }
+        private static IDictionary<string, ExpectedOutputReader> ExpectedOutputReaders { get; } =
+            new Dictionary<string, ExpectedOutputReader>();
 
         public static string GetExpectedTestOutput()
         {
-            StackFrame stackFrame = null;
-            MethodBase callingMethod = null;
-            string testMethodName = null;
-            Type reflectedType = null;
-            string expectedOutputsFileName = null;
+            var stackFrame = new StackFrame(1);
+            var expectedTestOutput = GetExpectedOutputReaderFromAttribute(stackFrame);
+            if (expectedTestOutput != null)
+                return expectedTestOutput;
 
-            for (var i = 1; ;i++)
+            var callingMethod = stackFrame.GetMethod();
+            var reflectedType = callingMethod.ReflectedType;
+            var expectedOutputsFileName = reflectedType.Name + "ExpectedOutputs.txt";
+            return GetExpectedOutputReader(reflectedType, callingMethod.Name, expectedOutputsFileName);
+        }
+
+        private static string GetExpectedOutputReaderFromAttribute(StackFrame stackFrame)
+        {
+            var i = 3;
+            do
             {
-                stackFrame = new StackFrame(i);
-                callingMethod = stackFrame.GetMethod();
-                testMethodName = callingMethod.Name;
-                reflectedType = callingMethod.ReflectedType;
-
+                var callingMethod = stackFrame.GetMethod();
                 if (callingMethod.MethodImplementationFlags != MethodImplAttributes.IL)
-                    break;
+                    return null;
 
                 var expectedOutputAttribute = (ExpectedOutputAttribute)callingMethod.GetCustomAttributes(typeof(ExpectedOutputAttribute), false).LastOrDefault();
-
                 if (expectedOutputAttribute != null)
                 {
-                    expectedOutputsFileName = expectedOutputAttribute.FileName;
-                    break;
+                    var reflectedType = callingMethod.ReflectedType;
+
+                    var expectedOutputsFileName =
+                        string.IsNullOrEmpty(expectedOutputAttribute.FileName) ?
+                        reflectedType.Name + "ExpectedOutputs.txt" :
+                        expectedOutputAttribute.FileName;
+
+                    return GetExpectedOutputReader(callingMethod.ReflectedType, callingMethod.Name, expectedOutputsFileName);
                 }
-            }
+                
+                stackFrame = new StackFrame(i++);
+            } while (true);
+        }
 
-            if (expectedOutputsFileName == null)
+        private static string GetExpectedOutputReader(Type type, string methodName, string expectedOutputsFileName)
+        {
+            var assembly = Assembly.GetAssembly(type);
+            var resourceName = type.Namespace + "." + expectedOutputsFileName;
+
+            if (ExpectedOutputReaders.ContainsKey(resourceName))
+                return ExpectedOutputReaders[resourceName].GetExpectedTestOutput(methodName);
+
+            string expectedOutputs;
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                stackFrame = new StackFrame(1);
-                callingMethod = stackFrame.GetMethod();
-                testMethodName = callingMethod.Name;
-                reflectedType = callingMethod.ReflectedType;
-                expectedOutputsFileName = reflectedType.Name + "ExpectedOutputs.txt";
+                if (stream == null)
+                    throw new Exception($"Could not find expected output file \"{expectedOutputsFileName}\". You can use {nameof(ExpectedOutputAttribute)} to change the file name.");
+
+                using (var reader = new StreamReader(stream))
+                    expectedOutputs = reader.ReadToEnd();
             }
 
-            if (ExpectedOutputsFileName != expectedOutputsFileName)
-            {
-                ExpectedOutputsFileName = expectedOutputsFileName;
-                ExpectedOutputReader = new ExpectedOutputReader(ExpectedOutputsFileName, reflectedType);
-            }
+            var expectedOutputReader = new ExpectedOutputReader(expectedOutputsFileName, expectedOutputs);
+            ExpectedOutputReaders[resourceName] = expectedOutputReader;
 
-            return ExpectedOutputReader.GetExpectedTestOutput(testMethodName);
+            return expectedOutputReader.GetExpectedTestOutput(methodName);
         }
     }
 }

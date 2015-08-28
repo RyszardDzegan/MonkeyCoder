@@ -11,7 +11,8 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class Basic_AppendableTests : CommonTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new Basic.Appendable(function, possibleArguments);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
+            new Basic.Appendable(function, possibleArguments);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

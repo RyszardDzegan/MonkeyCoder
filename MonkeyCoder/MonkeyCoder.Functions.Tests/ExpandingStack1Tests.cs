@@ -12,7 +12,8 @@ namespace MonkeyCoder.Functions.Tests
     [TestClass]
     public class ExpandingStack1Tests : CommonTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) => new Expanding(function, possibleArguments, 1);
+        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
+            new Expanding(function, possibleArguments, 1);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -197,7 +198,7 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
-        [ExpectedOutput("ExpandingStack1TestsExpectedOutputs.txt")]
+        [ExpectedOutput]
         public override void Works_with_complex_possible_arguments()
         {
             base.Works_with_complex_possible_arguments();
@@ -216,7 +217,7 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
-        [ExpectedOutput("ExpandingStack1TestsExpectedOutputs.txt")]
+        [ExpectedOutput]
         public override void Works_with_for_loop_and_inner_function()
         {
             base.Works_with_for_loop_and_inner_function();
@@ -229,7 +230,6 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
-        [ExpectedOutput("ExpandingStack1TestsExpectedOutputs.txt")]
         public void Works_with_function_1_string()
         {
             var function = new Func<string>(() => "a");

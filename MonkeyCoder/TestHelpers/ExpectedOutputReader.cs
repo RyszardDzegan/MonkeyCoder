@@ -1,36 +1,16 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace TestHelpers
 {
     public class ExpectedOutputReader
     {
-        public string ExpectedOutputsFileName { get; }
+        private string ExpectedOutputsFileName { get; }
         private string ExpectedOutputs { get; }
 
-        public ExpectedOutputReader(string expectedOutputsFileName, Type type)
+        public ExpectedOutputReader(string expectedOutputsFileName, string expectedOutputs)
         {
             ExpectedOutputsFileName = expectedOutputsFileName;
-
-            var assembly = Assembly.GetAssembly(type);
-            var resourceName = type.Namespace + "." + ExpectedOutputsFileName;
-
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                try
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        ExpectedOutputs = reader.ReadToEnd();
-                    }
-                }
-                catch (ArgumentNullException exception)
-                {
-                    throw new Exception($"Could not find expected output file \"{ExpectedOutputsFileName}\". You can use {nameof(ExpectedOutputAttribute)} to change the file name.", exception);
-                }
-            }
+            ExpectedOutputs = expectedOutputs;
         }
 
         public string GetExpectedTestOutput(string testMethodName)
