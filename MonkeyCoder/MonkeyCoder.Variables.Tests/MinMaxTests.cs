@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Variables.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MinMaxTests
     {
         private class Variables
@@ -31,7 +31,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Original_min_max_algorithm()
         {
             var input = new[] { 1, 5, 6, 2, 9, 7, 3, 8, 4, 0 };
@@ -51,7 +51,7 @@ namespace MonkeyCoder.Variables.Tests
             AreEqual(9, max);
         }
 
-        [TestMethod]
+        [Test]
         public void Solves_min_max_algorithm_when_initial_values_are_missing()
         {
             var possibleValues = new[] { -1, 10 };
@@ -101,7 +101,7 @@ namespace MonkeyCoder.Variables.Tests
             AreEqual(1, successes.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Solves_min_max_algorithm_when_initial_values_and_if_conditions_are_missing()
         {
             var possibleValues = new[] { -1, 10 };

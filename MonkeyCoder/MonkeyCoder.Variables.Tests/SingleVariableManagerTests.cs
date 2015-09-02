@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
+using static NUnit.Framework.Assert;
+using static NUnit.Framework.StringAssert;
 
 namespace MonkeyCoder.Variables.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SingleVariableManagerTests
     {
         class Foo0 { }
@@ -31,7 +31,7 @@ namespace MonkeyCoder.Variables.Tests
             public string X { get; }
         }
         
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_type_has_more_than_one_property()
         {
@@ -46,7 +46,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_type_has_less_than_one_property()
         {
@@ -61,7 +61,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_property_is_readonly()
         {
@@ -76,7 +76,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_possible_values_are_null()
         {
@@ -91,7 +91,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void Throws_exception_when_possible_values_cannot_be_assigned_to_property()
         {
@@ -106,7 +106,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Doesnt_enter_into_loop_when_there_are_no_possible_values()
         {
             var vm = new SingleVariableManager<Foo1>();
@@ -114,7 +114,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Enters_into_loop_one_time_when_possible_values_count_equals_one()
         {
             var vm = new SingleVariableManager<Foo1>("a");
@@ -123,7 +123,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Enters_into_loop_two_times_when_possible_values_count_equals_two()
         {
             var vm = new SingleVariableManager<Foo1>("a", "b");
@@ -133,7 +133,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_3_values()
         {
             var vm = new SingleVariableManager<Foo1>("a", "b", "c");
@@ -147,7 +147,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_3_dynamic_values()
         {
             var vm = new SingleVariableManager<Foo1Dynamic>("a", 1, 2.3);

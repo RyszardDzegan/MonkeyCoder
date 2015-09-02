@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
+using static NUnit.Framework.Assert;
+using static NUnit.Framework.StringAssert;
 
 namespace MonkeyCoder.Variables.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MultipleVariableManagerTests
     {
         class Foo0 { }
@@ -41,7 +41,7 @@ namespace MonkeyCoder.Variables.Tests
             public double Z { get; }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_possible_values_are_null()
         {
@@ -56,7 +56,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_variables_dont_have_setters()
         {
@@ -71,7 +71,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_missing_possible_values_placeholders_for_variables()
         {
@@ -86,7 +86,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_single_possible_value_has_incompatible_type()
         {
@@ -101,7 +101,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(Exception))]
         public void Throws_exception_when_multiple_possible_values_have_incompatible_types()
         {
@@ -116,7 +116,7 @@ namespace MonkeyCoder.Variables.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Works_when_possible_values_are_null_but_variables_are_empty()
         {
             var vm = new MultipleVariableManager<Foo0>(null);
@@ -124,7 +124,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_when_there_are_more_properties_than_required_for_holding_possible_values()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a" }, Y = new[] { 1 }, Z = new[] { 1L } });
@@ -134,7 +134,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_single_possible_value()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = "a" });
@@ -144,7 +144,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_single_possible_value_which_is_null()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = (string)null });
@@ -154,7 +154,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_multiple_possible_values()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a" } });
@@ -164,7 +164,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_empty_multiple_possible_values()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = new string[] { } });
@@ -172,7 +172,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_zero_variables()
         {
             var vm = new MultipleVariableManager<Foo0>(new { });
@@ -180,7 +180,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_one_variable_and_3_values()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a", "b", "c" } });
@@ -194,7 +194,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_one_variable_and_3_values_where_one_of_them_is_null()
         {
             var vm = new MultipleVariableManager<Foo1>(new { X = new[] { "a", null, "c" } });
@@ -208,7 +208,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_two_variables_and_3_2_values()
         {
             var vm = new MultipleVariableManager<Foo2>(new FooValues());
@@ -234,7 +234,7 @@ namespace MonkeyCoder.Variables.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_for_two_variables_and_3_2_values_provided_in_anonymous_object()
         {
             var vm = new MultipleVariableManager<Foo2>(new { X = new[] { "a", "b", "c" }, Y = new[] { 1, 2 } });
