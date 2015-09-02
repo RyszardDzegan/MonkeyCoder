@@ -71,7 +71,7 @@ namespace MonkeyCoder.Variables.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "Property X must have setter.");
+                StartsWith("Property X must have setter.", exception.Message);
                 throw;
             }
         }
@@ -86,7 +86,7 @@ namespace MonkeyCoder.Variables.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "Possible values cannot be null.");
+                StartsWith("Possible values cannot be null.", exception.Message);
                 throw;
             }
         }
@@ -101,7 +101,7 @@ namespace MonkeyCoder.Variables.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "Cannot assign the following values to X due to type mismatch: 1, 2,345.");
+                StartsWith("Cannot assign the following values to X due to type mismatch: 1, 2,345.", exception.Message);
                 throw;
             }
         }

@@ -1,44 +1,44 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+﻿using NUnit.Framework;
+using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Math.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class CombinatoricsTests
     {
-        [TestMethod]
+        [Test]
         public void Cartesian_product_works()
         {
             var sut = new[] { new[] { "a", "b" }, new[] { "A", "B" } }.AsCartesianProduct();
-            IsInstanceOfType(sut, typeof(CartesianProduct<string>));
+            IsInstanceOf<CartesianProduct<string>>(sut);
         }
 
-        [TestMethod]
+        [Test]
         public void Combinations_works()
         {
             var sut = new[] { 1, 2, 3 }.AsCombinations(1);
-            IsInstanceOfType(sut, typeof(Combinations<int>));
+            IsInstanceOf<Combinations<int>>(sut);
         }
 
-        [TestMethod]
+        [Test]
         public void Variations_with_repetitions_works()
         {
             var sut = new[] { 1, 2, 3 }.AsVariationsWithRepetitions(1);
-            IsInstanceOfType(sut, typeof(VariationsWithRepetitions<int>));
+            IsInstanceOf<VariationsWithRepetitions<int>>(sut);
         }
 
-        [TestMethod]
+        [Test]
         public void Variations_without_repetitions_works()
         {
             var sut = new[] { 1, 2, 3 }.AsVariationsWithoutRepetitions(1);
-            IsInstanceOfType(sut, typeof(VariationsWithoutRepetitions<int>));
+            IsInstanceOf<VariationsWithoutRepetitions<int>>(sut);
         }
 
-        [TestMethod]
+        [Test]
         public void Power_set_works()
         {
             var sut = new[] { 1, 2, 3 }.AsPowerSet();
-            IsInstanceOfType(sut, typeof(PowerSet<int>));
+            IsInstanceOf<PowerSet<int>>(sut);
         }
     }
 }

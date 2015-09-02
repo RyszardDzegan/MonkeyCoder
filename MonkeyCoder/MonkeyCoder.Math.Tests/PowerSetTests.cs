@@ -1,22 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Math.Tests
 {
     using static TestHelpers.StaticExpectedOutputReader;
 
-    [TestClass]
+    [TestFixture]
     public class PowerSetTests : MathTestsBase
     {
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_pass_null_to_constructor()
         {
             new PowerSet<string>(null);
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_0_items()
         {
             var sut = new PowerSet<string>(new string[0]);
@@ -24,7 +24,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
         
-        [TestMethod]
+        [Test]
         public void Works_with_1_item()
         {
             var sut = new PowerSet<string>(new[] { "a" });
@@ -32,7 +32,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_items()
         {
             var sut = new PowerSet<string>(new[] { "a", "b" });
@@ -40,7 +40,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_items()
         {
             var sut = new PowerSet<string>(new[] { "a", "b", "c" });
@@ -48,7 +48,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items()
         {
             var sut = new PowerSet<string>(new[] { "a", "b", "c", "d" });
@@ -56,7 +56,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_5_items()
         {
             var sut = new PowerSet<string>(new[] { "a", "b", "c", "d", "e" });

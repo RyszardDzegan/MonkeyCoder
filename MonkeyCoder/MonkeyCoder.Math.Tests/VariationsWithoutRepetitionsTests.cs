@@ -1,24 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
+using static NUnit.Framework.Assert;
+using static NUnit.Framework.StringAssert;
 
 namespace MonkeyCoder.Math.Tests
 {
     using static TestHelpers.StaticExpectedOutputReader;
 
-    [TestClass]
+    [TestFixture]
     public class VariationsWithoutRepetitionsTests : MathTestsBase
     {
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_pass_null_to_constructor()
         {
             new VariationsWithoutRepetitions<string>(null, 0);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Throws_exception_when_k_is_less_than_zero()
         {
@@ -28,12 +28,12 @@ namespace MonkeyCoder.Math.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "k must be greater or equal 0, but is -1.");
+                StartsWith("k must be greater or equal 0, but is -1.", exception.Message);
                 throw;
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Throws_exception_when_k_is_greater_than_items_size()
         {
@@ -43,12 +43,12 @@ namespace MonkeyCoder.Math.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "k must be less or equal items count, but is 2.");
+                StartsWith("k must be less or equal items count, but is 2.", exception.Message);
                 throw;
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_no_items_and_k_0()
         {
             var variations = new VariationsWithoutRepetitions<string>(Enumerable.Empty<string>(), 0);
@@ -56,7 +56,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_item_and_k_0()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a" }, 0);
@@ -64,7 +64,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_item_and_k_1()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a" }, 1);
@@ -72,7 +72,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_items_and_k_0()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b" }, 0);
@@ -80,7 +80,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_items_and_k_1()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b" }, 1);
@@ -88,7 +88,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_items_and_k_2()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b" }, 2);
@@ -96,7 +96,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_items_and_k_0()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c" }, 0);
@@ -104,7 +104,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_items_and_k_1()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c" }, 1);
@@ -112,7 +112,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_items_and_k_2()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c" }, 2);
@@ -120,7 +120,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_items_and_k_3()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c" }, 3);
@@ -128,7 +128,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items_and_k_0()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c", "d" }, 0);
@@ -136,7 +136,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items_and_k_1()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c", "d" }, 1);
@@ -144,7 +144,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items_and_k_2()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c", "d" }, 2);
@@ -152,7 +152,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items_and_k_3()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c", "d" }, 3);
@@ -160,7 +160,7 @@ namespace MonkeyCoder.Math.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_4_items_and_k_4()
         {
             var variations = new VariationsWithoutRepetitions<string>(new[] { "a", "b", "c", "d" }, 4);

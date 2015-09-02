@@ -51,7 +51,7 @@ namespace MonkeyCoder.Variables.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "Possible values cannot be null.");
+                StartsWith("Possible values cannot be null.", exception.Message);
                 throw;
             }
         }
