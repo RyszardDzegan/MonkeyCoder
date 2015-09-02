@@ -1,0 +1,9 @@
+﻿# Finish each output set with $ mark
+
+Works_with_function_1_string
+a
+$
+
+Works_with_function_1_string_and_1_func_string_possible_argument
+a
+$

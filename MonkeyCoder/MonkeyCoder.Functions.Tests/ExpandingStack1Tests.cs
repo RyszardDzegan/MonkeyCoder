@@ -1,20 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using TestHelpers;
-
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {
-    using static StaticExpectedOutputReader;
-
     [TestClass]
-    public class ExpandingStack1Tests : CommonTests
+    public class ExpandingStack1Tests : CommonExpandingTests
     {
-        internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Expanding(function, possibleArguments, 1);
-
+        internal override int StackSize => 1;
+        
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public override void Throws_exception_when_function_is_null()
@@ -230,12 +224,43 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
-        public void Works_with_function_1_string()
+        public override void Works_with_function_1_string()
         {
-            var function = new Func<string>(() => "a");
-            var sut = GetInvoker(function);
-            GenerateOutput(sut);
-            AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
+            base.Works_with_function_1_string();
+        }
+
+        [TestMethod]
+        public override void Works_with_function_1_string_and_1_func_string_possible_argument()
+        {
+            base.Works_with_function_1_string_and_1_func_string_possible_argument();
+        }
+
+        [TestMethod]
+        [ExpectedOutput]
+        public override void Works_with_function_2_string_and_1_func_string_possible_argument()
+        {
+            base.Works_with_function_2_string_and_1_func_string_possible_argument();
+        }
+
+        [TestMethod]
+        [ExpectedOutput]
+        public override void Works_with_function_2_string_and_1_func_2_string_2_string_possible_arguments()
+        {
+            base.Works_with_function_2_string_and_1_func_2_string_2_string_possible_arguments();
+        }
+
+        [TestMethod]
+        [ExpectedOutput]
+        public override void Works_with_function_2_string_and_func_2_string_and_string_and_string_possible_arguments()
+        {
+            base.Works_with_function_2_string_and_func_2_string_and_string_and_string_possible_arguments();
+        }
+
+        [TestMethod]
+        [ExpectedOutput]
+        public override void Works_with_function_2_string_and_func_2_string_and_func_2_string_and_string_possible_arguments()
+        {
+            base.Works_with_function_2_string_and_func_2_string_and_func_2_string_and_string_possible_arguments();
         }
     }
 }

@@ -5,10 +5,10 @@ using TestHelpers;
 namespace MonkeyCoder.Functions.Tests
 {
     [TestClass]
-    public class ExpandingStack0Tests : CommonExpandingTests
+    public class ExpandingStack2Tests : CommonExpandingTests
     {
-        internal override int StackSize => 0;
-
+        internal override int StackSize => 2;
+        
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public override void Throws_exception_when_function_is_null()
@@ -192,6 +192,7 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
+        [ExpectedOutput]
         public override void Works_with_complex_possible_arguments()
         {
             base.Works_with_complex_possible_arguments();
@@ -210,6 +211,7 @@ namespace MonkeyCoder.Functions.Tests
         }
 
         [TestMethod]
+        [ExpectedOutput]
         public override void Works_with_for_loop_and_inner_function()
         {
             base.Works_with_for_loop_and_inner_function();

@@ -54,6 +54,8 @@
     <Compile Include="CommonTests.cs" />
     <Compile Include="Basic_AppendableTests.cs" />
     <Compile Include="ExpandingStack0Tests.cs" />
+    <Compile Include="CommonExpandingTests.cs" />
+    <Compile Include="ExpandingStack2Tests.cs" />
     <Compile Include="TestsBase.cs" />
     <Compile Include="ExpandingStack1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExpandingStack0TestsExpectedOutputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CommonExpandingTestsExpectedOutputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExpandingStack2TestsExpectedOutputs.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
