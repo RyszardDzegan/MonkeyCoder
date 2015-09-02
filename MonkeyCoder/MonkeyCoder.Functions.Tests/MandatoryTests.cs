@@ -1,20 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MandatoryTests
     {
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_function_is_null()
         {
             new Mandatory(null, null, null);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Throws_exception_when_possible_arguments_are_null()
         {
@@ -22,7 +22,7 @@ namespace MonkeyCoder.Functions.Tests
             new Mandatory(function, null, null);
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_empty_action_and_1_string_mandatory_argument()
         {
             var function = new Action(() => { });
@@ -31,7 +31,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_action_and_1_string_mandatory_argument()
         {
             var function = new Action<int>(x => { });
@@ -40,7 +40,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_string_action_and_1_string_mandatory_argument()
         {
             var result = "";
@@ -53,7 +53,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_action_and_2_null_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Action<int>(x => { });
@@ -62,7 +62,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_nullable_int_action_and_2_null_possible_arguments_and_1_string_mandatory_argument()
         {
             var result = "";
@@ -72,7 +72,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_nullable_int_action_and_2_null_possible_arguments_and_1_int_mandatory_argument()
         {
             var result = "";
@@ -85,7 +85,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_string_action_and_2_null_possible_arguments_and_1_string_mandatory_argument()
         {
             var result = "";
@@ -98,7 +98,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_string_1_int_action_and_2_null_1_int_possible_arguments_and_1_string_mandatory_argument()
         {
             var result = "";
@@ -111,7 +111,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_string_1_nullable_int_action_and_2_null_1_int_possible_arguments_and_1_string_mandatory_argument()
         {
             var result = "";
@@ -130,7 +130,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_action_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var result = -1;
@@ -143,7 +143,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_action_and_2_int_possible_arguments_and_1_int_mandatory_argument()
         {
             var result = -1;
@@ -156,7 +156,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_action_and_2_int_1_string_possible_arguments_and_1_int_mandatory_argument()
         {
             object result = -1;
@@ -169,7 +169,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_func_and_1_string_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
@@ -178,7 +178,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
@@ -189,7 +189,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
@@ -200,7 +200,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_func_and_2_int_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
@@ -211,7 +211,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_func_and_2_int_1_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int>(x => x);
@@ -222,7 +222,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_int_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
@@ -233,7 +233,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_int_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, int>((x, y) => x + y);
@@ -248,7 +248,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_string_func_and_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
@@ -257,7 +257,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_string_func_and_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<string, string, string>((x, y) => x + y);
@@ -276,7 +276,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -285,7 +285,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -294,7 +294,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -303,7 +303,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_string_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -314,7 +314,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -325,7 +325,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -336,7 +336,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_argument_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -347,7 +347,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_2_int_1_string_possible_argument_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -360,7 +360,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -373,7 +373,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -384,7 +384,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -397,7 +397,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<int, string, string>((x, y) => y + x);
@@ -410,7 +410,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_2_int_1_string_func_and_2_int_2_string_possible_arguments_and_1_int_mandatory_argument()
         {
             var function = new Func<int, int, string, string>((x, y, z) => z + y + x);
@@ -439,7 +439,7 @@ namespace MonkeyCoder.Functions.Tests
             IsFalse(e.MoveNext());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_3_string_func_and_2_int_2_string_possible_arguments_and_1_string_mandatory_argument()
         {
             var function = new Func<string, string, string, string>((x, y, z) => z + y + x);

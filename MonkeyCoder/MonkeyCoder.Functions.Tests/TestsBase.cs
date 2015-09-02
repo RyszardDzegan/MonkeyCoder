@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +29,17 @@ namespace MonkeyCoder.Functions.Tests
             }
         }
 
-        [TestInitialize]
-        public void Setup()
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
         {
             var doubleOutput = new DoubleOutput(Console.Out, ActualTestOutput);
             Console.SetOut(doubleOutput);
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            ActualTestOutput.GetStringBuilder().Clear();
         }
     }
 }

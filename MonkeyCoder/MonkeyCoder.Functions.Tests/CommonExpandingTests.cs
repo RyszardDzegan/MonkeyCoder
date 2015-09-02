@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TestHelpers;
 
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {

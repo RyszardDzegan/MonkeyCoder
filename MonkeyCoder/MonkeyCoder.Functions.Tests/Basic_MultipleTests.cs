@@ -1,233 +1,233 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
+using static NUnit.Framework.Assert;
+using static NUnit.Framework.StringAssert;
 
 namespace MonkeyCoder.Functions.Tests
 {
     using static TestHelpers.StaticExpectedOutputReader;
 
-    [TestClass]
+    [TestFixture]
     public class Basic_MultipleTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
             new Basic.Multiple(new Delegate[] { function }, possibleArguments);
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public override void Throws_exception_when_function_is_null()
         {
             base.Throws_exception_when_function_is_null();
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public override void Throws_exception_when_possible_arguments_are_null()
         {
             base.Throws_exception_when_possible_arguments_are_null();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_empty_action()
         {
             base.Works_with_empty_action();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_action()
         {
             base.Works_with_1_int_action();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_action_and_2_null_possible_arguments()
         {
             base.Works_with_1_int_action_and_2_null_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_string_action_and_2_null_possible_arguments()
         {
             base.Works_with_1_string_action_and_2_null_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_string_1_int_action_and_2_null_1_int_possible_arguments()
         {
             base.Works_with_1_string_1_int_action_and_2_null_1_int_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_string_1_nullable_int_action_and_2_null_1_int_possible_arguments()
         {
             base.Works_with_1_string_1_nullable_int_action_and_2_null_1_int_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_action_and_1_int_possible_argument()
         {
             base.Works_with_1_int_action_and_1_int_possible_argument();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_action_and_2_int_possible_arguments()
         {
             base.Works_with_1_int_action_and_2_int_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_action_and_2_int_1_string_possible_arguments()
         {
             base.Works_with_1_int_action_and_2_int_1_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_func()
         {
             base.Works_with_1_int_func();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_func_and_1_int_possible_argument()
         {
             base.Works_with_1_int_func_and_1_int_possible_argument();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_func_and_2_int_possible_arguments()
         {
             base.Works_with_1_int_func_and_2_int_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_func_and_2_int_1_string_possible_arguments()
         {
             base.Works_with_1_int_func_and_2_int_1_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_2_int_func()
         {
             base.Works_with_2_int_func();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_2_int_func_and_1_int_possible_argument()
         {
             base.Works_with_2_int_func_and_1_int_possible_argument();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_2_string_func_and_2_string_possible_arguments()
         {
             base.Works_with_2_string_func_and_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func()
         {
             base.Works_with_1_int_1_string_func();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_1_int_possible_argument()
         {
             base.Works_with_1_int_1_string_func_and_1_int_possible_argument();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_1_string_possible_argument()
         {
             base.Works_with_1_int_1_string_func_and_1_string_possible_argument();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments()
         {
             base.Works_with_1_int_1_string_func_and_1_int_1_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_2_int_1_string_possible_arguments()
         {
             base.Works_with_1_int_1_string_func_and_2_int_1_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments()
         {
             base.Works_with_1_int_1_string_func_and_1_int_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments()
         {
             base.Works_with_1_int_1_string_func_and_2_int_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_int_1_string_func_and_2_int_2_string_messed_possible_arguments()
         {
             base.Works_with_1_int_1_string_func_and_2_int_2_string_messed_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_func_int_1_string_func_and_2_int_2_string_possible_arguments()
         {
             base.Works_with_1_func_int_1_string_func_and_2_int_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_func_int_1_string_func_and_1_int_1_func_int_2_string_possible_arguments()
         {
             base.Works_with_1_func_int_1_string_func_and_1_int_1_func_int_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_func_int_1_string_func_and_2_func_int_2_string_possible_arguments()
         {
             base.Works_with_1_func_int_1_string_func_and_2_func_int_2_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_1_func_int_1_func_string_func_and_2_func_int_2_func_string_possible_arguments()
         {
             base.Works_with_1_func_int_1_func_string_func_and_2_func_int_2_func_string_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_complex_possible_arguments()
         {
             base.Works_with_complex_possible_arguments();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_for_loop()
         {
             base.Works_with_for_loop();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_for_loop_and_arguments_as_functions()
         {
             base.Works_with_for_loop_and_arguments_as_functions();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_for_loop_and_inner_function()
         {
             base.Works_with_for_loop_and_inner_function();
         }
 
-        [TestMethod]
+        [Test]
         public override void Works_with_two_enumerators()
         {
             base.Works_with_two_enumerators();
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void Throws_argument_exception_when_function_is_null()
         {
@@ -237,12 +237,12 @@ namespace MonkeyCoder.Functions.Tests
             }
             catch (Exception exception)
             {
-                StartsWith(exception.Message, "All functions must be not null. Found nulls at positions: 0");
+                StartsWith("All functions must be not null. Found nulls at positions: 0", exception.Message);
                 throw;
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_int_and_function_2_string()
         {
             var f1 = new Func<int, int>(x => x);
@@ -252,7 +252,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_int_and_function_2_string_and_1_int_possible_argument()
         {
             var f1 = new Func<int, int>(x => x);
@@ -262,7 +262,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_int_and_function_2_string_and_1_int_1_string_possible_arguments()
         {
             var f1 = new Func<int, int>(x => x);
@@ -272,7 +272,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_int_and_function_2_string_and_1_string_1_int_possible_arguments()
         {
             var f1 = new Func<int, int>(x => x);
@@ -282,7 +282,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_string_and_function_2_int_and_1_int_1_string_possible_arguments()
         {
             var f1 = new Func<string, string>(x => x);
@@ -292,7 +292,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_string_and_function_2_int_and_1_string_1_int_possible_arguments()
         {
             var f1 = new Func<string, string>(x => x);
@@ -302,7 +302,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_2_int_and_function_2_string_and_2_int_2_string_possible_arguments()
         {
             var f1 = new Func<int, int>(x => x);
@@ -312,7 +312,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_string_int_string_and_function_2_string_and_2_int_2_string_possible_arguments()
         {
             var f1 = new Func<string, int, string>((x, y) => x + y);
@@ -322,7 +322,7 @@ namespace MonkeyCoder.Functions.Tests
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
 
-        [TestMethod]
+        [Test]
         public void Works_with_function_string_int_string_and_function_2_string_and_function_2_int_and_2_int_2_string_possible_arguments()
         {
             var f1 = new Func<string, int, string>((x, y) => x + y);
