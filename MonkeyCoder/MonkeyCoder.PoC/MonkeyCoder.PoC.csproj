@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7AC241C4-94B7-4496-82C1-5FAC6CEF92EE}</ProjectGuid>
+    <ProjectGuid>{428C849C-43BD-4F35-A88D-EBE4319E47F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonkeyCoder.Variables.Tests</RootNamespace>
-    <AssemblyName>MonkeyCoder.Variables.Tests</AssemblyName>
+    <RootNamespace>MonkeyCoder.PoC</RootNamespace>
+    <AssemblyName>MonkeyCoder.PoC</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,7 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
       <Private>True</Private>
@@ -72,19 +71,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MultipleVariableManagerTests.cs" />
+    <Compile Include="MinMax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleVariableManagerTests.cs" />
-    <Compile Include="VariableManagerFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MonkeyCoder.Functions\MonkeyCoder.Functions.csproj">
+      <Project>{e1976518-e492-491d-a66b-0dc941577c1f}</Project>
+      <Name>MonkeyCoder.Functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonkeyCoder.Variables\MonkeyCoder.Variables.csproj">
       <Project>{1272a237-c536-4b69-9b5c-59e7a25ed2f8}</Project>
       <Name>MonkeyCoder.Variables</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

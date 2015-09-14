@@ -1,13 +1,14 @@
-﻿using NUnit.Framework;
+﻿using MonkeyCoder.Variables;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using static NUnit.Framework.Assert;
 
-namespace MonkeyCoder.Variables.Tests
+namespace MonkeyCoder.PoC
 {
     [TestFixture]
-    public class MinMaxTests
+    public class MinMax
     {
         private class Variables
         {
