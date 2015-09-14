@@ -17,6 +17,7 @@ The ultimate objective is to develop an application that will be able to generat
 ## Milestones
 Each milestone will be achieved when application is able to fix an algorithm in defined degree of degradation. Each of which is defined as a user story:
  - As a user, I know the algorithm's implementation, input and output. However, I was given several integer values and I don't know how to initialize integer variables or fields withitn the algorithm with these variables to achieve expected output from provided input. ![Implemented][Y]
+ - As a user, I don't know the algorithm's implementation. However, I know all functions and their arguments that are required and sufficient to implement the algorithm. The functions and their arguments are black boxes to me. Hence the only way to connect them is a random way. ![Not implemented][X]
 
 [X]: http://www.saudigazette.com.sa/images/red-x.png
 [Y]: http://checkstocknow.co.uk/images/tick.gif
