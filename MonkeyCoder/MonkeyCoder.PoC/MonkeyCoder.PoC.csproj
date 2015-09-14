@@ -71,6 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Formulas.cs" />
     <Compile Include="MinMax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

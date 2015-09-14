@@ -63,13 +63,13 @@ namespace MonkeyCoder.Functions
 
             var relations = Relation.Evaluable.Get(parameters, updatedDistinctRelations);
 
-            var valueArrays =
+            var valueEnumerables =
                 from evaluables in relations.Select(x => x.Evaluables.ToList()).AsCartesianProduct()
-                select evaluables.Select(x => x.Evaluate()).ToArray();
+                select evaluables.Select(x => x.Evaluate());
 
             var functions =
-                from valueArray in valueArrays
-                select new Func<object>(() => function.DynamicInvoke(valueArray));
+                from valueEnumerable in valueEnumerables
+                select new Func<object>(() => function.DynamicInvoke(valueEnumerable.ToArray()));
 
             Invocations = FunctionsEnumerable.Lazy(functions);
         }
