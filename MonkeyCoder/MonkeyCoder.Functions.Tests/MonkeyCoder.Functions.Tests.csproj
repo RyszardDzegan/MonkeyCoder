@@ -76,6 +76,7 @@
     <Compile Include="ExpandingStack0Tests.cs" />
     <Compile Include="CommonExpandingTests.cs" />
     <Compile Include="ExpandingStack2Tests.cs" />
+    <Compile Include="FunctionManagerTests.cs" />
     <Compile Include="TestsBase.cs" />
     <Compile Include="ExpandingStack1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

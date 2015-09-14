@@ -18,7 +18,13 @@ namespace MonkeyCoder.Functions
 
             if (possibleArguments == null)
                 throw new ArgumentNullException(nameof(possibleArguments), "Possible arguments cannot be null.");
-            
+
+            if (stackSize < 0)
+            {
+                Invocations = FunctionsEnumerable.Lazy();
+                return;
+            }
+
             var parameters = function.Method.GetParameters();
 
             if (!parameters.Any())

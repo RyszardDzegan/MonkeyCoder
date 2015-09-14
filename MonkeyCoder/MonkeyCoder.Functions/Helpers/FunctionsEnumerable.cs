@@ -9,6 +9,16 @@ namespace MonkeyCoder.Functions.Helpers
     {
         private IEnumerable<Func<object>> enumerable { get; }
 
+        public FunctionsEnumerable()
+        {
+            enumerable = Enumerable.Empty<Func<object>>();
+        }
+
+        public FunctionsEnumerable(object value)
+        {
+            enumerable = Enumerable.Repeat(new Func<object>(() => value), 1);
+        }
+
         public FunctionsEnumerable(Delegate @delegate)
         {
             enumerable = Enumerable.Repeat(new Func<object>(() => @delegate.DynamicInvoke()), 1);
@@ -22,7 +32,9 @@ namespace MonkeyCoder.Functions.Helpers
         public IEnumerator<Func<object>> GetEnumerator() => enumerable.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public static Lazy<FunctionsEnumerable> Lazy(Delegate d) => new Lazy<FunctionsEnumerable>(() => new FunctionsEnumerable(d));
+        public static Lazy<FunctionsEnumerable> Lazy() => new Lazy<FunctionsEnumerable>(() => new FunctionsEnumerable());
+        public static Lazy<FunctionsEnumerable> Lazy(object value) => new Lazy<FunctionsEnumerable>(() => new FunctionsEnumerable(value));
+        public static Lazy<FunctionsEnumerable> Lazy(Delegate @delegate) => new Lazy<FunctionsEnumerable>(() => new FunctionsEnumerable(@delegate));
         public static Lazy<FunctionsEnumerable> Lazy(IEnumerable<Func<object>> functions) => new Lazy<FunctionsEnumerable>(() => new FunctionsEnumerable(functions));
     }
 }
