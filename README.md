@@ -29,3 +29,4 @@ Language|C# 6.0
 Framework|.NET Framework 4.6
 IDE|Visual Studio Community 2015
 VCS|GitHub
+Unit Tests|NUnit
