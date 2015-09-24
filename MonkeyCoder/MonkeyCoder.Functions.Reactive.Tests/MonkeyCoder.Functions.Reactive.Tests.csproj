@@ -71,7 +71,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SumEvaluableTests.cs" />
+    <Compile Include="FactoryTestsBase.cs" />
+    <Compile Include="EquFactoryTests.cs" />
+    <Compile Include="SumFactoryTests.cs" />
+    <Compile Include="NumberFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

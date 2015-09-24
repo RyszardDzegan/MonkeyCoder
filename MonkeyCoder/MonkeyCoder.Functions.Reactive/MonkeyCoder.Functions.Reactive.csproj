@@ -57,16 +57,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IVisitable.cs" />
-    <Compile Include="IVisitor.cs" />
-    <Compile Include="StringBuilderVisitor.cs" />
-    <Compile Include="Number.cs" />
-    <Compile Include="INumber.cs" />
-    <Compile Include="IEvaluable.cs" />
-    <Compile Include="IBinaryOperation.cs" />
-    <Compile Include="SumEvaluable.cs" />
-    <Compile Include="SumEvaluableFactory.cs" />
-    <Compile Include="IEvaluableFactory.cs" />
+    <Compile Include="Evaluables\IBoolean.cs" />
+    <Compile Include="Factories\BinaryNumberFactory.cs" />
+    <Compile Include="Factories\FactoryProviders\NumberFactoryProvider.cs" />
+    <Compile Include="Factories\FactoryProviders\GenericFactoryProvider.cs" />
+    <Compile Include="Factories\MulFactory.cs" />
+    <Compile Include="Evaluables\Equ.cs" />
+    <Compile Include="Factories\EquFactory.cs" />
+    <Compile Include="Evaluables\Boolean.cs" />
+    <Compile Include="NumberHelper.cs" />
+    <Compile Include="Factories\SumFactory.cs" />
+    <Compile Include="Evaluables\Mul.cs" />
+    <Compile Include="Evaluables\Sum.cs" />
+    <Compile Include="Factories\BinaryEvaluableFactory.cs" />
+    <Compile Include="Factories\IEvaluableFactory.cs" />
+    <Compile Include="Factories\FactoryProviders\IEvaluableFactoryProvider.cs" />
+    <Compile Include="Visitors\IVisitable.cs" />
+    <Compile Include="Visitors\IVisitor.cs" />
+    <Compile Include="Evaluables\BinaryEvaluable.cs" />
+    <Compile Include="Visitors\StringBuilderVisitor.cs" />
+    <Compile Include="Evaluables\Number.cs" />
+    <Compile Include="Evaluables\INumber.cs" />
+    <Compile Include="Evaluables\IEvaluable.cs" />
+    <Compile Include="Evaluables\IBinaryEvaluable.cs" />
+    <Compile Include="Factories\NumberFactory.cs" />
+    <Compile Include="Factories\FactoryProviders\DefaultFactoryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

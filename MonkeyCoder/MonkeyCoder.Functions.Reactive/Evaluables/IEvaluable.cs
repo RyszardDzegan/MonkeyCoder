@@ -2,6 +2,6 @@
 {
     internal interface IEvaluable : IVisitable
     {
-        object Evaluate();
+        dynamic Evaluate();
     }
 }
