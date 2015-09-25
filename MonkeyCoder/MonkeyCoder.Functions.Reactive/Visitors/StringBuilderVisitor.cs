@@ -33,6 +33,9 @@ namespace MonkeyCoder.Functions.Reactive
         public void Visit(LessThan visitable) =>
             Visit(visitable, "<");
 
+        public void Visit(LogicalAnd visitable) =>
+            Visit(visitable, " and ");
+
         public override string ToString() =>
             StringBuilder.ToString();
     }

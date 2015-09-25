@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MonkeyCoder.Functions.Reactive
+﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class MultiplicationFactory : BinaryNumberFactory<Multiplication>
-    {
-        protected override IEnumerable<dynamic> ProhibitedValues => new dynamic[] { 0 };
-    }
+    internal class MultiplicationFactory : BinaryTypeSafeFactory<Multiplication, INumber, INumber> { }
 }

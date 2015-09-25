@@ -1,4 +1,4 @@
 ﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class SumFactory : BinaryNumberFactory<Sum> { }
+    internal class SumFactory : BinaryTypeSafeFactory<Sum, INumber, INumber> { }
 }

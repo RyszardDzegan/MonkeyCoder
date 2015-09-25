@@ -57,15 +57,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluables\LogicalAnd.cs" />
     <Compile Include="Evaluables\LessThan.cs" />
     <Compile Include="Evaluables\IBoolean.cs" />
-    <Compile Include="Factories\BinaryNumberFactory.cs" />
+    <Compile Include="Factories\BinaryEvaluableFactory.RightSide.cs" />
+    <Compile Include="Factories\BinaryEvaluableFactory.BothSides.cs" />
+    <Compile Include="Factories\BinaryTypeSafeFactory.cs" />
+    <Compile Include="Factories\LogicalAndFactory.cs" />
     <Compile Include="Factories\LessThanFactory.cs" />
     <Compile Include="Factories\MultiplicationFactory.cs" />
     <Compile Include="Evaluables\Equality.cs" />
     <Compile Include="Factories\EqualityFactory.cs" />
     <Compile Include="Evaluables\Boolean.cs" />
-    <Compile Include="NumberHelper.cs" />
+    <Compile Include="AssignablityHelper.cs" />
     <Compile Include="Factories\SumFactory.cs" />
     <Compile Include="Evaluables\Multiplication.cs" />
     <Compile Include="Evaluables\Sum.cs" />

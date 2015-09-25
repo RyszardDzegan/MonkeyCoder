@@ -8,5 +8,6 @@
         void Visit(Multiplication visitable);
         void Visit(Equality visitable);
         void Visit(LessThan visitable);
+        void Visit(LogicalAnd visitable);
     }
 }

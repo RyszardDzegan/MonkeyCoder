@@ -2,12 +2,12 @@
 
 namespace MonkeyCoder.Functions.Reactive
 {
-    internal class LessThanFactory : BinaryNumberFactory<LessThan>
+    internal class LessThanFactory : BinaryTypeSafeFactory<LessThan, INumber, INumber>
     {
-        protected override void OnChildNext(IEvaluable current, IEvaluable childNext, IObserver<IEvaluable> observer)
+        protected override void OnRightOperandNext(IEvaluable current, IEvaluable childNext, IObserver<IEvaluable> observer)
         {
             if (current.Evaluate() < childNext.Evaluate())
-                base.OnChildNext(current, childNext, observer);
+                base.OnRightOperandNext(current, childNext, observer);
         }
     }
 }

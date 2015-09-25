@@ -9,7 +9,7 @@ namespace MonkeyCoder.Functions.Tests
     public class LessThanFactoryTests : FactoryTestsBase
     {
         [Test]
-        public void Works_with_number_and_sum_and_multiplication_and_equality_factories_and_1_then_2_then_3_as_data_source()
+        public void Works_with_number_and_sum_and_multiplication_and_equality_factories_and_1_then_2_as_data_source()
         {
             var factoryProviders = GetFactoryProvidersSource(
                 new DefaultFactoryProvider<NumberFactory>(),
