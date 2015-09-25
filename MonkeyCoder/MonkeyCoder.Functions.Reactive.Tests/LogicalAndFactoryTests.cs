@@ -20,38 +20,27 @@ namespace MonkeyCoder.Functions.Tests
 
             var factory = new LogicalAndFactory { FactoryProvidersSource = factoryProviders, DataSource = dataSource, StackSize = 3 };
             var enumerator = factory.GetEnumerator();
-
-            Assert(enumerator, "((1<(1+1)) and (1<(1+1)))");
-            Assert(enumerator, "((1=1) and (1=1))");
-            Assert(enumerator, "((2<(2+2)) and (2<(2+2)))");
+            
             Assert(enumerator, "((2<(2+2)) and (1<2))");
             Assert(enumerator, "((2<(2+2)) and (1<(1+1)))");
             Assert(enumerator, "((2<(2+2)) and (1<(2+2)))");
             Assert(enumerator, "((2<(2+2)) and (1<(2+1)))");
             Assert(enumerator, "((1<2) and (2<(2+2)))");
-            Assert(enumerator, "((1<2) and (1<2))");
             Assert(enumerator, "((1<2) and (1<(1+1)))");
             Assert(enumerator, "((1<2) and (1<(2+2)))");
             Assert(enumerator, "((1<2) and (1<(2+1)))");
             Assert(enumerator, "((1<(1+1)) and (2<(2+2)))");
             Assert(enumerator, "((1<(1+1)) and (1<2))");
-            Assert(enumerator, "((1<(1+1)) and (1<(1+1)))");
             Assert(enumerator, "((1<(1+1)) and (1<(2+2)))");
             Assert(enumerator, "((1<(1+1)) and (1<(2+1)))");
             Assert(enumerator, "((1<(2+2)) and (2<(2+2)))");
             Assert(enumerator, "((1<(2+2)) and (1<2))");
             Assert(enumerator, "((1<(2+2)) and (1<(1+1)))");
-            Assert(enumerator, "((1<(2+2)) and (1<(2+2)))");
             Assert(enumerator, "((1<(2+2)) and (1<(2+1)))");
             Assert(enumerator, "((1<(2+1)) and (2<(2+2)))");
             Assert(enumerator, "((1<(2+1)) and (1<2))");
             Assert(enumerator, "((1<(2+1)) and (1<(1+1)))");
             Assert(enumerator, "((1<(2+1)) and (1<(2+2)))");
-            Assert(enumerator, "((1<(2+1)) and (1<(2+1)))");
-            Assert(enumerator, "((2=2) and (2=2))");
-            Assert(enumerator, "((2=2) and (1=1))");
-            Assert(enumerator, "((1=1) and (2=2))");
-            Assert(enumerator, "((1=1) and (1=1))");
             IsFalse(enumerator.MoveNext());
         }
     }

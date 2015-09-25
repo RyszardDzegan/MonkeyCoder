@@ -18,13 +18,10 @@ namespace MonkeyCoder.Functions.Tests
 
             var factory = new EqualityFactory { FactoryProvidersSource = factoryProviders, DataSource = dataSource, StackSize = 5 };
             var enumerator = factory.GetEnumerator();
-
-            Assert(enumerator, "(1=1)");
+            
             Assert(enumerator, "(2=(1+1))");
-            Assert(enumerator, "(2=2)");
             Assert(enumerator, "(3=(1+2))");
             Assert(enumerator, "(3=(1+(1+1)))");
-            Assert(enumerator, "(3=3)");
             IsFalse(enumerator.MoveNext());
         }
     }

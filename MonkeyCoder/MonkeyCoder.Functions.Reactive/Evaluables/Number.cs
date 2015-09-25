@@ -1,15 +1,12 @@
 ﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class Number : INumber
+    internal class Number : UnaryEvaluable, INumber
     {
-        public dynamic Value { get; }
+        public Number(object value)
+            : base(value)
+        { }
 
-        public Number(dynamic value)
-        {
-            Value = value;
-        }
-
-        public dynamic Evaluate() => Value;
-        void IVisitable.Accept(IVisitor visitor) => visitor.Visit(this);
+        void IVisitable.Accept(IVisitor visitor) =>
+            visitor.Visit(this);
     }
 }

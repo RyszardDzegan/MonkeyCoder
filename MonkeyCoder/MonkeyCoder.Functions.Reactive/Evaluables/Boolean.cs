@@ -1,15 +1,12 @@
 ﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class Boolean : IBoolean
+    internal class Boolean : UnaryEvaluable, IBoolean
     {
-        public dynamic Value { get; }
+        public Boolean(object value)
+            : base(value)
+        { }
 
-        public Boolean(dynamic value)
-        {
-            Value = value;
-        }
-
-        public dynamic Evaluate() => Value;
-        void IVisitable.Accept(IVisitor visitor) => visitor.Visit(this);
+        void IVisitable.Accept(IVisitor visitor) =>
+            visitor.Visit(this);
     }
 }

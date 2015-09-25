@@ -10,10 +10,10 @@ namespace MonkeyCoder.Functions.Reactive
         protected override bool AcceptsB(IEvaluable b) =>
             AssignablityHelper<IBoolean>.IsAssignableFrom(b);
 
-        protected override void OnRightOperandNext(IEvaluable current, IEvaluable childNext, IObserver<IEvaluable> observer)
+        protected override void OnRightOperandNext(IEvaluable a, IEvaluable b, IObserver<IEvaluable> observer)
         {
-            if (current.Evaluate() && childNext.Evaluate())
-                base.OnRightOperandNext(current, childNext, observer);
+            if (!a.Equals(b) && a.Evaluate() && b.Evaluate())
+                base.OnRightOperandNext(a, b, observer);
         }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="Evaluables\LogicalAnd.cs" />
     <Compile Include="Evaluables\LessThan.cs" />
     <Compile Include="Evaluables\IBoolean.cs" />
+    <Compile Include="Evaluables\UnaryEvaluable.cs" />
     <Compile Include="Factories\BinaryEvaluableFactory.RightSide.cs" />
     <Compile Include="Factories\BinaryEvaluableFactory.BothSides.cs" />
     <Compile Include="Factories\BinaryTypeSafeFactory.cs" />
