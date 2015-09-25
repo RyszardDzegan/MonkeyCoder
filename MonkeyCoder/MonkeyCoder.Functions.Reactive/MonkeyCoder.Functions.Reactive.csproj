@@ -57,8 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluables\LessThan.cs" />
     <Compile Include="Evaluables\IBoolean.cs" />
     <Compile Include="Factories\BinaryNumberFactory.cs" />
+    <Compile Include="Factories\LessThanFactory.cs" />
     <Compile Include="Factories\MultiplicationFactory.cs" />
     <Compile Include="Evaluables\Equality.cs" />
     <Compile Include="Factories\EqualityFactory.cs" />

@@ -7,5 +7,6 @@
         void Visit(Sum visitable);
         void Visit(Multiplication visitable);
         void Visit(Equality visitable);
+        void Visit(LessThan visitable);
     }
 }

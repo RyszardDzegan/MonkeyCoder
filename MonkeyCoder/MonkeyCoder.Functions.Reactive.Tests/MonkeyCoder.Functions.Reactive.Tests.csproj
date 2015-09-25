@@ -71,6 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LessThanFactoryTests.cs" />
     <Compile Include="FactoryTestsBase.cs" />
     <Compile Include="EqualityFactoryTests.cs" />
     <Compile Include="SumFactoryTests.cs" />

@@ -6,46 +6,34 @@ namespace MonkeyCoder.Functions.Reactive
     {
         private StringBuilder StringBuilder { get; } = new StringBuilder();
 
-        public void Visit(Number visitable)
+        private void Visit(IBinaryEvaluable visitable, string symbol)
         {
+            StringBuilder.Append("(");
+            visitable.A.Accept(this);
+            StringBuilder.Append(symbol);
+            visitable.B.Accept(this);
+            StringBuilder.Append(")");
+        }
+
+        public void Visit(Number visitable) =>
             StringBuilder.Append(visitable.Evaluate());
-        }
 
-        public void Visit(Boolean visitable)
-        {
+        public void Visit(Boolean visitable) =>
             StringBuilder.Append(visitable.Evaluate());
-        }
 
-        public void Visit(Sum visitable)
-        {
-            StringBuilder.Append("(");
-            visitable.A.Accept(this);
-            StringBuilder.Append("+");
-            visitable.B.Accept(this);
-            StringBuilder.Append(")");
-        }
+        public void Visit(Sum visitable) =>
+            Visit(visitable, "+");
 
-        public void Visit(Multiplication visitable)
-        {
-            StringBuilder.Append("(");
-            visitable.A.Accept(this);
-            StringBuilder.Append("*");
-            visitable.B.Accept(this);
-            StringBuilder.Append(")");
-        }
+        public void Visit(Multiplication visitable) =>
+            Visit(visitable, "*");
 
-        public void Visit(Equality visitable)
-        {
-            StringBuilder.Append("(");
-            visitable.A.Accept(this);
-            StringBuilder.Append("==");
-            visitable.B.Accept(this);
-            StringBuilder.Append(")");
-        }
+        public void Visit(Equality visitable) =>
+            Visit(visitable, "=");
 
-        public override string ToString()
-        {
-            return StringBuilder.ToString();
-        }
+        public void Visit(LessThan visitable) =>
+            Visit(visitable, "<");
+
+        public override string ToString() =>
+            StringBuilder.ToString();
     }
 }
