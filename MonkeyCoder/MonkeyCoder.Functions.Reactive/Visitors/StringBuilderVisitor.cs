@@ -25,7 +25,7 @@ namespace MonkeyCoder.Functions.Reactive
             StringBuilder.Append(")");
         }
 
-        public void Visit(Mul visitable)
+        public void Visit(Multiplication visitable)
         {
             StringBuilder.Append("(");
             visitable.A.Accept(this);
@@ -34,7 +34,7 @@ namespace MonkeyCoder.Functions.Reactive
             StringBuilder.Append(")");
         }
 
-        public void Visit(Equ visitable)
+        public void Visit(Equality visitable)
         {
             StringBuilder.Append("(");
             visitable.A.Accept(this);

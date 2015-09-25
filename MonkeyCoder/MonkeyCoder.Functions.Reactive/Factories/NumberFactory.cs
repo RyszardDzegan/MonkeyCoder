@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 
 namespace MonkeyCoder.Functions.Reactive
 {
@@ -6,20 +7,18 @@ namespace MonkeyCoder.Functions.Reactive
     {
         public IObservable<IEvaluableFactoryProvider> FactoryProvidersSource { get; set; }
         public IObservable<IEvaluable> DataSource { get; set; }
-        public IEvaluable Expected { get; set; }
         public int StackSize { get; set; }
 
         public IDisposable Subscribe(IObserver<IEvaluable> observer)
         {
-            return DataSource.Subscribe(
-                onNext: x =>
-                {
-                    var a = x.Evaluate();
-                    var b = Expected.Evaluate();
+            if (StackSize < 0)
+            {
+                observer.OnCompleted();
+                return Disposable.Empty;
+            }
 
-                    if (a == b)
-                        observer.OnNext(new Number(a));
-                },
+            return DataSource.Subscribe(
+                onNext: current => observer.OnNext(new Number(current.Evaluate())),
                 onCompleted: observer.OnCompleted);
         }
     }

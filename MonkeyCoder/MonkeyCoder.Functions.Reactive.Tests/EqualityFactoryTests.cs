@@ -6,17 +6,17 @@ using static NUnit.Framework.Assert;
 namespace MonkeyCoder.Functions.Tests
 {
     [TestFixture]
-    public class EquFactoryTests : FactoryTestsBase
+    public class EqualityFactoryTests : FactoryTestsBase
     {
         [Test]
-        public void Works_with_number_and_sum_factory_and_true_as_expected_and_1_then_2_then_3_as_data_source()
+        public void Works_with_number_and_sum_factory_and_1_then_2_then_3_as_data_source()
         {
             var factoryProviders = GetFactoryProvidersSource(
-                new NumberFactoryProvider<NumberFactory>(),
-                new NumberFactoryProvider<SumFactory>());
+                new DefaultFactoryProvider<NumberFactory>(),
+                new DefaultFactoryProvider<SumFactory>());
             var dataSource = GetDataSource(1, 2, 3);
 
-            var factory = new EquFactory { FactoryProvidersSource = factoryProviders, DataSource = dataSource, Expected = new Boolean(true), StackSize = 5 };
+            var factory = new EqualityFactory { FactoryProvidersSource = factoryProviders, DataSource = dataSource, StackSize = 5 };
             var enumerator = factory.GetEnumerator();
 
             Assert(enumerator, "(1==1)");

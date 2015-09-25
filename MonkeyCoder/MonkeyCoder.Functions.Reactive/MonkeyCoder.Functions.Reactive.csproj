@@ -59,15 +59,13 @@
   <ItemGroup>
     <Compile Include="Evaluables\IBoolean.cs" />
     <Compile Include="Factories\BinaryNumberFactory.cs" />
-    <Compile Include="Factories\FactoryProviders\NumberFactoryProvider.cs" />
-    <Compile Include="Factories\FactoryProviders\GenericFactoryProvider.cs" />
-    <Compile Include="Factories\MulFactory.cs" />
-    <Compile Include="Evaluables\Equ.cs" />
-    <Compile Include="Factories\EquFactory.cs" />
+    <Compile Include="Factories\MultiplicationFactory.cs" />
+    <Compile Include="Evaluables\Equality.cs" />
+    <Compile Include="Factories\EqualityFactory.cs" />
     <Compile Include="Evaluables\Boolean.cs" />
     <Compile Include="NumberHelper.cs" />
     <Compile Include="Factories\SumFactory.cs" />
-    <Compile Include="Evaluables\Mul.cs" />
+    <Compile Include="Evaluables\Multiplication.cs" />
     <Compile Include="Evaluables\Sum.cs" />
     <Compile Include="Factories\BinaryEvaluableFactory.cs" />
     <Compile Include="Factories\IEvaluableFactory.cs" />

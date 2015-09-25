@@ -6,7 +6,6 @@ namespace MonkeyCoder.Functions.Reactive
     {
         IObservable<IEvaluableFactoryProvider> FactoryProvidersSource { get; set; }
         IObservable<IEvaluable> DataSource { get; set; }
-        IEvaluable Expected { get; set; }
         int StackSize { get; set; }
     }
 }

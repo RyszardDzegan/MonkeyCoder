@@ -5,7 +5,7 @@
         void Visit(Number visitable);
         void Visit(Boolean visitable);
         void Visit(Sum visitable);
-        void Visit(Mul visitable);
-        void Visit(Equ visitable);
+        void Visit(Multiplication visitable);
+        void Visit(Equality visitable);
     }
 }

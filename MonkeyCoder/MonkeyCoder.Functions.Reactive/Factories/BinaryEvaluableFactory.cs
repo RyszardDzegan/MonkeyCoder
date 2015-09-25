@@ -12,13 +12,12 @@ namespace MonkeyCoder.Functions.Reactive
     {
         public IObservable<IEvaluableFactoryProvider> FactoryProvidersSource { get; set; }
         public IObservable<IEvaluable> DataSource { get; set; }
-        public IEvaluable Expected { get; set; }
         public int StackSize { get; set; }
 
         protected virtual bool AcceptsA(IEvaluable a) => true;
         protected virtual bool AcceptsB(IEvaluable b) => true;
-        protected abstract IEvaluable GetRecursiveExpected(IEvaluable expected, IEvaluable current);
-        protected abstract IEnumerable<dynamic> ProhibitedValues { get; }
+        protected virtual IEnumerable<dynamic> ProhibitedValues => Enumerable.Empty<IEnumerable<dynamic>>();
+        protected virtual void OnChildNext(IEvaluable current, IEvaluable childNext, IObserver<IEvaluable> observer) => observer.OnNext(new TBinaryOperation { A = current, B = childNext });
 
         public IDisposable Subscribe(IObserver<IEvaluable> observer)
         {
@@ -57,18 +56,13 @@ namespace MonkeyCoder.Functions.Reactive
                             o.OnNext(factory);
                         return Disposable.Empty;
                     });
-
-                    var recursiveExpected = GetRecursiveExpected(Expected, current);
-
+                    
                     var instances =
                         from provider in factoryProviders
-                        where provider.AcceptsExpected(recursiveExpected)
-                        select provider.New(internalFactoryProvidersSource, internalDataSource, recursiveExpected, StackSize - 1);
+                        select provider.New(internalFactoryProvidersSource, internalDataSource, StackSize - 1);
 
                     foreach (var instance in instances)
-                        instance
-                            .Where(AcceptsB)
-                            .Subscribe(match => observer.OnNext(new TBinaryOperation { A = current, B = match }));
+                        instance.Where(AcceptsB).Subscribe(childNext => OnChildNext(current, childNext, observer));
                 },
                 onCompleted: observer.OnCompleted);
         }
