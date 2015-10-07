@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class Boolean : UnaryEvaluable, IBoolean
+    internal class Boolean : ValueEvaluable, IBoolean
     {
         public Boolean(object value)
             : base(value)

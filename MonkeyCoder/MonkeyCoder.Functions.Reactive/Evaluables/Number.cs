@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCoder.Functions.Reactive
 {
-    internal class Number : UnaryEvaluable, INumber
+    internal class Number : ValueEvaluable, INumber
     {
         public Number(object value)
             : base(value)

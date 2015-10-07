@@ -162,5 +162,25 @@ namespace MonkeyCoder.Functions.Tests
             Assert(enumerator, "(2+1)");
             IsFalse(enumerator.MoveNext());
         }
+
+        [Test]
+        public void Works_with_number_and_contrariety_factory_and_1_then_2_as_data_source()
+        {
+            var factoryProviders = GetFactoryProvidersSource(
+                new DefaultFactoryProvider<NumberFactory>(),
+                new DefaultFactoryProvider<ContrarietyFactory>());
+            var dataSource = GetDataSource(1, 2);
+
+            var factory = new SumFactory { FactoryProvidersSource = factoryProviders, DataSource = dataSource, StackSize = 3 };
+            var enumerator = factory.GetEnumerator();
+
+            Assert(enumerator, "(1+(-1))");
+            Assert(enumerator, "(1+1)");
+            Assert(enumerator, "(2+(-2))");
+            Assert(enumerator, "(2+(-1))");
+            Assert(enumerator, "(2+2)");
+            Assert(enumerator, "(2+1)");
+            IsFalse(enumerator.MoveNext());
+        }
     }
 }

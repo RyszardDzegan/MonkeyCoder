@@ -6,7 +6,15 @@ namespace MonkeyCoder.Functions.Reactive
     {
         private StringBuilder StringBuilder { get; } = new StringBuilder();
 
-        private void Visit(IBinaryEvaluable visitable, string symbol)
+        private void VisitUnary(IUnaryEvaluable visitable, string symbol)
+        {
+            StringBuilder.Append("(");
+            StringBuilder.Append(symbol);
+            visitable.A.Accept(this);
+            StringBuilder.Append(")");
+        }
+
+        private void VisitBinary(IBinaryEvaluable visitable, string symbol)
         {
             StringBuilder.Append("(");
             visitable.A.Accept(this);
@@ -21,20 +29,23 @@ namespace MonkeyCoder.Functions.Reactive
         public void Visit(Boolean visitable) =>
             StringBuilder.Append(visitable.Evaluate());
 
+        public void Visit(Contrariety visitable) =>
+            VisitUnary(visitable, "-");
+
         public void Visit(Sum visitable) =>
-            Visit(visitable, "+");
+            VisitBinary(visitable, "+");
 
         public void Visit(Multiplication visitable) =>
-            Visit(visitable, "*");
+            VisitBinary(visitable, "*");
 
         public void Visit(Equality visitable) =>
-            Visit(visitable, "=");
+            VisitBinary(visitable, "=");
 
         public void Visit(LessThan visitable) =>
-            Visit(visitable, "<");
+            VisitBinary(visitable, "<");
 
         public void Visit(LogicalAnd visitable) =>
-            Visit(visitable, " and ");
+            VisitBinary(visitable, " and ");
 
         public override string ToString() =>
             StringBuilder.ToString();

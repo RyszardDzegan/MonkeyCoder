@@ -75,6 +75,7 @@
     <Compile Include="LessThanFactoryTests.cs" />
     <Compile Include="FactoryTestsBase.cs" />
     <Compile Include="EqualityFactoryTests.cs" />
+    <Compile Include="ContrarietyFactoryTests.cs" />
     <Compile Include="SumFactoryTests.cs" />
     <Compile Include="NumberFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

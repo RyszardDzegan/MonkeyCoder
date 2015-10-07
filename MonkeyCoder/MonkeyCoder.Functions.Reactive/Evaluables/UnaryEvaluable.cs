@@ -1,24 +1,30 @@
-﻿namespace MonkeyCoder.Functions.Reactive
+﻿using System;
+
+namespace MonkeyCoder.Functions.Reactive
 {
     internal abstract class UnaryEvaluable
     {
-        public object Value { get; }
+        public IEvaluable A { get; set; }
 
-        protected UnaryEvaluable(dynamic value)
+        protected abstract Func<dynamic, dynamic> Operation { get; }
+
+        public object Evaluate()
         {
-            Value = value;
+            dynamic a = A.Evaluate();
+            return Operation(a);
         }
-
-        public dynamic Evaluate() =>
-            Value;
 
         public override bool Equals(object obj)
         {
-            var other = obj as UnaryEvaluable;
-            return other == null ? base.Equals(obj) : Value.Equals(other.Value);
+            var other = obj as BinaryEvaluable;
+            return other == null ? base.Equals(obj) : A.Equals(other.A);
         }
 
-        public override int GetHashCode() =>
-            Value.GetHashCode();
+        public override int GetHashCode()
+        {
+            var hash = 23;
+            hash = hash * 31 + A.Evaluate();
+            return hash;
+        }
     }
 }
