@@ -9,7 +9,7 @@ namespace MonkeyCoder.Functions.Reactive
         protected virtual bool AcceptsA(IEvaluable a) =>
             true;
 
-        protected virtual void OnOperandNext(IEvaluable a, IObserver<IEvaluable> observer) =>
+        protected virtual void OnOperandsReady(IEvaluable a, IObserver<IEvaluable> observer) =>
             observer.OnNext(new TUnaryOperation { A = a });
 
         protected override void OnNext(IObserver<IEvaluable> observer, IEvaluable current, ConcurrentBag<IEvaluable> history, ConcurrentBag<IEvaluableFactoryProvider> factoryProviders)
@@ -19,7 +19,7 @@ namespace MonkeyCoder.Functions.Reactive
             if (!AcceptsA(current))
                 return;
 
-            OnOperandNext(current, observer);
+            OnOperandsReady(current, observer);
         }
     }
 }

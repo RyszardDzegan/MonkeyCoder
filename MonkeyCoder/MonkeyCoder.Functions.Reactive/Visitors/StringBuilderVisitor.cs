@@ -47,6 +47,17 @@ namespace MonkeyCoder.Functions.Reactive
         public void Visit(LogicalAnd visitable) =>
             VisitBinary(visitable, " and ");
 
+        public void Visit(IfElse visitable)
+        {
+            StringBuilder.Append("(");
+            visitable.A.Accept(this);
+            StringBuilder.Append("?");
+            visitable.B.Accept(this);
+            StringBuilder.Append(":");
+            visitable.C.Accept(this);
+            StringBuilder.Append(")");
+        }
+
         public override string ToString() =>
             StringBuilder.ToString();
     }

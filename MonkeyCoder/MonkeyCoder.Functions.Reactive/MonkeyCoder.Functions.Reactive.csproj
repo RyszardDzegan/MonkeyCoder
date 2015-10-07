@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluables\IfElse.cs" />
+    <Compile Include="Evaluables\TernaryEvaluable.cs" />
+    <Compile Include="Evaluables\ITernaryEvaluable.cs" />
     <Compile Include="Evaluables\IUnaryEvaluable.cs" />
     <Compile Include="Evaluables\LogicalAnd.cs" />
     <Compile Include="Evaluables\LessThan.cs" />
@@ -65,6 +68,9 @@
     <Compile Include="Evaluables\UnaryEvaluable.cs" />
     <Compile Include="Evaluables\ValueEvaluable.cs" />
     <Compile Include="Factories\BaseEvaluableFactory.cs" />
+    <Compile Include="Factories\IfElseFactory.cs" />
+    <Compile Include="Factories\TernaryTypeSafeFactory.cs" />
+    <Compile Include="Factories\TernaryEvaluableFactory.cs" />
     <Compile Include="Factories\ContrarietyFactory.cs" />
     <Compile Include="Factories\UnaryTypeSafeFactory.cs" />
     <Compile Include="Factories\UnaryEvaluableFactory.cs" />

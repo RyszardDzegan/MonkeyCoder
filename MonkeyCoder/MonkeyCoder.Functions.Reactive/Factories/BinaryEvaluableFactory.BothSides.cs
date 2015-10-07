@@ -25,7 +25,7 @@ namespace MonkeyCoder.Functions.Reactive
                 foreach (var operandFactory in operandFactories)
                     operandFactory.Where(AcceptsA).Subscribe(left =>
                         operandFactory.Where(AcceptsB).Subscribe(right =>
-                            OnRightOperandNext(left, right, observer)));
+                            OnOperandsReady(left, right, observer)));
             }
         }
     }

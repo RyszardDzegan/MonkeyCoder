@@ -10,5 +10,6 @@
         void Visit(Equality visitable);
         void Visit(LessThan visitable);
         void Visit(LogicalAnd visitable);
+        void Visit(IfElse visitable);
     }
 }

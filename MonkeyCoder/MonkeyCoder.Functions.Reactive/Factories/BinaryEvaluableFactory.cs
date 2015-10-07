@@ -11,7 +11,7 @@ namespace MonkeyCoder.Functions.Reactive
         protected virtual bool AcceptsB(IEvaluable b) =>
             true;
 
-        protected virtual void OnRightOperandNext(IEvaluable a, IEvaluable b, IObserver<IEvaluable> observer) =>
+        protected virtual void OnOperandsReady(IEvaluable a, IEvaluable b, IObserver<IEvaluable> observer) =>
             observer.OnNext(new TBinaryOperation { A = a, B = b });
     }
 }

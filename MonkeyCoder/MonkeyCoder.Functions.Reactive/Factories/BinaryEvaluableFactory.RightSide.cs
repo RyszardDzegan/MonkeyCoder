@@ -27,7 +27,7 @@ namespace MonkeyCoder.Functions.Reactive
                     select acceptedFactories;
 
                 foreach (var rightOperandFactory in rightOperandFactories)
-                    rightOperandFactory.Subscribe(rightOperand => OnRightOperandNext(current, rightOperand, observer));
+                    rightOperandFactory.Subscribe(rightOperand => OnOperandsReady(current, rightOperand, observer));
             }
         }
     }
