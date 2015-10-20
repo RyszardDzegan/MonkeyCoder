@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
@@ -11,7 +12,7 @@ namespace MonkeyCoder.Functions.Reactive
         public IObservable<IEvaluable> DataSource { get; set; }
         public int StackSize { get; set; }
         
-        protected IObservable<IEvaluable> CreateHistoryObservable(ConcurrentBag<IEvaluable> history)
+        protected IObservable<IEvaluable> CreateHistoryObservable(IEnumerable<IEvaluable> history)
         {
             return Observable.Create<IEvaluable>(o =>
             {

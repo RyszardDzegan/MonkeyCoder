@@ -2,7 +2,7 @@
 {
     internal abstract class ValueEvaluable
     {
-        public object Value { get; }
+        public dynamic Value { get; set; }
 
         protected ValueEvaluable(dynamic value)
         {

@@ -71,6 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SimpleForTests.cs" />
     <Compile Include="IfElseFactoryTests.cs" />
     <Compile Include="LogicalAndFactoryTests.cs" />
     <Compile Include="LessThanFactoryTests.cs" />

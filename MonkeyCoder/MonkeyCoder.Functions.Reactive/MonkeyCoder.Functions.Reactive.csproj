@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluables\INumberVariable.cs" />
+    <Compile Include="Evaluables\SimpleFor.cs" />
     <Compile Include="Evaluables\IfElse.cs" />
     <Compile Include="Evaluables\TernaryEvaluable.cs" />
     <Compile Include="Evaluables\ITernaryEvaluable.cs" />
@@ -66,8 +68,13 @@
     <Compile Include="Evaluables\IBoolean.cs" />
     <Compile Include="Evaluables\Contrariety.cs" />
     <Compile Include="Evaluables\UnaryEvaluable.cs" />
+    <Compile Include="Evaluables\IValueEvaluable.cs" />
+    <Compile Include="Evaluables\IVariable.cs" />
+    <Compile Include="Evaluables\NumberVariable.cs" />
+    <Compile Include="Evaluables\Variable.cs" />
     <Compile Include="Evaluables\ValueEvaluable.cs" />
     <Compile Include="Factories\BaseEvaluableFactory.cs" />
+    <Compile Include="Factories\SimpleForFactory.cs" />
     <Compile Include="Factories\IfElseFactory.cs" />
     <Compile Include="Factories\TernaryTypeSafeFactory.cs" />
     <Compile Include="Factories\TernaryEvaluableFactory.cs" />

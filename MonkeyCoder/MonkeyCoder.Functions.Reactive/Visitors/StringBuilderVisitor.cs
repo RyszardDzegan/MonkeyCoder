@@ -29,6 +29,9 @@ namespace MonkeyCoder.Functions.Reactive
         public void Visit(Boolean visitable) =>
             StringBuilder.Append(visitable.Evaluate());
 
+        public void Visit(Variable visitable) =>
+            StringBuilder.Append(visitable.Name);
+
         public void Visit(Contrariety visitable) =>
             VisitUnary(visitable, "-");
 
@@ -56,6 +59,19 @@ namespace MonkeyCoder.Functions.Reactive
             StringBuilder.Append(":");
             visitable.C.Accept(this);
             StringBuilder.Append(")");
+        }
+
+        public void Visit(SimpleFor visitable)
+        {
+            StringBuilder.Append("for (");
+            visitable.A.Accept(this);
+            StringBuilder.Append(" = 0; ");
+            visitable.B.Accept(this);
+            StringBuilder.Append("; ");
+            visitable.A.Accept(this);
+            StringBuilder.Append("++) { ");
+            visitable.C.Accept(this);
+            StringBuilder.Append(" }");
         }
 
         public override string ToString() =>
