@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using MonkeyCoder.Functions.Internals;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +14,7 @@ namespace MonkeyCoder.Functions.Tests
     public class Basic_AppendableTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Basic.Appendable(function, possibleArguments);
+            new Basic.Appendable(function, possibleArguments).Select(x => x.Function);
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -233,34 +235,34 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Basic.Appendable(function, "a", "b");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
             e = sut.GetEnumerator();
             sut.Add("c");
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -271,15 +273,15 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Basic.Appendable(function, "a", "b");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             sut.Add("c");
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             sut.Add("d");
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -290,25 +292,25 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Basic.Appendable(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             sut.Add("c");
             sut.Complete();
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -319,40 +321,40 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Basic.Appendable(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             sut.Add("c");
             sut.Add("d");
             sut.Complete();
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("da", e.Current.DynamicInvoke());
+            AreEqual("da", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("db", e.Current.DynamicInvoke());
+            AreEqual("db", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("dc", e.Current.DynamicInvoke());
+            AreEqual("dc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ad", e.Current.DynamicInvoke());
+            AreEqual("ad", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bd", e.Current.DynamicInvoke());
+            AreEqual("bd", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cd", e.Current.DynamicInvoke());
+            AreEqual("cd", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("dd", e.Current.DynamicInvoke());
+            AreEqual("dd", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -363,27 +365,27 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Basic.Appendable(function, "a", "b");
             var e = sut.GetConsumingEnumerable().GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             sut.Add("c");
             sut.Complete();
             sut.Add("d");
             sut.Add("e");
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -396,25 +398,25 @@ namespace MonkeyCoder.Functions.Tests
             var cts = new CancellationTokenSource();
             var e = sut.GetConsumingEnumerable(cts.Token).GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
             sut.Add("c");
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             cts.Cancel();
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -427,9 +429,9 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetConsumingEnumerable().GetEnumerator();
 
             IsTrue(e.MoveNext());
-            AreEqual("aa", e.Current.DynamicInvoke());
+            AreEqual("aa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ab", e.Current.DynamicInvoke());
+            AreEqual("ab", e.Current.Function.DynamicInvoke());
 
             Task.Run(() =>
             {
@@ -442,19 +444,19 @@ namespace MonkeyCoder.Functions.Tests
                 throw new TimeoutException();
 
             IsTrue(e.MoveNext());
-            AreEqual("ba", e.Current.DynamicInvoke());
+            AreEqual("ba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bb", e.Current.DynamicInvoke());
+            AreEqual("bb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ca", e.Current.DynamicInvoke());
+            AreEqual("ca", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cb", e.Current.DynamicInvoke());
+            AreEqual("cb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current.DynamicInvoke());
+            AreEqual("ac", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current.DynamicInvoke());
+            AreEqual("bc", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("cc", e.Current.DynamicInvoke());
+            AreEqual("cc", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
     }

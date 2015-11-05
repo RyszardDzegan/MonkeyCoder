@@ -79,7 +79,7 @@ namespace MonkeyCoder.PoC
             var matches = new List<Func<object>>();
 
             // Act
-            foreach (var function in functionsTree)
+            foreach (var invocation in functionsTree)
             {
                 foreach (var testCase in testCases)
                 {
@@ -87,7 +87,7 @@ namespace MonkeyCoder.PoC
                     b.Value = testCase.Item2;
                     c.Value = testCase.Item3;
 
-                    var result = function();
+                    var result = invocation.Function();
 
                     if (!(result is Box<bool>))
                         goto Break1;
@@ -96,7 +96,7 @@ namespace MonkeyCoder.PoC
                         goto Break1;
                 }
 
-                matches.Add(function);
+                matches.Add(invocation.Function);
                 Break1:;
             }
 
@@ -171,7 +171,7 @@ namespace MonkeyCoder.PoC
             var matches = new List<Func<object>>();
 
             // Act
-            foreach (var function in functionsTree)
+            foreach (var invocation in functionsTree)
             {
                 foreach (var testCase in testCases)
                 {
@@ -179,7 +179,7 @@ namespace MonkeyCoder.PoC
                     b.Value = testCase.Item2;
                     c.Value = testCase.Item3;
 
-                    var result = function();
+                    var result = invocation.Function();
 
                     if (!(result is Box<bool>))
                         goto Break1;
@@ -188,7 +188,7 @@ namespace MonkeyCoder.PoC
                         goto Break1;
                 }
 
-                matches.Add(function);
+                matches.Add(invocation.Function);
                 Break1:;
             }
 

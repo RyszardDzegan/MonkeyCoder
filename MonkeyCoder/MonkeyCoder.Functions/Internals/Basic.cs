@@ -1,11 +1,13 @@
-﻿using MonkeyCoder.Functions.Helpers;
-using MonkeyCoder.Math;
+﻿using MonkeyCoder.Functions.Helpers.Arguments;
+using MonkeyCoder.Functions.Helpers.Invocations;
+using MonkeyCoder.Functions.Helpers.Parameters;
+using MonkeyCoder.Functions.Helpers.Relations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Functions
+namespace MonkeyCoder.Functions.Internals
 {
     /// <summary>
     /// The basic function manager.
@@ -18,27 +20,28 @@ namespace MonkeyCoder.Functions
     /// Then an enumerable of function invocations is created in a way,
     /// that the function is going to be invoked with all possible combinations of provided arguments.
     /// </summary>
-    internal partial class Basic : IEnumerable<Func<object>>
+    internal partial class Basic : IEnumerable<IInvocation>
     {
         /// <summary>
         /// All possible function invocations.
         /// </summary>
-        private Lazy<FunctionsEnumerable> Invocations { get; }
+        private Lazy<InvocationsEnumerable> Invocations { get; }
 
         /// <summary>
         /// The constructor that takes a function and a collection of argument candidates.
         /// </summary>
         /// <param name="function">The function for which an invocation list is to be created.</param>
         /// <param name="possibleArguments">The candidates for arguments for the function.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="function"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">When <paramref name="possibleArguments"/> are null.</exception>
         public Basic(Delegate function, IReadOnlyCollection<object> possibleArguments)
         {
             if (function == null)
-                throw new ArgumentNullException(nameof(function), "Function cannot be null.");
+                throw new ArgumentNullException(nameof(function), "FunctionArgument cannot be null.");
 
             if (possibleArguments == null)
                 throw new ArgumentNullException(nameof(possibleArguments), "Possible arguments cannot be null.");
-
-            // Get function parameters
+            
             var parameters = function.Method.GetParameters();
 
             // If function doesn't have any parameters
@@ -46,27 +49,21 @@ namespace MonkeyCoder.Functions
             // single invocation of the function and return.
             if (!parameters.Any())
             {
-                Invocations = FunctionsEnumerable.Lazy(function);
+                Invocations = InvocationsEnumerable.Lazy(function);
                 return;
             }
 
-            var distinctParameters = Parameter.GetDistinct(parameters);
-            var argumentList = Argument.Basic.Get(possibleArguments).ToList();
-            var distinctRelations = Relation.GetDistinct(distinctParameters, argumentList);
-            var relations = Relation.Get(parameters, distinctRelations);
+            var distinctParameters = parameters.GetDistinct();
+            var argumentList = possibleArguments.ToBasicArguments().ToList();
+            var distinctRelations = distinctParameters.Relate(argumentList);
+            var distinctEvaluablesRelations = distinctRelations.ToEvaluablesRelations();
+            var relations = parameters.LeftJoin(distinctEvaluablesRelations);
+            var invocationValues = relations.ProduceInvocationsValues();
 
-            var valueArrays =
-                from arguments in relations.Select(x => x.Arguments.ToList()).AsCartesianProduct()
-                select arguments.Select(x => x.Value).ToArray();
-
-            var functions =
-                from valueArray in valueArrays
-                select new Func<object>(() => function.DynamicInvoke(valueArray));
-
-            Invocations = FunctionsEnumerable.Lazy(functions);
+            Invocations = InvocationsEnumerable.Lazy(function, invocationValues);
         }
 
-        public IEnumerator<Func<object>> GetEnumerator() => Invocations.Value.GetEnumerator();
+        public IEnumerator<IInvocation> GetEnumerator() => Invocations.Value.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -41,19 +41,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic_Appendable.cs" />
+    <Compile Include="Internals\Basic_Appendable.cs" />
     <Compile Include="FunctionManagerFactory.cs" />
     <Compile Include="FunctionManager.cs" />
-    <Compile Include="Helpers\FunctionsEnumerable.cs" />
-    <Compile Include="Expanding.cs" />
-    <Compile Include="Helpers\Relation.cs" />
-    <Compile Include="Helpers\Parameter.cs" />
-    <Compile Include="Helpers\Argument.cs" />
-    <Compile Include="Basic_Multiple.cs" />
+    <Compile Include="Helpers\Arguments\FunctionEvaluable.cs" />
+    <Compile Include="Helpers\Arguments\IEvaluable.cs" />
+    <Compile Include="Helpers\Arguments\ParameterlessArgument.cs" />
+    <Compile Include="Helpers\Arguments\FunctionArgument.cs" />
+    <Compile Include="Helpers\Arguments\ArgumentExtensionMethods.cs" />
+    <Compile Include="Helpers\Arguments\BasicArgument.cs" />
+    <Compile Include="Helpers\Invocations\ValueInvocation.cs" />
+    <Compile Include="Helpers\Invocations\DelegateInvocation.cs" />
+    <Compile Include="Helpers\Invocations\InvocationsEnumerable.cs" />
+    <Compile Include="Internals\Expanding.cs" />
+    <Compile Include="IInvocation.cs" />
+    <Compile Include="Helpers\Parameters\ParameterExtensionMethods.cs" />
+    <Compile Include="Helpers\Relations\Parameter2MandatoryArgumentsRelation.cs" />
+    <Compile Include="Helpers\Relations\Parameter2EvaluablesRelation.cs" />
+    <Compile Include="Helpers\Relations\IRelation.cs" />
+    <Compile Include="Helpers\Relations\RelationExtensionMethods.cs" />
+    <Compile Include="Helpers\Relations\Parameter2ArgumentsRelation.cs" />
+    <Compile Include="Helpers\Parameters\Parameter.cs" />
+    <Compile Include="Helpers\Arguments\Argument.cs" />
+    <Compile Include="Internals\Basic_Multiple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Expanding_Parameterless.cs" />
-    <Compile Include="Mandatory.cs" />
-    <Compile Include="Helpers\TypeEqualityComparer.cs" />
+    <Compile Include="Internals\Expanding_Parameterless.cs" />
+    <Compile Include="Internals\Mandatory.cs" />
+    <Compile Include="Helpers\Parameters\TypeEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonkeyCoder.Math\MonkeyCoder.Math.csproj">
@@ -62,7 +76,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic.cs" />
+    <Compile Include="Internals\Basic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

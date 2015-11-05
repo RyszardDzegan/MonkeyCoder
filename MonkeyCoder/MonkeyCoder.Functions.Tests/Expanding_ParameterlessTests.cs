@@ -6,13 +6,15 @@ using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {
+    using Internals;
+    using System.Linq;
     using static TestHelpers.StaticExpectedOutputReader;
 
     [TestFixture]
     public class Expanding_ParameterlessTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Expanding.Parameterless(function, possibleArguments);
+            new Expanding.Parameterless(function, possibleArguments).Select(x => x.Function);
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]

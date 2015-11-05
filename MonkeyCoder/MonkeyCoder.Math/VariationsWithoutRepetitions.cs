@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace MonkeyCoder.Math
 {
+    /// <summary>
+    /// Takes a collection of <see cref="Items"/> and produces all <see cref="K"/> variations without repetitions of them.
+    /// </summary>
+    /// <typeparam name="T">Arbitrary type.</typeparam>
+    /// <example>
+    /// Items {a,b,c} with k = 2 will produce {a,b}, {a,c}, {b,a}, {b,c}, {c,a}, {c,b}
+    /// </example>
     internal class VariationsWithoutRepetitions<T> : IEnumerable<IList<T>>
     {
         public IList<T> Items { get; }

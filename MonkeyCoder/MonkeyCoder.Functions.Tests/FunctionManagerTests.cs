@@ -29,7 +29,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { 1 }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -39,9 +39,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { 1, 2 }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -51,11 +51,11 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { 1, 2, "a" }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("a", e.Current());
+            AreEqual("a", e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -68,7 +68,7 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(0, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(1, x);
             IsFalse(e.MoveNext());
         }
@@ -83,11 +83,11 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(0, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(1, x);
             IsTrue(e.MoveNext());
             AreEqual(1, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(2, x);
             IsFalse(e.MoveNext());
         }
@@ -99,7 +99,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -111,9 +111,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2 }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -127,12 +127,12 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(0, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(1, x);
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(3, e.Current());
+            AreEqual(3, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -155,10 +155,10 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(0, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(1, x);
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -171,16 +171,16 @@ namespace MonkeyCoder.Functions.Tests
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
             AreEqual(0, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(1, x);
             IsTrue(e.MoveNext());
             AreEqual(1, x);
-            e.Current();
+            e.Current.Function();
             AreEqual(2, x);
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -191,9 +191,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function, 1 }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("1b", e.Current());
+            AreEqual("1b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -204,13 +204,13 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function, 1, 2 }));
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("1b", e.Current());
+            AreEqual("1b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("2b", e.Current());
+            AreEqual("2b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -222,11 +222,11 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2, 2 }), 0);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("2b", e.Current());
+            AreEqual("2b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -238,13 +238,13 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2, 2 }), 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("1b", e.Current());
+            AreEqual("1b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("2b", e.Current());
+            AreEqual("2b", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current());
+            AreEqual(1, e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current());
+            AreEqual(2, e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -256,11 +256,11 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2, "c" }), 0);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current());
+            AreEqual("ac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current());
+            AreEqual("bc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("c", e.Current());
+            AreEqual("c", e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -272,19 +272,19 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2, "c" }), 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aac", e.Current());
+            AreEqual("aac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("abc", e.Current());
+            AreEqual("abc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current());
+            AreEqual("ac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bac", e.Current());
+            AreEqual("bac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bbc", e.Current());
+            AreEqual("bbc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current());
+            AreEqual("bc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("c", e.Current());
+            AreEqual("c", e.Current.Function());
             IsFalse(e.MoveNext());
         }
 
@@ -296,35 +296,35 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new FunctionManager(new ReadOnlyCollection<object>(new object[] { function1, function2, "c" }), 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aaac", e.Current());
+            AreEqual("aaac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("aabc", e.Current());
+            AreEqual("aabc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("aac", e.Current());
+            AreEqual("aac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("abac", e.Current());
+            AreEqual("abac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("abbc", e.Current());
+            AreEqual("abbc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("abc", e.Current());
+            AreEqual("abc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("ac", e.Current());
+            AreEqual("ac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("baac", e.Current());
+            AreEqual("baac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("babc", e.Current());
+            AreEqual("babc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bac", e.Current());
+            AreEqual("bac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bbac", e.Current());
+            AreEqual("bbac", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bbbc", e.Current());
+            AreEqual("bbbc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bbc", e.Current());
+            AreEqual("bbc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("bc", e.Current());
+            AreEqual("bc", e.Current.Function());
             IsTrue(e.MoveNext());
-            AreEqual("c", e.Current());
+            AreEqual("c", e.Current.Function());
             IsFalse(e.MoveNext());
         }
     }

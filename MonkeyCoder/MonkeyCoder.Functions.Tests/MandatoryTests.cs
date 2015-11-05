@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MonkeyCoder.Functions.Internals;
+using NUnit.Framework;
 using System;
 using static NUnit.Framework.Assert;
 
@@ -48,7 +49,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[0], "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x", result);
             IsFalse(e.MoveNext());
         }
@@ -80,7 +81,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { null, null }, 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("1", result);
             IsFalse(e.MoveNext());
         }
@@ -93,7 +94,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { null, null }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x", result);
             IsFalse(e.MoveNext());
         }
@@ -106,7 +107,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { null, null, 1 }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x1", result);
             IsFalse(e.MoveNext());
         }
@@ -119,13 +120,13 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { null, null, 1 }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x", result);// 1null x
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x", result); // 2null x
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual("x1", result); // 1 x
             IsFalse(e.MoveNext());
         }
@@ -138,7 +139,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual(2, result);
             IsFalse(e.MoveNext());
         }
@@ -151,7 +152,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2 }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual(3, result);
             IsFalse(e.MoveNext());
         }
@@ -164,7 +165,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            e.Current.DynamicInvoke();
+            e.Current.Function.DynamicInvoke();
             AreEqual(3, result);
             IsFalse(e.MoveNext());
         }
@@ -185,7 +186,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[0], 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(1, e.Current.DynamicInvoke());
+            AreEqual(1, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -196,7 +197,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current.DynamicInvoke());
+            AreEqual(2, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -207,7 +208,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2 }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(3, e.Current.DynamicInvoke());
+            AreEqual(3, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -218,7 +219,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(3, e.Current.DynamicInvoke());
+            AreEqual(3, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -229,7 +230,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[0], 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(2, e.Current.DynamicInvoke());
+            AreEqual(2, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -240,11 +241,11 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1 }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual(3, e.Current.DynamicInvoke());
+            AreEqual(3, e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual(3, e.Current.DynamicInvoke());
+            AreEqual(3, e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual(4, e.Current.DynamicInvoke());
+            AreEqual(4, e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -264,15 +265,15 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("xa", e.Current.DynamicInvoke());
+            AreEqual("xa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xb", e.Current.DynamicInvoke());
+            AreEqual("xb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("ax", e.Current.DynamicInvoke());
+            AreEqual("ax", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bx", e.Current.DynamicInvoke());
+            AreEqual("bx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xx", e.Current.DynamicInvoke());
+            AreEqual("xx", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -310,7 +311,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { "a" }, 1);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a1", e.Current.DynamicInvoke());
+            AreEqual("a1", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -321,7 +322,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, "a" }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a2", e.Current.DynamicInvoke());
+            AreEqual("a2", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -332,7 +333,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, "a" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("x1", e.Current.DynamicInvoke());
+            AreEqual("x1", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -343,7 +344,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a3", e.Current.DynamicInvoke());
+            AreEqual("a3", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -354,9 +355,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("x1", e.Current.DynamicInvoke());
+            AreEqual("x1", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("x2", e.Current.DynamicInvoke());
+            AreEqual("x2", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -367,9 +368,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, "a", "b" }, 2);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a2", e.Current.DynamicInvoke());
+            AreEqual("a2", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b2", e.Current.DynamicInvoke());
+            AreEqual("b2", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -380,7 +381,7 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("x1", e.Current.DynamicInvoke());
+            AreEqual("x1", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -391,9 +392,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a3", e.Current.DynamicInvoke());
+            AreEqual("a3", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b3", e.Current.DynamicInvoke());
+            AreEqual("b3", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -404,9 +405,9 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("x1", e.Current.DynamicInvoke());
+            AreEqual("x1", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("x2", e.Current.DynamicInvoke());
+            AreEqual("x2", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -417,25 +418,25 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, 3);
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("a13", e.Current.DynamicInvoke());
+            AreEqual("a13", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b13", e.Current.DynamicInvoke());
+            AreEqual("b13", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("a23", e.Current.DynamicInvoke());
+            AreEqual("a23", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b23", e.Current.DynamicInvoke());
+            AreEqual("b23", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("a31", e.Current.DynamicInvoke());
+            AreEqual("a31", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b31", e.Current.DynamicInvoke());
+            AreEqual("b31", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("a32", e.Current.DynamicInvoke());
+            AreEqual("a32", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b32", e.Current.DynamicInvoke());
+            AreEqual("b32", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("a33", e.Current.DynamicInvoke());
+            AreEqual("a33", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("b33", e.Current.DynamicInvoke());
+            AreEqual("b33", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
 
@@ -446,43 +447,43 @@ namespace MonkeyCoder.Functions.Tests
             var sut = new Mandatory(function, new object[] { 1, 2, "a", "b" }, "x");
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            AreEqual("aax", e.Current.DynamicInvoke());
+            AreEqual("aax", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bax", e.Current.DynamicInvoke());
+            AreEqual("bax", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("abx", e.Current.DynamicInvoke());
+            AreEqual("abx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bbx", e.Current.DynamicInvoke());
+            AreEqual("bbx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("axa", e.Current.DynamicInvoke());
+            AreEqual("axa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bxa", e.Current.DynamicInvoke());
+            AreEqual("bxa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("axb", e.Current.DynamicInvoke());
+            AreEqual("axb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bxb", e.Current.DynamicInvoke());
+            AreEqual("bxb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xaa", e.Current.DynamicInvoke());
+            AreEqual("xaa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xba", e.Current.DynamicInvoke());
+            AreEqual("xba", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xab", e.Current.DynamicInvoke());
+            AreEqual("xab", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xbb", e.Current.DynamicInvoke());
+            AreEqual("xbb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("axx", e.Current.DynamicInvoke());
+            AreEqual("axx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("bxx", e.Current.DynamicInvoke());
+            AreEqual("bxx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xax", e.Current.DynamicInvoke());
+            AreEqual("xax", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xbx", e.Current.DynamicInvoke());
+            AreEqual("xbx", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xxa", e.Current.DynamicInvoke());
+            AreEqual("xxa", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xxb", e.Current.DynamicInvoke());
+            AreEqual("xxb", e.Current.Function.DynamicInvoke());
             IsTrue(e.MoveNext());
-            AreEqual("xxx", e.Current.DynamicInvoke());
+            AreEqual("xxx", e.Current.Function.DynamicInvoke());
             IsFalse(e.MoveNext());
         }
     }

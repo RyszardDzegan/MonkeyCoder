@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using MonkeyCoder.Functions.Internals;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MonkeyCoder.Functions.Tests
 {
@@ -8,7 +10,7 @@ namespace MonkeyCoder.Functions.Tests
     public class BasicTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Basic(function, possibleArguments);
+            new Basic(function, possibleArguments).Select(x => x.Function);
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]

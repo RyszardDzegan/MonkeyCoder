@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace MonkeyCoder.Math
 {
+    /// <summary>
+    /// Takes a collection of <see cref="Items"/> and produces all possible subsets of them.
+    /// </summary>
+    /// <typeparam name="T">Arbitrary type.</typeparam>
+    /// <example>
+    /// Items {a,b,c} will produce {}, {a}, {b}, {a,b}, {a,c}, {b,c}, {a,b,c}
+    /// </example>
     internal class PowerSet<T> : IEnumerable<IList<T>>
     {
         public IList<T> Items { get; }

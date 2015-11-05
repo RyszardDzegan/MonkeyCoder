@@ -7,13 +7,15 @@ using static NUnit.Framework.StringAssert;
 
 namespace MonkeyCoder.Functions.Tests
 {
+    using Internals;
+    using System.Linq;
     using static TestHelpers.StaticExpectedOutputReader;
 
     [TestFixture]
     public class Basic_MultipleTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Basic.Multiple(new Delegate[] { function }, possibleArguments);
+            new Basic.Multiple(new Delegate[] { function }, possibleArguments).Select(x => x.Function);
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -247,7 +249,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<int, int>(x => x);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 });
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }).Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -257,7 +259,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<int, int>(x => x);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1);
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1).Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -267,7 +269,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<int, int>(x => x);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, "a");
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, "a").Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -277,7 +279,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<int, int>(x => x);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, "a", 1);
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, "a", 1).Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -287,7 +289,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<string, string>(x => x);
             var f2 = new Func<int, int>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, "a");
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, "a").Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -297,7 +299,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<string, string>(x => x);
             var f2 = new Func<int, int>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, "a", 1);
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, "a", 1).Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -307,7 +309,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<int, int>(x => x);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, 2, "a", "b");
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, 2, "a", "b").Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -317,7 +319,7 @@ namespace MonkeyCoder.Functions.Tests
         {
             var f1 = new Func<string, int, string>((x, y) => x + y);
             var f2 = new Func<string, string>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, 2, "a", "b");
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2 }, 1, 2, "a", "b").Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }
@@ -328,7 +330,7 @@ namespace MonkeyCoder.Functions.Tests
             var f1 = new Func<string, int, string>((x, y) => x + y);
             var f2 = new Func<string, string>(x => x);
             var f3 = new Func<int, int>(x => x);
-            var sut = new Basic.Multiple(new Delegate[] { f1, f2, f3 }, 1, 2, "a", "b");
+            var sut = new Basic.Multiple(new Delegate[] { f1, f2, f3 }, 1, 2, "a", "b").Select(x => x.Function);
             GenerateOutput(sut);
             AreEqual(GetExpectedTestOutput(), GetActualTestOutput());
         }

@@ -6,12 +6,14 @@ using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Functions.Tests
 {
+    using Internals;
+    using System.Linq;
     using static StaticExpectedOutputReader;
-    
+
     public abstract class CommonExpandingTests : CommonTests
     {
         internal override IEnumerable<Func<object>> GetInvoker(Delegate function, params object[] possibleArguments) =>
-            new Expanding(function, possibleArguments, StackSize);
+            new Expanding(function, possibleArguments, StackSize).Select(x => x.Function);
 
         internal abstract int StackSize { get; }
         

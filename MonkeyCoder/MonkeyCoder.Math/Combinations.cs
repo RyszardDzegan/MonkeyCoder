@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace MonkeyCoder.Math
 {
+    /// <summary>
+    /// Takes a collection of <see cref="Items"/> and produces all <see cref="K"/> combinations of them.
+    /// </summary>
+    /// <typeparam name="T">Arbitrary type.</typeparam>
+    /// <example>
+    /// Items {a,b,c} with k = 2 will produce {a,b}, {a,c}, {b,c}
+    /// </example>
     internal class Combinations<T> : IEnumerable<IList<T>>
     {
         public IList<T> Items { get; }
