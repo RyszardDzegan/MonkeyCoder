@@ -61,14 +61,15 @@ namespace MonkeyCoder.Functions.Internals
                 .Where(x => x.Relation.IsAssignableFromMandatoryArgument)
                 .ToList();
 
-            var mandatoryArgumentList = new[] { mandatoryArgument };
+            var basicMandatoryArgument = new BasicArgument(mandatoryArgument);
+            var mandatoryArgumentList = new IEvaluable[] { basicMandatoryArgument };
 
             var valueEnumerables =
                 from mandatoryPositionsSubset in mandatoryPositions.AsPowerSet().Skip(1)
                 let possibleValues =
                     from optionalPosition in optionalPositions
                     join mandatoryPosition in mandatoryPositionsSubset on optionalPosition equals mandatoryPosition into jointMandatoryPositions
-                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.Arguments.Select(x => x.Value).ToArray()
+                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.Arguments.Cast<IEvaluable>().ToArray()
                     select possibleValues
                 from valueList in possibleValues.AsCartesianProduct()
                 select valueList;

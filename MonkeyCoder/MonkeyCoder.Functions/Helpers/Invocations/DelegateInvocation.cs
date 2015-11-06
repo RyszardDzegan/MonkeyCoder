@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyCoder.Functions.Helpers.Arguments;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,12 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// Invokes the <see cref="Delegate"/> passing in the <see cref="Arguments"/> and returning its returned value.
         /// </summary>
         public Func<object> Function { get; }
+
+        /// <summary>
+        /// Returns the <see cref="Delegate"/>.
+        /// </summary>
+        public object OriginalValue =>
+            Delegate;
 
         /// <summary>
         /// Stores arguments that will be passed to the <see cref="Delegate"/>.
@@ -47,9 +54,9 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// </summary>
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
         /// <param name="arguments">Delegate's arguments that will be stored in <see cref="Arguments"/>.</param>
-        public DelegateInvocation(Delegate @delegate, IEnumerable<object> arguments)
+        public DelegateInvocation(Delegate @delegate, IList<IEvaluable> arguments)
         {
-            Function = new Func<object>(() => @delegate.DynamicInvoke(arguments.ToArray()));
+            Function = new Func<object>(() => @delegate.DynamicInvoke(arguments.Select(x => x.Evaluate()).ToArray()));
             Arguments = arguments;
             Delegate = @delegate;
         }

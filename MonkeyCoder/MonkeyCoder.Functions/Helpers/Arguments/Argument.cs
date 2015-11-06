@@ -7,7 +7,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
     /// <summary>
     /// A class that stores information about an argument.
     /// </summary>
-    [DebuggerDisplay("{Value != null ? Value : \"null\"}")]
+    [DebuggerDisplay("{Value != null ? Value : \"null\"} : {GetType().Name}")]
     internal abstract partial class Argument
     {
         /// <summary>

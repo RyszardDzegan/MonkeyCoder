@@ -13,7 +13,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// <summary>
         /// Information about the function and its arguments.
         /// </summary>
-        private IInvocation Invocation { get; }
+        public IInvocation Invocation { get; }
 
         /// <summary>
         /// A constructor that takes all necessary

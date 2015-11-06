@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyCoder.Functions.Helpers.Arguments;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// </summary>
         /// <param name="@delegate">A delegate from which ivocation list will be produced.</param>
         /// <param name="valueEnumerables">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
-        public InvocationsEnumerable(Delegate @delegate, IEnumerable<IEnumerable<object>> valueEnumerables)
+        public InvocationsEnumerable(Delegate @delegate, IEnumerable<IList<IEvaluable>> valueEnumerables)
         {
             Invocations = from valueEnumerable in valueEnumerables
                           select new DelegateInvocation(@delegate, valueEnumerable);
@@ -114,7 +115,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// <param name="@delegate">A delegate from which ivocation list will be produced.</param>
         /// <param name="valueEnumerables">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
         /// <returns>A lazy instance of <see cref="InvocationsEnumerable"/>.</returns>
-        public static Lazy<InvocationsEnumerable> Lazy(Delegate @delegate, IEnumerable<IEnumerable<object>> valueEnumerables) =>
+        public static Lazy<InvocationsEnumerable> Lazy(Delegate @delegate, IEnumerable<IList<IEvaluable>> valueEnumerables) =>
             new Lazy<InvocationsEnumerable>(() => new InvocationsEnumerable(@delegate, valueEnumerables));
 
         /// <summary>

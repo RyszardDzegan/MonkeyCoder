@@ -18,6 +18,12 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         public Func<object> Function { get; }
 
         /// <summary>
+        /// Returns the <see cref="Value"/>.
+        /// </summary>
+        public object OriginalValue =>
+            Value;
+
+        /// <summary>
         /// Arguments of the <see cref="Function"/>.
         /// They are always empty.
         /// </summary>

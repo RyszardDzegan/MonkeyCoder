@@ -16,7 +16,12 @@ namespace MonkeyCoder.Functions
         Func<object> Function { get; }
 
         /// <summary>
-        /// Potential arguments used by a delegate wrapped by a <seealso cref="Function"/>.
+        /// An original value or delegate that was wrapped with a <see cref="Function"/>.
+        /// </summary>
+        object OriginalValue { get; }
+
+        /// <summary>
+        /// Potential arguments used by a delegate (<see cref="OriginalValue"/>) wrapped by a <seealso cref="Function"/>.
         /// </summary>
         IEnumerable<object> Arguments { get; }
     }

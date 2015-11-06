@@ -139,9 +139,9 @@ namespace MonkeyCoder.Functions.Helpers.Relations
         /// 2 "c" 5.2
         /// 2 "c" 3.6
         /// </example>
-        public static IEnumerable<IEnumerable<object>> ProduceInvocationsValues(this IEnumerable<Parameter2EvaluablesRelation> relations) =>
+        public static IEnumerable<IList<IEvaluable>> ProduceInvocationsValues(this IEnumerable<Parameter2EvaluablesRelation> relations) =>
             from evaluables in relations.Select(x => x.Evaluables.ToList()).AsCartesianProduct()
-            select evaluables.Select(x => x.Evaluate());
+            select evaluables;
 
         /// <summary>
         /// Produces an enumerable of functions where each of which invokes
