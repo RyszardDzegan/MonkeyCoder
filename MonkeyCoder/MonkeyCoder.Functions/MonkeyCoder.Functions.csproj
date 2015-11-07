@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Readers\IInvocationReader.cs" />
+    <Compile Include="Readers\TextInvocationReader.cs" />
     <Compile Include="Internals\Basic_Appendable.cs" />
     <Compile Include="FunctionManagerFactory.cs" />
     <Compile Include="FunctionManager.cs" />
