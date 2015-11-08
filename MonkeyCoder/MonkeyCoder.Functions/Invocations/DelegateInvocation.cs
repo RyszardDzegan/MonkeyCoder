@@ -10,28 +10,16 @@ namespace MonkeyCoder.Functions.Invocations
     /// <see cref="Arguments"/> stores arguments that will be passed to the <see cref="Delegate"/>.
     /// The <see cref="Delegate"/> is an original function.
     /// </summary>
-    public class DelegateInvocation : IInvocation
+    public class DelegateInvocation : InvocationBase, IInvocation
     {
-        /// <summary>
-        /// Invokes the <see cref="Delegate"/> passing in the <see cref="Arguments"/> and returning its returned value.
-        /// </summary>
-        public Func<object> Function { get; }
-
-        /// <summary>
-        /// Returns the <see cref="Delegate"/>.
-        /// </summary>
-        public object OriginalValue =>
-            Delegate;
-
-        /// <summary>
-        /// Stores arguments that will be passed to the <see cref="Delegate"/>.
-        /// </summary>
-        public IEnumerable<IInvocation> Arguments { get; }
+        protected override object FunctionBody() =>
+            Arguments.Any() ? Delegate.DynamicInvoke(Arguments.Select(x => x.Function()).ToArray()) : Delegate.DynamicInvoke();
 
         /// <summary>
         /// The orginal function.
         /// </summary>
-        public Delegate Delegate { get; }
+        public Delegate Delegate =>
+            (Delegate)Value;
 
         /// <summary>
         /// A construtor that takes a parameterless delagate as its argument.
@@ -40,11 +28,8 @@ namespace MonkeyCoder.Functions.Invocations
         /// </summary>
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
         public DelegateInvocation(Delegate @delegate)
-        {
-            Function = new Func<object>(() => @delegate.DynamicInvoke());
-            Arguments = Enumerable.Empty<IInvocation>();
-            Delegate = @delegate;
-        }
+            : base(@delegate)
+        { }
 
         /// <summary>
         /// A construtor that takes a delagate and its arguments.
@@ -54,11 +39,8 @@ namespace MonkeyCoder.Functions.Invocations
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
         /// <param name="arguments">Delegate's arguments that will be stored in <see cref="Arguments"/>.</param>
         public DelegateInvocation(Delegate @delegate, IList<IInvocation> arguments)
-        {
-            Function = new Func<object>(() => @delegate.DynamicInvoke(arguments.Select(x => x.Function()).ToArray()));
-            Arguments = arguments;
-            Delegate = @delegate;
-        }
+            : base(@delegate, arguments)
+        { }
 
         /// <summary>
         /// A visitor that can be used to inspect subclasses of <see cref="IInvocation"/>.

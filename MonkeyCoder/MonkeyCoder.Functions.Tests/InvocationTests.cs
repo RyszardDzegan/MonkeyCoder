@@ -80,7 +80,7 @@ namespace MonkeyCoder.Functions.Tests
             AreSame(func, ((DelegateInvocation)e.Current).Delegate);
             AreEqual(1, e.Current.Arguments.Count());
             IsInstanceOf<DelegateInvocation>(e.Current.Arguments.First());
-            AreSame(func, ((DelegateInvocation)e.Current.Arguments.First()).OriginalValue);
+            AreSame(func, ((DelegateInvocation)e.Current.Arguments.First()).Value);
             AreEqual(1, ((DelegateInvocation)e.Current.Arguments.First()).Arguments.Count());
             IsInstanceOf<ValueInvocation>(((DelegateInvocation)e.Current.Arguments.First()).Arguments.First());
             AreEqual("b", ((ValueInvocation)((DelegateInvocation)e.Current.Arguments.First()).Arguments.First()).Value);

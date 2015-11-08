@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Relations\Parameter2InvocationsRelation.cs" />
     <Compile Include="Invocations\IInvocationVisitor.cs" />
+    <Compile Include="Invocations\InvocationBase.cs" />
     <Compile Include="Readers\TextInvocationReader.cs" />
     <Compile Include="Internals\Basic_Appendable.cs" />
     <Compile Include="FunctionManagerFactory.cs" />

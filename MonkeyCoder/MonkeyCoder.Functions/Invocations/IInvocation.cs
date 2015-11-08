@@ -11,17 +11,17 @@ namespace MonkeyCoder.Functions.Invocations
     public interface IInvocation
     {
         /// <summary>
+        /// An original value or delegate that was wrapped with a <see cref="Function"/>.
+        /// </summary>
+        object Value { get; set; }
+
+        /// <summary>
         /// A function that wraps a simple value or a delegate.
         /// </summary>
         Func<object> Function { get; }
-
+        
         /// <summary>
-        /// An original value or delegate that was wrapped with a <see cref="Function"/>.
-        /// </summary>
-        object OriginalValue { get; }
-
-        /// <summary>
-        /// Potential arguments used by a delegate (<see cref="OriginalValue"/>) wrapped by a <seealso cref="Function"/>.
+        /// Potential arguments used by a delegate (<see cref="Value"/>) wrapped by a <seealso cref="Function"/>.
         /// </summary>
         IEnumerable<IInvocation> Arguments { get; }
 
