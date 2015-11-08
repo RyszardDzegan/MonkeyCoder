@@ -1,5 +1,5 @@
-﻿using MonkeyCoder.Functions.Helpers.Invocations;
-using MonkeyCoder.Functions.Internals;
+﻿using MonkeyCoder.Functions.Internals;
+using MonkeyCoder.Functions.Invocations;
 using System;
 using System.Collections;
 using System.Collections.Generic;

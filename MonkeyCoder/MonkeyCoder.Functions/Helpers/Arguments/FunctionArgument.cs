@@ -1,5 +1,8 @@
 ﻿using MonkeyCoder.Functions.Helpers.Parameters;
+using MonkeyCoder.Functions.Internals;
+using MonkeyCoder.Functions.Invocations;
 using System;
+using System.Collections.Generic;
 
 namespace MonkeyCoder.Functions.Helpers.Arguments
 {
@@ -7,7 +10,6 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
     /// A subclass of <see cref="Argument"/> that manages functions
     /// that are provided as arguments.
     /// </summary>
-    /// <seealso cref="FunctionEvaluable"/>
     internal class FunctionArgument : Argument
     {
         /// <summary>
@@ -26,5 +28,16 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// <returns>True if this function's returned type is compatible with given <paramref name="parameter"/>. Otherwise false.</returns>
         public override bool IsAssignableTo(Parameter parameter) =>
             parameter.Type.IsAssignableFrom(Type);
+
+        /// <summary>
+        /// Converts arguments into function invocations.
+        /// There is only one invocation for <see cref="BasicArgument"/> and <see cref="ParameterlessArgument"/>.
+        /// There are multiple invocations for <see cref="FunctionArgument"/>.
+        /// </summary>
+        /// <param name="possibleArguments">All possible argument candidates for the primary function.</param>
+        /// <param name="currentStackSize">The current level of the call stack.</param>
+        /// <returns>An enumerable of invocations.</returns>
+        public override IEnumerable<IInvocation> ToInvocations(IReadOnlyCollection<object> possibleArguments, int currentStackSize) =>
+            new Expanding((Delegate)Value, possibleArguments, currentStackSize - 1);
     }
 }

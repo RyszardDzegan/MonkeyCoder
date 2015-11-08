@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MonkeyCoder.Functions
+namespace MonkeyCoder.Functions.Invocations
 {
     /// <summary>
     /// An interface that stores informations regarding
@@ -23,6 +23,13 @@ namespace MonkeyCoder.Functions
         /// <summary>
         /// Potential arguments used by a delegate (<see cref="OriginalValue"/>) wrapped by a <seealso cref="Function"/>.
         /// </summary>
-        IEnumerable<object> Arguments { get; }
+        IEnumerable<IInvocation> Arguments { get; }
+
+        /// <summary>
+        /// A part of the visitor pattern.
+        /// <see cref="IInvocationVisitor"/>
+        /// </summary>
+        /// <param name="visitor">A visitor that allow to inspect a tree of invocations.</param>
+        void Accept(IInvocationVisitor visitor);
     }
 }

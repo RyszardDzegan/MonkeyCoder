@@ -41,25 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Readers\IInvocationReader.cs" />
+    <Compile Include="Helpers\Relations\Parameter2InvocationsRelation.cs" />
+    <Compile Include="Invocations\IInvocationVisitor.cs" />
     <Compile Include="Readers\TextInvocationReader.cs" />
     <Compile Include="Internals\Basic_Appendable.cs" />
     <Compile Include="FunctionManagerFactory.cs" />
     <Compile Include="FunctionManager.cs" />
-    <Compile Include="Helpers\Arguments\FunctionEvaluable.cs" />
-    <Compile Include="Helpers\Arguments\IEvaluable.cs" />
     <Compile Include="Helpers\Arguments\ParameterlessArgument.cs" />
     <Compile Include="Helpers\Arguments\FunctionArgument.cs" />
     <Compile Include="Helpers\Arguments\ArgumentExtensionMethods.cs" />
     <Compile Include="Helpers\Arguments\BasicArgument.cs" />
-    <Compile Include="Helpers\Invocations\ValueInvocation.cs" />
-    <Compile Include="Helpers\Invocations\DelegateInvocation.cs" />
-    <Compile Include="Helpers\Invocations\InvocationsEnumerable.cs" />
+    <Compile Include="Invocations\ValueInvocation.cs" />
+    <Compile Include="Invocations\DelegateInvocation.cs" />
+    <Compile Include="Invocations\InvocationsEnumerable.cs" />
     <Compile Include="Internals\Expanding.cs" />
-    <Compile Include="IInvocation.cs" />
+    <Compile Include="Invocations\IInvocation.cs" />
     <Compile Include="Helpers\Parameters\ParameterExtensionMethods.cs" />
     <Compile Include="Helpers\Relations\Parameter2MandatoryArgumentsRelation.cs" />
-    <Compile Include="Helpers\Relations\Parameter2EvaluablesRelation.cs" />
     <Compile Include="Helpers\Relations\IRelation.cs" />
     <Compile Include="Helpers\Relations\RelationExtensionMethods.cs" />
     <Compile Include="Helpers\Relations\Parameter2ArgumentsRelation.cs" />

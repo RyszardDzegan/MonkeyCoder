@@ -1,9 +1,8 @@
-﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Functions.Helpers.Invocations
+namespace MonkeyCoder.Functions.Invocations
 {
     /// <summary>
     /// Stores the information about the invocation.
@@ -11,7 +10,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
     /// <see cref="Arguments"/> stores arguments that will be passed to the <see cref="Delegate"/>.
     /// The <see cref="Delegate"/> is an original function.
     /// </summary>
-    internal class DelegateInvocation : IInvocation
+    public class DelegateInvocation : IInvocation
     {
         /// <summary>
         /// Invokes the <see cref="Delegate"/> passing in the <see cref="Arguments"/> and returning its returned value.
@@ -27,7 +26,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// <summary>
         /// Stores arguments that will be passed to the <see cref="Delegate"/>.
         /// </summary>
-        public IEnumerable<object> Arguments { get; }
+        public IEnumerable<IInvocation> Arguments { get; }
 
         /// <summary>
         /// The orginal function.
@@ -43,7 +42,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         public DelegateInvocation(Delegate @delegate)
         {
             Function = new Func<object>(() => @delegate.DynamicInvoke());
-            Arguments = Enumerable.Empty<object>();
+            Arguments = Enumerable.Empty<IInvocation>();
             Delegate = @delegate;
         }
 
@@ -54,11 +53,17 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// </summary>
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
         /// <param name="arguments">Delegate's arguments that will be stored in <see cref="Arguments"/>.</param>
-        public DelegateInvocation(Delegate @delegate, IList<IEvaluable> arguments)
+        public DelegateInvocation(Delegate @delegate, IList<IInvocation> arguments)
         {
-            Function = new Func<object>(() => @delegate.DynamicInvoke(arguments.Select(x => x.Evaluate()).ToArray()));
+            Function = new Func<object>(() => @delegate.DynamicInvoke(arguments.Select(x => x.Function()).ToArray()));
             Arguments = arguments;
             Delegate = @delegate;
         }
+
+        /// <summary>
+        /// A visitor that can be used to inspect subclasses of <see cref="IInvocation"/>.
+        /// </summary>
+        public void Accept(IInvocationVisitor visitor) =>
+            visitor.Visit(this);
     }
 }

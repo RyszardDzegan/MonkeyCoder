@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Functions.Helpers.Invocations
+namespace MonkeyCoder.Functions.Invocations
 {
     /// <summary>
     /// Stores the information about the invocation.
@@ -10,7 +10,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
     /// <see cref="Arguments"/> are always empty.
     /// <see cref="Value"/> contains an instance of a type that is not a function.
     /// </summary>
-    internal class ValueInvocation : IInvocation
+    public class ValueInvocation : IInvocation
     {
         /// <summary>
         /// The function that returns the <see cref="Value"/>.
@@ -27,7 +27,7 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// Arguments of the <see cref="Function"/>.
         /// They are always empty.
         /// </summary>
-        public IEnumerable<object> Arguments { get; }
+        public IEnumerable<IInvocation> Arguments { get; }
 
         /// <summary>
         /// An instance of a type that is not a function.
@@ -41,8 +41,14 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         public ValueInvocation(object value)
         {
             Function = new Func<object>(() => value);
-            Arguments = Enumerable.Empty<object>();
+            Arguments = Enumerable.Empty<IInvocation>();
             Value = value;
         }
+
+        /// <summary>
+        /// A visitor that can be used to inspect subclasses of <see cref="IInvocation"/>.
+        /// </summary>
+        public void Accept(IInvocationVisitor visitor) =>
+            visitor.Visit(this);
     }
 }

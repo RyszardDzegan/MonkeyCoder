@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MonkeyCoder.Functions.Invocations;
+using System;
+using System.Collections.Generic;
 
 namespace MonkeyCoder.Functions.Helpers.Arguments
 {
@@ -7,7 +9,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
     /// manages parameterless functions
     /// that are provided as arguments.
     /// </summary>
-    internal class ParameterlessArgument : FunctionArgument, IEvaluable
+    internal class ParameterlessArgument : FunctionArgument
     {
         /// <summary>
         /// A constructor that takes a parameterless function and its returned type as parameters.
@@ -19,10 +21,16 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         { }
 
         /// <summary>
-        /// Invokes stored parameterless function and returns its value.
+        /// Converts arguments into function invocations.
+        /// There is only one invocation for <see cref="BasicArgument"/> and <see cref="ParameterlessArgument"/>.
+        /// There are multiple invocations for <see cref="FunctionArgument"/>.
         /// </summary>
-        /// <returns>FunctionArgument's returned value.</returns>
-        public object Evaluate() =>
-            ((Delegate)Value).DynamicInvoke();
+        /// <param name="possibleArguments">All possible argument candidates for the primary function.</param>
+        /// <param name="currentStackSize">The current level of the call stack.</param>
+        /// <returns>An enumerable of invocations.</returns>
+        public override IEnumerable<IInvocation> ToInvocations(IReadOnlyCollection<object> possibleArguments, int currentStackSize)
+        {
+            yield return new DelegateInvocation((Delegate)Value);
+        }
     }
 }

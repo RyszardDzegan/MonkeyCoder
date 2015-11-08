@@ -1,10 +1,9 @@
-﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyCoder.Functions.Helpers.Invocations
+namespace MonkeyCoder.Functions.Invocations
 {
     /// <summary>
     /// Represents a functions invocation list.
@@ -56,14 +55,14 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// A constructor that creates an invocation list
         /// consisting of a <paramref name="delegate"/>
         /// that will be invoked with arguments
-        /// provided in <paramref name="valueEnumerables"/>
+        /// provided in <paramref name="argumentsEnumerable"/>
         /// </summary>
         /// <param name="@delegate">A delegate from which ivocation list will be produced.</param>
-        /// <param name="valueEnumerables">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
-        public InvocationsEnumerable(Delegate @delegate, IEnumerable<IList<IEvaluable>> valueEnumerables)
+        /// <param name="argumentsEnumerable">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
+        public InvocationsEnumerable(Delegate @delegate, IEnumerable<IList<IInvocation>> argumentsEnumerable)
         {
-            Invocations = from valueEnumerable in valueEnumerables
-                          select new DelegateInvocation(@delegate, valueEnumerable);
+            Invocations = from arguments in argumentsEnumerable
+                          select new DelegateInvocation(@delegate, arguments);
         }
 
         /// <summary>
@@ -110,13 +109,13 @@ namespace MonkeyCoder.Functions.Helpers.Invocations
         /// Creates a lazy invocation list
         /// consisting of a <paramref name="delegate"/>
         /// that will be invoked with arguments
-        /// provided in <paramref name="valueEnumerables"/>
+        /// provided in <paramref name="argumentsEnumerable"/>
         /// </summary>
         /// <param name="@delegate">A delegate from which ivocation list will be produced.</param>
-        /// <param name="valueEnumerables">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
+        /// <param name="argumentsEnumerable">An enumerable of arguments that will be used to invoke the <paramref name="delegate"/>.</param>
         /// <returns>A lazy instance of <see cref="InvocationsEnumerable"/>.</returns>
-        public static Lazy<InvocationsEnumerable> Lazy(Delegate @delegate, IEnumerable<IList<IEvaluable>> valueEnumerables) =>
-            new Lazy<InvocationsEnumerable>(() => new InvocationsEnumerable(@delegate, valueEnumerables));
+        public static Lazy<InvocationsEnumerable> Lazy(Delegate @delegate, IEnumerable<IList<IInvocation>> argumentsEnumerable) =>
+            new Lazy<InvocationsEnumerable>(() => new InvocationsEnumerable(@delegate, argumentsEnumerable));
 
         /// <summary>
         /// Creates a lazy invocation list that uses existing invocation list.

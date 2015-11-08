@@ -1,5 +1,7 @@
 ﻿using MonkeyCoder.Functions.Helpers.Parameters;
+using MonkeyCoder.Functions.Invocations;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace MonkeyCoder.Functions.Helpers.Arguments
@@ -38,5 +40,15 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// <param name="parameter">A parameter to which the assignability is being checked.</param>
         /// <returns>True, if current instance of <see cref="Argument"/> is assignable to given <paramref name="parameter"/>. Otherwise false.</returns>
         public abstract bool IsAssignableTo(Parameter parameter);
+
+        /// <summary>
+        /// Converts arguments into function invocations.
+        /// There is only one invocation for <see cref="BasicArgument"/> and <see cref="ParameterlessArgument"/>.
+        /// There are multiple invocations for <see cref="FunctionArgument"/>.
+        /// </summary>
+        /// <param name="possibleArguments">All possible argument candidates for the primary function.</param>
+        /// <param name="currentStackSize">The current level of the call stack.</param>
+        /// <returns>An enumerable of invocations.</returns>
+        public abstract IEnumerable<IInvocation> ToInvocations(IReadOnlyCollection<object> possibleArguments, int currentStackSize);
     }
 }

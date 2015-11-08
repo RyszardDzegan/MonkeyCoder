@@ -1,10 +1,6 @@
-﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using MonkeyCoder.Functions.Helpers.Invocations;
-using MonkeyCoder.Functions.Readers;
+﻿using MonkeyCoder.Functions.Readers;
 using NUnit.Framework;
 using System;
-using System.IO;
-using System.Linq;
 using static NUnit.Framework.Assert;
 
 namespace MonkeyCoder.Functions.Tests
@@ -20,7 +16,7 @@ namespace MonkeyCoder.Functions.Tests
             var e = invocations.GetEnumerator();
             var sut = new TextInvocationReader();
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            e.Current.Accept(sut);
             AreEqual("1", sut.ToString());
             IsFalse(e.MoveNext());
         }
@@ -34,7 +30,7 @@ namespace MonkeyCoder.Functions.Tests
             var e = invocations.GetEnumerator();
             var sut = new TextInvocationReader();
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            e.Current.Accept(sut);
             AreEqual("foo()", sut.ToString());
             IsFalse(e.MoveNext());
         }
@@ -48,16 +44,19 @@ namespace MonkeyCoder.Functions.Tests
             var e = invocations.GetEnumerator();
             var sut = new TextInvocationReader();
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            e.Current.Accept(sut);
             AreEqual("1", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(1)", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(2)", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("2", sut.ToString());
             IsFalse(e.MoveNext());
         }
@@ -71,13 +70,16 @@ namespace MonkeyCoder.Functions.Tests
             var e = invocations.GetEnumerator();
             var sut = new TextInvocationReader();
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(foo(\"b\"))", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(\"b\")", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("\"b\"", sut.ToString());
             IsFalse(e.MoveNext());
         }
@@ -92,19 +94,24 @@ namespace MonkeyCoder.Functions.Tests
             var e = invocations.GetEnumerator();
             var sut = new TextInvocationReader();
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(foo(\"c\"))", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(bar())", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("foo(\"c\")", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("bar()", sut.ToString());
             IsTrue(e.MoveNext());
-            sut.Visit(e.Current);
+            sut.Clear();
+            e.Current.Accept(sut);
             AreEqual("\"c\"", sut.ToString());
             IsFalse(e.MoveNext());
         }

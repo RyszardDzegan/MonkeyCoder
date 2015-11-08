@@ -1,7 +1,7 @@
 ﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using MonkeyCoder.Functions.Helpers.Invocations;
 using MonkeyCoder.Functions.Helpers.Parameters;
 using MonkeyCoder.Functions.Helpers.Relations;
+using MonkeyCoder.Functions.Invocations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -71,11 +71,11 @@ namespace MonkeyCoder.Functions.Internals
                 var distinctParameters = parameters.GetDistinct();
                 var argumentList = possibleArguments.ToParameterlessFunctionArguments().ToList();
                 var distinctRelations = distinctParameters.Relate(argumentList);
-                var distinctEvaluablesRelations = distinctRelations.ToEvaluablesRelations();
-                var relations = parameters.LeftJoin(distinctEvaluablesRelations);
-                var invocationValues = relations.ProduceInvocationsValues();
+                var distinctInvocationsRelations = distinctRelations.ToInvocationsRelations(possibleArguments, 0);
+                var relations = parameters.LeftJoin(distinctInvocationsRelations);
+                var argumentsEnumerable = relations.ProducePossibleArgumentSets();
 
-                Invocations = InvocationsEnumerable.Lazy(function, invocationValues);
+                Invocations = InvocationsEnumerable.Lazy(function, argumentsEnumerable);
             }
 
             public IEnumerator<IInvocation> GetEnumerator() => Invocations.Value.GetEnumerator();

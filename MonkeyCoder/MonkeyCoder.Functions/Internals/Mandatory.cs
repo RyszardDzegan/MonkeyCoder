@@ -1,7 +1,7 @@
 ﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using MonkeyCoder.Functions.Helpers.Invocations;
 using MonkeyCoder.Functions.Helpers.Parameters;
 using MonkeyCoder.Functions.Helpers.Relations;
+using MonkeyCoder.Functions.Invocations;
 using MonkeyCoder.Math;
 using System;
 using System.Collections;
@@ -62,14 +62,14 @@ namespace MonkeyCoder.Functions.Internals
                 .ToList();
 
             var basicMandatoryArgument = new BasicArgument(mandatoryArgument);
-            var mandatoryArgumentList = new IEvaluable[] { basicMandatoryArgument };
+            var mandatoryArgumentList = basicMandatoryArgument.ToInvocations(possibleArguments, 0).ToList();
 
             var valueEnumerables =
                 from mandatoryPositionsSubset in mandatoryPositions.AsPowerSet().Skip(1)
                 let possibleValues =
                     from optionalPosition in optionalPositions
                     join mandatoryPosition in mandatoryPositionsSubset on optionalPosition equals mandatoryPosition into jointMandatoryPositions
-                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.Arguments.Cast<IEvaluable>().ToArray()
+                    let possibleValues = jointMandatoryPositions.Any() ? mandatoryArgumentList : optionalPosition.Relation.Arguments.Select(x => x.ToInvocations(possibleArguments, 0).First()).ToList()
                     select possibleValues
                 from valueList in possibleValues.AsCartesianProduct()
                 select valueList;

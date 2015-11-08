@@ -1,5 +1,4 @@
-﻿using MonkeyCoder.Functions.Helpers.Arguments;
-using MonkeyCoder.Functions.Helpers.Invocations;
+﻿using MonkeyCoder.Functions.Invocations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +9,9 @@ namespace MonkeyCoder.Functions.Readers
     /// <summary>
     /// Formats informations regarding the information tree into a simple line of text.
     /// </summary>
-    public class TextInvocationReader : IInvocationReader
+    public class TextInvocationReader : IInvocationVisitor
     {
-        private StringWriter TextWriter { get; set; }
+        private StringWriter TextWriter { get; set; } = new StringWriter();
 
         private Queue<string> StandardFunctionNames { get; } =
             new Queue<string>(new[] { "foo", "bar", "alpha", "beta", "delta", "gamma" });
@@ -22,33 +21,17 @@ namespace MonkeyCoder.Functions.Readers
 
         private int FunctionNameIndex = -1;
 
-        public void Visit(IInvocation invocation)
-        {
+        public void Clear() =>
             TextWriter = new StringWriter();
-            InternalVisit(invocation);
-        }
 
-        private void InternalVisit(IInvocation invocation)
-        {
-            if (invocation is DelegateInvocation)
-                Visit((DelegateInvocation)invocation);
-            else if (invocation is ValueInvocation)
-                Visit((ValueInvocation)invocation);
-        }
-
-        private void Visit(DelegateInvocation invocation)
+        public void Visit(DelegateInvocation invocation)
         {
             TextWriter.Write(FormatValue(invocation.Delegate) + "(");
 
             var lastArgument = invocation.Arguments.LastOrDefault();
             foreach (var argument in invocation.Arguments)
             {
-                if (argument is FunctionEvaluable)
-                    InternalVisit(((FunctionEvaluable)argument).Invocation);
-                else if (argument is ParameterlessArgument)
-                    TextWriter.Write(FormatValue(((ParameterlessArgument)argument).Value) + "()");
-                else
-                    TextWriter.Write(FormatValue(((IEvaluable)argument).Evaluate()));
+                argument.Accept(this);
 
                 if (argument != lastArgument)
                     TextWriter.Write(",");
@@ -57,7 +40,7 @@ namespace MonkeyCoder.Functions.Readers
             TextWriter.Write(")");
         }
 
-        private void Visit(ValueInvocation invocation)
+        public void Visit(ValueInvocation invocation)
         {
             if (invocation.Value is string)
                 TextWriter.Write("\"" + invocation.Value + "\"");
