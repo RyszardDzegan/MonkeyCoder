@@ -6,10 +6,10 @@
     public interface IInvocationVisitor
     {
         /// <summary>
-        /// Inspects the <see cref="DelegateInvocation"/>.
+        /// Inspects the <see cref="FunctionInvocation"/>.
         /// </summary>
-        /// <param name="invocation">A <see cref="DelegateInvocation"/>.</param>
-        void Visit(DelegateInvocation invocation);
+        /// <param name="invocation">A <see cref="FunctionInvocation"/>.</param>
+        void Visit(FunctionInvocation invocation);
 
         /// <summary>
         /// Inspects the <see cref="ValueInvocation"/>.

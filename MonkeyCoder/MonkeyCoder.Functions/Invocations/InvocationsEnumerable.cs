@@ -47,7 +47,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// <param name="@delegate">A delegate that is to be invoked.</param>
         public InvocationsEnumerable(Delegate @delegate)
         {
-            var invocationInfo = new DelegateInvocation(@delegate);
+            var invocationInfo = new FunctionInvocation(@delegate);
             Invocations = Enumerable.Repeat(invocationInfo, 1);
         }
 
@@ -62,7 +62,7 @@ namespace MonkeyCoder.Functions.Invocations
         public InvocationsEnumerable(Delegate @delegate, IEnumerable<IList<IInvocation>> argumentsEnumerable)
         {
             Invocations = from arguments in argumentsEnumerable
-                          select new DelegateInvocation(@delegate, arguments);
+                          select new FunctionInvocation(@delegate, arguments);
         }
 
         /// <summary>

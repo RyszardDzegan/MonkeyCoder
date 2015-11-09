@@ -24,7 +24,7 @@ namespace MonkeyCoder.Functions.Readers
         public void Clear() =>
             TextWriter = new StringWriter();
 
-        public void Visit(DelegateInvocation invocation)
+        public void Visit(FunctionInvocation invocation)
         {
             TextWriter.Write(FormatValue(invocation.Delegate) + "(");
 

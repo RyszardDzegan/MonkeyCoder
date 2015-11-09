@@ -10,7 +10,7 @@ namespace MonkeyCoder.Functions.Invocations
     /// <see cref="Arguments"/> stores arguments that will be passed to the <see cref="Delegate"/>.
     /// The <see cref="Delegate"/> is an original function.
     /// </summary>
-    public class DelegateInvocation : InvocationBase, IInvocation
+    public class FunctionInvocation : InvocationBase, IInvocation
     {
         protected override object FunctionBody() =>
             Arguments.Any() ? Delegate.DynamicInvoke(Arguments.Select(x => x.Function()).ToArray()) : Delegate.DynamicInvoke();
@@ -27,7 +27,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// <see cref="Arguments"/> will be empty.
         /// </summary>
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
-        public DelegateInvocation(Delegate @delegate)
+        public FunctionInvocation(Delegate @delegate)
             : base(@delegate)
         { }
 
@@ -38,7 +38,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// </summary>
         /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
         /// <param name="arguments">Delegate's arguments that will be stored in <see cref="Arguments"/>.</param>
-        public DelegateInvocation(Delegate @delegate, IList<IInvocation> arguments)
+        public FunctionInvocation(Delegate @delegate, IList<IInvocation> arguments)
             : base(@delegate, arguments)
         { }
 

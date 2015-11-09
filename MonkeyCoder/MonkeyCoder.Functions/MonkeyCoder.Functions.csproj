@@ -53,7 +53,7 @@
     <Compile Include="Helpers\Arguments\ArgumentExtensionMethods.cs" />
     <Compile Include="Helpers\Arguments\BasicArgument.cs" />
     <Compile Include="Invocations\ValueInvocation.cs" />
-    <Compile Include="Invocations\DelegateInvocation.cs" />
+    <Compile Include="Invocations\FunctionInvocation.cs" />
     <Compile Include="Invocations\InvocationsEnumerable.cs" />
     <Compile Include="Internals\Expanding.cs" />
     <Compile Include="Invocations\IInvocation.cs" />

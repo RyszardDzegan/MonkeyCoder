@@ -30,7 +30,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// <returns>An enumerable of invocations.</returns>
         public override IEnumerable<IInvocation> ToInvocations(IReadOnlyCollection<object> possibleArguments, int currentStackSize)
         {
-            yield return new DelegateInvocation((Delegate)Value);
+            yield return new FunctionInvocation((Delegate)Value);
         }
     }
 }
