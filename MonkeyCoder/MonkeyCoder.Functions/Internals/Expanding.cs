@@ -60,7 +60,7 @@ namespace MonkeyCoder.Functions.Internals
             }
 
             var distinctParameters = parameters.GetDistinct();
-            var argumentList = (stackSize > 0 ? possibleArguments.ToProFunctionArguments() : possibleArguments.ToValueArguments()).ToList();
+            var argumentList = (stackSize > 0 ? possibleArguments.ToFunctionArguments() : possibleArguments.ToValueArguments()).ToList();
             var distinctRelations = distinctParameters.Relate(argumentList);
             var distinctInvocationsRelations = distinctRelations.ToInvocationsRelations(possibleArguments, stackSize);
             var relations = parameters.LeftJoin(distinctInvocationsRelations);

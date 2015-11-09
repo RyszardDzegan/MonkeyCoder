@@ -61,7 +61,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// </summary>
         /// <param name="possibleArguments">Arguments values upon which arguments instances will be created.</param>
         /// <returns>An enumerable of arguments instances.</returns>
-        public static IEnumerable<Argument> ToProFunctionArguments(this IEnumerable<object> possibleArguments) =>
+        public static IEnumerable<Argument> ToFunctionArguments(this IEnumerable<object> possibleArguments) =>
             from possibleArgument in possibleArguments
             let method = (possibleArgument as Delegate)?.Method
             let basic = new ValueArgument(possibleArgument, possibleArgument?.GetType())
