@@ -9,7 +9,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
     /// A subclass of <see cref="Argument"/> that manages
     /// simple objects, values and nulls.
     /// </summary>
-    internal class BasicArgument : Argument
+    internal class ValueArgument : Argument
     {
         /// <summary>
         /// True if argument is null.
@@ -23,7 +23,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// If <paramref name="value"/> is null  the type will be null too.
         /// </summary>
         /// <param name="value">A value of an argument.</param>
-        public BasicArgument(object value)
+        public ValueArgument(object value)
             : this(value, value?.GetType())
         { }
 
@@ -32,7 +32,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// </summary>
         /// <param name="value">A value of an argument.</param>
         /// /// <param name="type">A type of an argument.</param>
-        internal BasicArgument(object value, Type type)
+        internal ValueArgument(object value, Type type)
             : base(value, type)
         { }
 
@@ -48,7 +48,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
 
         /// <summary>
         /// Converts arguments into function invocations.
-        /// There is only one invocation for <see cref="BasicArgument"/> and <see cref="ParameterlessArgument"/>.
+        /// There is only one invocation for <see cref="ValueArgument"/> and <see cref="ParameterlessArgument"/>.
         /// There are multiple invocations for <see cref="FunctionArgument"/>.
         /// </summary>
         /// <param name="possibleArguments">All possible argument candidates for the primary function.</param>

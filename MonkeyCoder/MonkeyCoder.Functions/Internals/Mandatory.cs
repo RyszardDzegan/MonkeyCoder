@@ -46,8 +46,8 @@ namespace MonkeyCoder.Functions.Internals
                 throw new ArgumentNullException(nameof(possibleArguments), "Possible arguments cannot be null.");
 
             var parameters = function.Method.GetParameters();
-            var mandatory = mandatoryArgument.ToBasicArgument();
-            var argumentList = possibleArguments.ToBasicArguments().ToList();
+            var mandatory = mandatoryArgument.ToValueArgument();
+            var argumentList = possibleArguments.ToValueArguments().ToList();
             var distinctParameters = parameters.GetDistinct();
             var distinctRelations = distinctParameters.Relate(argumentList, mandatory);
             var relationList = parameters.LeftJoin(distinctRelations).ToList();
@@ -61,7 +61,7 @@ namespace MonkeyCoder.Functions.Internals
                 .Where(x => x.Relation.IsAssignableFromMandatoryArgument)
                 .ToList();
 
-            var basicMandatoryArgument = new BasicArgument(mandatoryArgument);
+            var basicMandatoryArgument = new ValueArgument(mandatoryArgument);
             var mandatoryArgumentList = basicMandatoryArgument.ToInvocations(possibleArguments, 0).ToList();
 
             var valueEnumerables =

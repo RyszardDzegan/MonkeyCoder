@@ -54,7 +54,7 @@ namespace MonkeyCoder.Functions.Internals
             }
 
             var distinctParameters = parameters.GetDistinct();
-            var argumentList = possibleArguments.ToBasicArguments().ToList();
+            var argumentList = possibleArguments.ToValueArguments().ToList();
             var distinctRelations = distinctParameters.Relate(argumentList);
             var distinctInvocationsRelations = distinctRelations.ToInvocationsRelations(possibleArguments, 0);
             var relations = parameters.LeftJoin(distinctInvocationsRelations);

@@ -47,7 +47,7 @@ namespace MonkeyCoder.Functions.Helpers.Relations
         /// Then invoke <see cref="LeftJoin{T}(IEnumerable{ParameterInfo}, IEnumerable{T})"/> method to
         /// obtain relations for remaining parameters without a need of redundant computing.
         /// </remarks>
-        public static IEnumerable<Parameter2MandatoryArgumentsRelation> Relate(this IEnumerable<Parameter> parameters, IReadOnlyCollection<Argument> arguments, BasicArgument mandatoryArgument) =>
+        public static IEnumerable<Parameter2MandatoryArgumentsRelation> Relate(this IEnumerable<Parameter> parameters, IReadOnlyCollection<Argument> arguments, ValueArgument mandatoryArgument) =>
             from parameter in parameters
             let innerArguments = parameter.GetAssignableArguments(arguments)
             let isAssignableFromMandatoryArgument = mandatoryArgument.IsAssignableTo(parameter)

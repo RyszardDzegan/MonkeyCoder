@@ -10,34 +10,34 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
     internal static class ArgumentExtensionMethods
     {
         /// <summary>
-        /// Creates an instance of <see cref="BasicArgument"/> argument that
+        /// Creates an instance of <see cref="ValueArgument"/> argument that
         /// considers only direct arguments types and
         /// doesn't check whether they're functions which
         /// can have a matching return type.
         /// </summary>
         /// <param name="possibleArgument">Argument valus.</param>
-        /// <returns>An instance of <see cref="BasicArgument"/> argument.</returns>
-        public static BasicArgument ToBasicArgument(this object possibleArgument) =>
-            new BasicArgument(possibleArgument);
+        /// <returns>An instance of <see cref="ValueArgument"/> argument.</returns>
+        public static ValueArgument ToValueArgument(this object possibleArgument) =>
+            new ValueArgument(possibleArgument);
 
         /// <summary>
-        /// Creates instances of <see cref="BasicArgument"/> arguments that
+        /// Creates instances of <see cref="ValueArgument"/> arguments that
         /// considers only direct arguments types and
         /// doesn't check whether they're functions which
         /// can have a matching return type.
         /// </summary>
         /// <param name="possibleArguments">Arguments values.</param>
-        /// <returns>Instances of <see cref="BasicArgument"/> arguments.</returns>
-        public static IEnumerable<BasicArgument> ToBasicArguments(this IEnumerable<object> possibleArguments) =>
+        /// <returns>Instances of <see cref="ValueArgument"/> arguments.</returns>
+        public static IEnumerable<ValueArgument> ToValueArguments(this IEnumerable<object> possibleArguments) =>
             from possibleArgument in possibleArguments
             let type = possibleArgument?.GetType()
-            select new BasicArgument(possibleArgument, type);
+            select new ValueArgument(possibleArgument, type);
 
         /// <summary>
         /// Returns an enumerable of arguments.
         /// Their type will be determined basing on arguments values and types
-        /// and can be <see cref="BasicArgument"/> or <see cref="ParameterlessArgument"/>.
-        /// Notice that <see cref="BasicArgument"/> instance will always be created
+        /// and can be <see cref="ValueArgument"/> or <see cref="ParameterlessArgument"/>.
+        /// Notice that <see cref="ValueArgument"/> instance will always be created
         /// because both a function itself and its return type can be consider as an input argument.
         /// </summary>
         /// <param name="possibleArguments">Arguments values upon which arguments instances will be created.</param>
@@ -45,7 +45,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         public static IEnumerable<Argument> ToParameterlessFunctionArguments(this IEnumerable<object> possibleArguments) =>
             from possibleArgument in possibleArguments
             let method = (possibleArgument as Delegate)?.Method
-            let basic = new BasicArgument(possibleArgument, possibleArgument?.GetType())
+            let basic = new ValueArgument(possibleArgument, possibleArgument?.GetType())
             let parameterless = method != null && !method.GetParameters().Any() ? new ParameterlessArgument(possibleArgument, method.ReturnType) : null
             let arguments = new Argument[] { basic, parameterless }
             from argument in arguments
@@ -55,8 +55,8 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         /// <summary>
         /// Returns an enumerable of arguments.
         /// Their type will be determined basing on arguments values and types
-        /// and can be <see cref="BasicArgument"/>, <see cref="ParameterlessArgument"/> or <see cref="FunctionArgument"/>.
-        /// Notice that <see cref="BasicArgument"/> instance will always be created
+        /// and can be <see cref="ValueArgument"/>, <see cref="ParameterlessArgument"/> or <see cref="FunctionArgument"/>.
+        /// Notice that <see cref="ValueArgument"/> instance will always be created
         /// because both a function itself and its return type can be consider as an input argument.
         /// </summary>
         /// <param name="possibleArguments">Arguments values upon which arguments instances will be created.</param>
@@ -64,7 +64,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
         public static IEnumerable<Argument> ToProFunctionArguments(this IEnumerable<object> possibleArguments) =>
             from possibleArgument in possibleArguments
             let method = (possibleArgument as Delegate)?.Method
-            let basic = new BasicArgument(possibleArgument, possibleArgument?.GetType())
+            let basic = new ValueArgument(possibleArgument, possibleArgument?.GetType())
             let function = method != null && method.GetParameters().Any() ? new FunctionArgument(possibleArgument, method.ReturnType) : null
             let parameterless = method != null && !method.GetParameters().Any() ? new ParameterlessArgument(possibleArgument, method.ReturnType) : null
             let arguments = new Argument[] { basic, function, parameterless }

@@ -43,7 +43,7 @@ namespace MonkeyCoder.Functions.Helpers.Arguments
 
         /// <summary>
         /// Converts arguments into function invocations.
-        /// There is only one invocation for <see cref="BasicArgument"/> and <see cref="ParameterlessArgument"/>.
+        /// There is only one invocation for <see cref="ValueArgument"/> and <see cref="ParameterlessArgument"/>.
         /// There are multiple invocations for <see cref="FunctionArgument"/>.
         /// </summary>
         /// <param name="possibleArguments">All possible argument candidates for the primary function.</param>

@@ -51,7 +51,7 @@
     <Compile Include="Helpers\Arguments\ParameterlessArgument.cs" />
     <Compile Include="Helpers\Arguments\FunctionArgument.cs" />
     <Compile Include="Helpers\Arguments\ArgumentExtensionMethods.cs" />
-    <Compile Include="Helpers\Arguments\BasicArgument.cs" />
+    <Compile Include="Helpers\Arguments\ValueArgument.cs" />
     <Compile Include="Invocations\ValueInvocation.cs" />
     <Compile Include="Invocations\FunctionInvocation.cs" />
     <Compile Include="Invocations\InvocationsEnumerable.cs" />
