@@ -40,15 +40,11 @@ namespace MonkeyCoder.Functions.Readers
             TextWriter.Write(")");
         }
 
-        public void Visit(ValueInvocation invocation)
-        {
-            if (invocation.Value is string)
-                TextWriter.Write("\"" + invocation.Value + "\"");
-            else if (invocation.Value is char)
-                TextWriter.Write("'" + invocation.Value + "'");
-            else
-                TextWriter.Write(invocation.Value);
-        }
+        public void Visit(ParameterlessInvocation invocation) =>
+            TextWriter.Write(FormatValue(invocation.Delegate) + "()");
+
+        public void Visit(ValueInvocation invocation) =>
+            TextWriter.Write(FormatValue(invocation.Value));
 
         private string FormatValue(object value)
         {

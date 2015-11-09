@@ -30,8 +30,8 @@ namespace MonkeyCoder.Functions.Tests
             var sut = items.AsFunctionsTree();
             var e = sut.GetEnumerator();
             IsTrue(e.MoveNext());
-            IsInstanceOf<FunctionInvocation>(e.Current);
-            AreSame(func, ((FunctionInvocation)e.Current).Delegate);
+            IsInstanceOf<ParameterlessInvocation>(e.Current);
+            AreSame(func, ((ParameterlessInvocation)e.Current).Delegate);
             AreEqual(0, e.Current.Arguments.Count());
             IsFalse(e.MoveNext());
         }

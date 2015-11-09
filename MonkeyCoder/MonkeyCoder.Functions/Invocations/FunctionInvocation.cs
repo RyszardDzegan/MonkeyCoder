@@ -13,24 +13,14 @@ namespace MonkeyCoder.Functions.Invocations
     public class FunctionInvocation : InvocationBase, IInvocation
     {
         protected override object FunctionBody() =>
-            Arguments.Any() ? Delegate.DynamicInvoke(Arguments.Select(x => x.Function()).ToArray()) : Delegate.DynamicInvoke();
+            Delegate.DynamicInvoke(Arguments.Select(x => x.Function()).ToArray());
 
         /// <summary>
         /// The orginal function.
         /// </summary>
         public Delegate Delegate =>
             (Delegate)Value;
-
-        /// <summary>
-        /// A construtor that takes a parameterless delagate as its argument.
-        /// The <see cref="Function"/> will just invoke the <paramref name="delegate"/> and return its returned value.
-        /// <see cref="Arguments"/> will be empty.
-        /// </summary>
-        /// <param name="@delegate">A delegate that will be wrapped by a <see cref="Function"/>.</param>
-        public FunctionInvocation(Delegate @delegate)
-            : base(@delegate)
-        { }
-
+        
         /// <summary>
         /// A construtor that takes a delagate and its arguments.
         /// The <see cref="Function"/> will invoke the <paramref name="delegate"/> passing in the <paramref name="arguments"/> and will return its returned value.

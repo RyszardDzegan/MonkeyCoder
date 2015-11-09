@@ -47,7 +47,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// <param name="@delegate">A delegate that is to be invoked.</param>
         public InvocationsEnumerable(Delegate @delegate)
         {
-            var invocationInfo = new FunctionInvocation(@delegate);
+            var invocationInfo = new ParameterlessInvocation(@delegate);
             Invocations = Enumerable.Repeat(invocationInfo, 1);
         }
 
