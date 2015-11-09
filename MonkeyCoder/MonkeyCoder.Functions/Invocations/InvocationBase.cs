@@ -15,7 +15,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// <summary>
         /// An instance of a type that is not a function.
         /// </summary>
-        public object Value { get; set; }
+        public object Value { get; }
 
         /// <summary>
         /// The function that returns the <see cref="Value"/>.

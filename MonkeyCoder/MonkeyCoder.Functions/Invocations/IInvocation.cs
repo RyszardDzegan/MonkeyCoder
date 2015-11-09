@@ -13,7 +13,7 @@ namespace MonkeyCoder.Functions.Invocations
         /// <summary>
         /// An original value or delegate that was wrapped with a <see cref="Function"/>.
         /// </summary>
-        object Value { get; set; }
+        object Value { get; }
 
         /// <summary>
         /// A function that wraps a simple value or a delegate.
